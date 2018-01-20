@@ -1,0 +1,17 @@
+.nav{
+	display: flex;
+
+	a{
+		color: #333;
+		letter-spacing: .1em;
+		text-decoration: none;
+		padding: 3% 0;
+		background: #fff;
+		font-size: 14px;
+		flex-grow: 1;
+		text-align: center;
+	}
+	a + a{
+		border-left: 1px solid #eaeaea;
+	}
+}
