@@ -1,5 +1,6 @@
 .nav{
 	display: flex;
+	margin-bottom: 4%;
 
 	a{
 		color: #333;
@@ -13,5 +14,38 @@
 	}
 	a + a{
 		border-left: 1px solid #eaeaea;
+	}
+}
+
+.item{
+	background: #fff;
+	margin-bottom: 3%;
+
+	h2{
+	padding: 3%;
+
+		font-size: 16px;
+		border-bottom: 1px solid #eaeaea;
+	}
+
+	.desc{
+	padding: 3%;
+		font-size: 14px;
+		display: flex;
+		justify-content: space-between;
+
+		.title{
+			font-size: 12px;
+			color: #999;
+		}
+	}
+	
+	a{
+		border-radius: 3px;
+		padding: 2px 10px;
+		    align-self: center;
+		border: 1px solid #eaeaea;
+		text-decoration: none;
+		color: #333;
 	}
 }

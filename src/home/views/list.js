@@ -7,6 +7,18 @@ class List extends Component {
 		return (
 			<div>
 				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
+				<Item />
 			</div>
 		)
 	}

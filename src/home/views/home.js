@@ -3,7 +3,6 @@ import React from 'react'
 import style from './style.scss'
 
 import Banner from './banner.js'
-import Menu from './menu.js'
 import List from './list.js'
 
 const Home = () => {
@@ -20,7 +19,6 @@ const Home = () => {
 
 			<List />
 
-			<Menu />
 		</div>
 	)
 }

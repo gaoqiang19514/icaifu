@@ -1,0 +1,22 @@
+.menu{
+    font-size: 14px;
+    padding-top: 4%;
+
+    nav{
+        border-top: 1px solid #eaeaea;
+        border-bottom: 1px solid #eaeaea;
+        a{
+            padding: 3% 4%;
+            background: #fff;
+            text-decoration: none;
+            color: #333;
+            display: block;
+        }
+        a + a{
+            border-top: 1px solid #eaeaea;
+        }
+        a:active{
+            background: #f7f7f8;
+        }
+    }
+}
