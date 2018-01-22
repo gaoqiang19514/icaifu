@@ -4,6 +4,7 @@ import style from './style.scss'
 
 import Banner from './banner.js'
 import List from './list.js'
+import Menu from '../../common/menu/'
 
 const Home = () => {
 	return (
@@ -19,6 +20,7 @@ const Home = () => {
 
 			<List />
 
+			<Menu />
 		</div>
 	)
 }

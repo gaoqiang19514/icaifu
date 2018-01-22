@@ -24,15 +24,14 @@
     .cell{
         flex-grow: 1;
 
+
+    }
+    .aside{
+        flex-grow: 0;
         a{
             text-decoration: none;
             color: #fff;
-            padding: 2% 10%;
             background: #ea544a;
-            display: inline-block;
-        }
-        a + a{
-            margin-left: .5em;
         }
     }
 }

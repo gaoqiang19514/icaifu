@@ -4,6 +4,7 @@ import Logout from './logout.js'
 import Navigator from './navigator.js'
 import Profile from './profile.js'
 import Operation from './operation.js'
+import Menu from '../../common/menu/'
 
 export default () => (
 	<div>
@@ -11,5 +12,6 @@ export default () => (
 		<Operation />
 		<Navigator />
 		<Logout />
+        <Menu />
 	</div>
 )

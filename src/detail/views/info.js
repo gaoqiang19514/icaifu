@@ -79,7 +79,7 @@ export default () => (
         </section>
         
         <div className={style.fixed}>
-            <Link to="/invest/buy/1">立即投资</Link>
+            <Link to="/buy/1">立即投资</Link>
         </div>
     </div>
 )
