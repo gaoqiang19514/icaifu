@@ -9,6 +9,7 @@ import {view as User} from './user'
 import {view as Other} from './other'
 import {view as Detail} from './detail'
 import {view as Buy} from './buy'
+import {view as Voucher} from './voucher'
 
 class App extends Component {
   	render() {
@@ -23,6 +24,8 @@ class App extends Component {
                     <Route exact path="/invest" component={Invest}></Route>
                     <Route path="/invest/:id" component={Detail}></Route>
                     <Route path="/buy/:id" component={Buy}></Route>
+
+                    <Route path="/voucher" component={Voucher} />
 
 					<Route component={Home}></Route>
 				</Switch>

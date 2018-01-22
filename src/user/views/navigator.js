@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import style from './style.scss'
 
@@ -7,25 +8,25 @@ export default () => {
         <div>
             <nav className={style.nav}>
                 <div className={style.box}>
-                    <a href="">我的代金券</a>
-                    <a href="">我的加息券</a>
-                    <a href="">我的现金奖励</a>
-                    <a href="">交易记录</a>
+                    <Link to="/voucher">我的代金券</Link>
+                    <Link to="/voucher">我的加息券</Link>
+                    <Link to="/voucher">我的现金奖励</Link>
+                    <Link to="/voucher">交易记录</Link>
                 </div>
 
                 <div className={style.box}>
-                    <a href="">投资记录</a>
-                    <a href="">回款计划</a>
+                    <Link to="/voucher">投资记录</Link>
+                    <Link to="/voucher">回款计划</Link>
                 </div>
 
                 <div className={style.box}>
-                    <a href="">我的推荐</a>
-                    <a href="">回款日历</a>
-                    <a href="">月账单</a>
+                    <Link to="/voucher">我的推荐</Link>
+                    <Link to="/voucher">回款日历</Link>
+                    <Link to="/voucher">月账单</Link>
                 </div>
 
                 <div className={style.box}>
-                    <a href="">安全中心</a>
+                    <Link to="/voucher">安全中心</Link>
                 </div>
             </nav>
         </div>

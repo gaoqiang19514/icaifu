@@ -16,22 +16,25 @@
 
 .operation{
     display: flex;
+    align-items: center;
     padding: 4%;
     background: #fff;
     margin-bottom: 4%;
     font-size: 14px;
-
     .cell{
         flex-grow: 1;
-
-
     }
     .aside{
         flex-grow: 0;
         a{
             text-decoration: none;
             color: #fff;
+            padding: 3px 10px;
+            display: inline-block;
             background: #ea544a;
+        }
+        a + a{
+            margin-left: 10px;
         }
     }
 }
@@ -71,5 +74,27 @@
             letter-spacing: .2em;
             font-weight: bold;
         }
+    }
+}
+
+.wrap{
+    padding: 0 4% 4% 4%;
+    .btn{
+        color: #fff;
+        outline: none;
+        border-radius: 3px;
+        letter-spacing: .2em;
+        width: 100%;
+        background: #fff;
+        font-size: 14px;
+        padding: 4% 0;
+        background: #e35855;
+        border: 0;
+        border-bottom: 4px solid #b9504d;
+        display: block;
+    }
+    .btn:active{
+        background: #ce4946;
+        border-bottom: 4px solid #ce4946;
     }
 }

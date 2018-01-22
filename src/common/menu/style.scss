@@ -1,3 +1,6 @@
+.sibling{
+	padding: 4% 0;
+}
 .menu{
 	position: fixed;
 	left: 0;
@@ -7,7 +10,6 @@
 
 	nav{
 		display: flex;
-
 		a{
 			letter-spacing: .2em;
 			font-size: 14px;
