@@ -26,7 +26,7 @@ export default () => {
                 </div>
 
                 <div className={style.box}>
-                    <Link to="/voucher">安全中心</Link>
+                    <Link to="/safety">安全中心</Link>
                 </div>
             </nav>
         </div>

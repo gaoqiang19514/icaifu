@@ -22,7 +22,7 @@ export default () => (
             </ul>
             <div>
                 <div>12元</div>
-                <lable>已过期</lable>   
+                <label>已过期</label>   
             </div>
         </div>
         <div className={style.expires}>

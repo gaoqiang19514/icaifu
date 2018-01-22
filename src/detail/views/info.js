@@ -78,8 +78,11 @@ export default () => (
             </dl>
         </section>
         
-        <div className={style.fixed}>
-            <Link to="/buy/1">立即投资</Link>
+        <div>
+            <div className={style.siblings}>&nbsp;</div>
+            <div className={style.fixed}>
+                <Link to="/buy/1">立即投资</Link>
+            </div>
         </div>
     </div>
 )
