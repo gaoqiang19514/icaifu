@@ -1,6 +1,7 @@
 .nav{
 	display: flex;
-	margin-bottom: 4%;
+    margin-bottom: 4%;
+    border-bottom: 1px solid #eaeaea;
 
 	a{
 		color: #333;
@@ -19,7 +20,7 @@
 
 .item{
 	background: #fff;
-	margin-bottom: 3%;
+    margin-bottom: 3%;
 
 	h2{
 	padding: 3%;
@@ -49,3 +50,4 @@
 		color: #333;
 	}
 }
+

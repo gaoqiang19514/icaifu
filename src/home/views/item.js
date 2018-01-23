@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React from 'react'
+import { Link } from 'react-router-dom'
 
 import style from './style.scss'
 
@@ -15,7 +16,7 @@ export default () => {
 					<p>15000元</p>
 					<p className={style.title}>投资金额</p>
 				</div>
-				<a href="">投资</a>
+                <Link to="/jjh/1">投资</Link>
 			</div>
 			<div className="progress"></div>
 		</div>

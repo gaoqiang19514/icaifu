@@ -3,7 +3,6 @@ import { Route, Switch } from 'react-router-dom'
 
 import './App.scss';
 
-
 import {view as Home} from './home'
 import {view as Invest} from './invest'
 import {view as User} from './user'
@@ -12,7 +11,8 @@ import {view as Detail} from './detail'
 import {view as Buy} from './buy'
 import {view as Voucher} from './voucher'
 import {view as Safety} from './safety'
-
+import {view as Jjh} from './jjh'
+import {view as Recharge} from './recharge'
 
 class App extends Component {
   	render() {
@@ -27,9 +27,12 @@ class App extends Component {
                     <Route exact path="/invest" component={Invest}></Route>
                     <Route path="/invest/:id" component={Detail}></Route>
                     <Route path="/buy/:id" component={Buy}></Route>
+                    <Route path="/jjh/:id" component={Jjh}></Route>
 
                     <Route path="/voucher" component={Voucher} />
                     <Route path="/safety" component={Safety} />
+
+                    <Route path="/recharge" component={Recharge} />
 
 					<Route component={Home}></Route>
 				</Switch>

@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 import style from './style.scss'
 
@@ -10,7 +11,7 @@ export default () => {
             <Head />
             <div className={style.balance}>
                 <span>账户余额：<strong>0.00</strong>元</span>
-                <a href="">充值</a>
+                <Link to="/recharge">充值</Link>
             </div>
 
             <div className={style.box}>

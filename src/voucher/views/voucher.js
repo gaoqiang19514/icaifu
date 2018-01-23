@@ -23,7 +23,7 @@ export default class Voucher extends Component {
 
     componentDidMount() {
 
-        var mySwiper = new Swiper('.swiper-container', {
+        new Swiper('.swiper-container', {
         })
         
     }
