@@ -12,7 +12,7 @@ export default () => {
                     <input type="text" placeholder="请输入手机号/用户名" />
                 </div>
                 <div className={style.line}>
-                    <input type="text" placeholder="请输入您的密码" />
+                    <input type="password" placeholder="请输入您的密码" minLength="6" maxLength="12" />
                 </div>
             </div>
 

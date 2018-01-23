@@ -13,11 +13,11 @@ export default () => {
                 </div>
 
                 <div className={style.line}>
-                    <input type="text" placeholder="请输入新密码" />
+                    <input type="password" placeholder="请输入您的密码" minLength="6" maxLength="12" />
                 </div>
 
                 <div className={style.line}>
-                    <input type="text" placeholder="请输入新密码" />
+                    <input type="password" placeholder="请确认您的密码" minLength="6" maxLength="12" />
                 </div>
 
                 <div className={style.line}>
