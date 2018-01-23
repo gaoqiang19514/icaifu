@@ -18,7 +18,6 @@ class Banner extends Component {
 	render() {
 		return (
 			<div className={style.banner}>
-				
                 <div className="swiper-container">
                     <div className="swiper-wrapper">
                         <div className="swiper-slide">
@@ -31,8 +30,7 @@ class Banner extends Component {
                             <img alt="" src="https://www.icaifu.com/images/h5/activity/index_banner/15.jpg" />
                         </div>
                     </div>
-                <div className={`swiper-pagination ${style['swiper-pagination']}`}></div>
-
+                    <div className={`swiper-pagination ${style['swiper-pagination']}`}></div>
                 </div>
 			</div>
 		)

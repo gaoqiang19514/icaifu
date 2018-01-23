@@ -13,6 +13,7 @@ import {view as Voucher} from './voucher'
 import {view as Safety} from './safety'
 import {view as Jjh} from './jjh'
 import {view as Recharge} from './recharge'
+import {view as ExchangeRecord} from './exchangeRecord'
 
 class App extends Component {
   	render() {
@@ -33,6 +34,7 @@ class App extends Component {
                     <Route path="/safety" component={Safety} />
 
                     <Route path="/recharge" component={Recharge} />
+                    <Route path="/exchangeRecord" component={ExchangeRecord} />
 
 					<Route component={Home}></Route>
 				</Switch>

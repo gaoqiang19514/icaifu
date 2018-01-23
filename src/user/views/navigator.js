@@ -11,7 +11,7 @@ export default () => {
                     <Link to="/voucher">我的代金券</Link>
                     <Link to="/voucher">我的加息券</Link>
                     <Link to="/voucher">我的现金奖励</Link>
-                    <Link to="/voucher">交易记录</Link>
+                    <Link to="/exchangeRecord">交易记录</Link>
                 </div>
 
                 <div className={style.box}>
