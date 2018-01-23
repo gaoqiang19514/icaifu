@@ -15,6 +15,10 @@ import {view as Jjh} from './jjh'
 import {view as Recharge} from './recharge'
 import {view as ExchangeRecord} from './exchangeRecord'
 
+import {view as Login } from './login'
+import {view as Register } from './register'
+import {view as ForgetPassword } from './forgetPassword'
+
 class App extends Component {
   	render() {
     	return (
@@ -35,6 +39,10 @@ class App extends Component {
 
                     <Route path="/recharge" component={Recharge} />
                     <Route path="/exchangeRecord" component={ExchangeRecord} />
+
+                    <Route path="/login" component={Login} />
+                    <Route path="/register" component={Register} />
+                    <Route path="/forgetPassword" component={ForgetPassword} />
 
 					<Route component={Home}></Route>
 				</Switch>
