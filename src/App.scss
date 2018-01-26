@@ -2,5 +2,31 @@
 * @Author: gao
 * @Date:   2018-01-22 09:39:57
  * @Last Modified by: mikey.zhaopeng
- * @Last Modified time: 2018-01-23 00:07:33
+ * @Last Modified time: 2018-01-25 21:57:05
 */
+
+.fade-appear{
+  opacity: 0.01;
+}
+.fade-appear.fade-appear-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 500ms ease-in;
+}
+
+.fade-leave {
+  opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+  opacity: 0.01;
+  transition: opacity 300ms ease-in;
+}

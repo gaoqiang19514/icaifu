@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom'
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
-import './App.scss';
+import style from './App.scss';
 
 import {view as Home} from './home'
 import {view as Invest} from './invest'
@@ -23,29 +24,53 @@ class App extends Component {
   	render() {
     	return (
 	      	<div className="App">
-				<Switch>
-                    <Route exact path="/" component={Home}></Route>
-  					<Route path="/home" component={Home}></Route>
-  					<Route path="/user" component={User}></Route>
-  					<Route path="/other" component={Other}></Route>
+                <Route component={
+                    ({location}) => {
+                        return (
+                            <CSSTransitionGroup
+                                component="div"
+                                transitionName={{
+                                    enter: `${style['fade-enter']}`,
+                                    enterActive:  `${style['fade-enter-active']}`,
+                                    leave:  `${style['fade-leave']}`,
+                                    leaveActive:  `${style['fade-leave-active']}`,
+                                    appear:  `${style['fade-appear']}`,
+                                    appearActive:  `${style['fade-appear-active']}`
+                                }}
+                                transitionAppear={true}
+                                transitionAppearTimeout={500}
+                                transitionEnterTimeout={500}
+                                transitionLeaveTimeout={300}
+                            >
+                                    <Switch key={location.pathname}>
+                                        <Route exact path="/" component={Home}></Route>
+                                        <Route path="/home" component={Home}></Route>
+                                        <Route path="/user" component={User}></Route>
+                                        <Route path="/other" component={Other}></Route>
 
-                    <Route exact path="/invest" component={Invest}></Route>
-                    <Route path="/invest/:id" component={Detail}></Route>
-                    <Route path="/buy/:id" component={Buy}></Route>
-                    <Route path="/jjh/:id" component={Jjh}></Route>
+                                        <Route exact path="/invest" component={Invest}></Route>
+                                        <Route path="/invest/:id" component={Detail}></Route>
+                                        <Route path="/buy/:id" component={Buy}></Route>
+                                        <Route path="/jjh/:id" component={Jjh}></Route>
 
-                    <Route path="/voucher" component={Voucher} />
-                    <Route path="/safety" component={Safety} />
+                                        <Route path="/voucher" component={Voucher} />
+                                        <Route path="/safety" component={Safety} />
 
-                    <Route path="/recharge" component={Recharge} />
-                    <Route path="/exchangeRecord" component={ExchangeRecord} />
+                                        <Route path="/recharge" component={Recharge} />
+                                        <Route path="/exchangeRecord" component={ExchangeRecord} />
 
-                    <Route path="/login" component={Login} />
-                    <Route path="/register" component={Register} />
-                    <Route path="/forgetPassword" component={ForgetPassword} />
+                                        <Route path="/login" component={Login} />
+                                        <Route path="/register" component={Register} />
+                                        <Route path="/forgetPassword" component={ForgetPassword} />
 
-					<Route component={Home}></Route>
-				</Switch>
+                                        <Route component={Home}></Route>
+                                    </Switch>
+
+                            </CSSTransitionGroup>
+                        )
+                    }
+                } />
+
 	      	</div>
     	);
   	}
