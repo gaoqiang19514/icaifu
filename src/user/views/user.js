@@ -6,12 +6,15 @@ import Profile from './profile.js'
 import Operation from './operation.js'
 import Menu from '../../common/menu/'
 
-export default () => (
-	<div>
-		<Profile />
-		<Operation />
-		<Navigator />
-		<Logout />
-        <Menu />
-	</div>
-)
+export default (props) => {
+	return (
+		<div>
+			<Profile />
+			<Operation />
+			<Navigator />
+			<Logout />
+	        <Menu />
+		</div>
+	)
+}
+

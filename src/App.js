@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom'
+import { Route, Switch, Redirect } from 'react-router-dom'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import style from './App.scss';
@@ -20,6 +20,20 @@ import {view as Login } from './login'
 import {view as Register } from './register'
 import {view as ForgetPassword } from './forgetPassword'
 
+import {view as Auth} from './auth/';
+
+const fakeAuth = {
+    isAuthenticated: false,
+    authenticate(cb) {
+        this.isAuthenticated = true
+        setTimeout(cb, 100) // fake async
+    },
+    signout(cb) {
+        this.isAuthenticated = false
+        setTimeout(cb, 100)
+    }
+}
+
 class App extends Component {
   	render() {
     	return (
@@ -31,46 +45,47 @@ class App extends Component {
                                 component="div"
                                 transitionName={{
                                     enter: `${style['fade-enter']}`,
-                                    enterActive:  `${style['fade-enter-active']}`,
-                                    leave:  `${style['fade-leave']}`,
-                                    leaveActive:  `${style['fade-leave-active']}`,
-                                    appear:  `${style['fade-appear']}`,
-                                    appearActive:  `${style['fade-appear-active']}`
+                                    enterActive: `${style['fade-enter-active']}`,
+                                    leave: `${style['fade-leave']}`,
+                                    leaveActive: `${style['fade-leave-active']}`,
+                                    appear: `${style['fade-appear']}`,
+                                    appearActive: `${style['fade-appear-active']}`
                                 }}
                                 transitionAppear={true}
                                 transitionAppearTimeout={500}
                                 transitionEnterTimeout={500}
                                 transitionLeaveTimeout={300}
                             >
-                                    <Switch key={location.pathname}>
-                                        <Route exact path="/" component={Home}></Route>
-                                        <Route path="/home" component={Home}></Route>
-                                        <Route path="/user" component={User}></Route>
-                                        <Route path="/other" component={Other}></Route>
 
-                                        <Route exact path="/invest" component={Invest}></Route>
-                                        <Route path="/invest/:id" component={Detail}></Route>
-                                        <Route path="/buy/:id" component={Buy}></Route>
-                                        <Route path="/jjh/:id" component={Jjh}></Route>
+                                <Switch key={location.pathname} >
+                                    <Route exact path="/" component={Home}></Route>
+                                    <Route  path="/home" component={Home}></Route>
+                                    
+                                    <Auth path="/user" component={User} />
 
-                                        <Route path="/voucher" component={Voucher} />
-                                        <Route path="/safety" component={Safety} />
+                                    <Route path="/other" component={Other}></Route>
 
-                                        <Route path="/recharge" component={Recharge} />
-                                        <Route path="/exchangeRecord" component={ExchangeRecord} />
+                                    <Route exact path="/invest" component={Invest}></Route>
+                                    <Route path="/invest/:id" component={Detail}></Route>
+                                    <Route path="/buy/:id" component={Buy}></Route>
+                                    <Route path="/jjh/:id" component={Jjh}></Route>
 
-                                        <Route path="/login" component={Login} />
-                                        <Route path="/register" component={Register} />
-                                        <Route path="/forgetPassword" component={ForgetPassword} />
+                                    <Route path="/voucher" component={Voucher} />
+                                    <Route path="/safety" component={Safety} />
 
-                                        <Route component={Home}></Route>
-                                    </Switch>
+                                    <Route path="/recharge" component={Recharge} />
+                                    <Route path="/exchangeRecord" component={ExchangeRecord} />
 
+                                    <Route path="/login" component={Login} />
+                                    <Route path="/register" component={Register} />
+                                    <Route path="/forgetPassword" component={ForgetPassword} />
+
+                                    <Route component={Home}></Route>
+                                </Switch>
                             </CSSTransitionGroup>
                         )
                     }
                 } />
-
 	      	</div>
     	);
   	}
