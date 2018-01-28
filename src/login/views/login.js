@@ -10,11 +10,77 @@ class Login extends Component {
     constructor(props) {
         super(props)
 
-        this.login = this.login.bind(this)
+        this.state = {
+            form: {
+                username: {
+                    valid: false,
+                    value: '',
+                    error: ''
+                },
+                password: {
+                    valid: false,
+                    value: '',
+                    error: ''
+                }
+            }
+        }
+        
+        this.login             = this.login.bind(this)
+        this.handleSubmit      = this.handleSubmit.bind(this)
+        this.handleValueChange = this.handleValueChange.bind(this)
     }
 
     login() {
         this.props.onLogin()
+    }
+
+    handleValueChange(field, value, type = 'string') {
+        if(type === 'number'){value = value + 0}
+
+        const {form} = this.state
+        const newFileObj = {value: value, valid: true, error: ''}
+
+        switch(field){
+            case 'username':
+                if(value.length >= 12){
+                    newFileObj.error = '用户名最多4个字符'
+                    newFileObj.valid = false
+                }else if(value.length === 0){
+                    newFileObj.error = '请输入用户名'
+                    newFileObj.valid = false
+                }
+                break
+            case 'password':
+                if(value.length >= 12){
+                    newFileObj.error = '密码最多4个字符'
+                    newFileObj.valid = false
+                }else if(value.length === 0){
+                    newFileObj.error = '请输入密码'
+                    newFileObj.valid = false
+                }
+                break
+            default:
+        }
+
+        this.setState({
+            form: {
+                ...form,
+                [field]: newFileObj
+            }
+        })
+    }
+
+    handleSubmit(e) {
+        e.preventDefault()
+
+        const {form: {username, password}} = this.state
+        if(!username.valid || !password.valid){
+            alert('请填写完整的登录信息')
+            return
+        }
+
+        console.log(username.value, password.value)
+        this.login()
     }
 
     render(){
@@ -27,26 +93,32 @@ class Login extends Component {
             )
         }
 
+        const {form: {username, password}} = this.state;
+
         return (
             <div className={style.login}>
                 
-                <div className={style.wrap}>
-                    <div className={style.line}>
-                        <input type="text" placeholder="请输入手机号/用户名" />
+                <form onSubmit={(e) => this.handleSubmit(e)}>
+                    <div className={style.wrap}>
+                        <div className={style.line}>
+                            <input type="text" onChange={(e) => this.handleValueChange('username', e.target.value)} placeholder="请输入手机号/用户名" />
+                        </div>
+                        <div>{!username.valid && <span>{username.error}</span>}</div>
+                        <div className={style.line}>
+                            <input type="password" onChange={(e) => this.handleValueChange('password', e.target.value)} placeholder="请输入您的密码" minLength="6" maxLength="12" />
+                        </div>
+                        <div>{!password.valid && <span>{password.error}</span>}</div>
                     </div>
-                    <div className={style.line}>
-                        <input type="password" placeholder="请输入您的密码" minLength="6" maxLength="12" />
+
+                    <div className={style.wrap}>
+                        <button className={style.button}>登录</button>
                     </div>
-                </div>
 
-                <div className={style.wrap}>
-                    <button onClick={this.login} className={style.button}>登录</button>
-                </div>
-
-                <div className={`${style.wrap} ${style.box}`}>
-                    <Link to="/forgetPassword">忘记密码？</Link>
-                    <Link to="/register">注册新账号</Link>
-                </div>
+                    <div className={`${style.wrap} ${style.box}`}>
+                        <Link to="/forgetPassword">忘记密码？</Link>
+                        <Link to="/register">注册新账号</Link>
+                    </div>
+                </form>
 
             </div>
         )

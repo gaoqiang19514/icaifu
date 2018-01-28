@@ -56,7 +56,6 @@ class App extends Component {
                                 transitionEnterTimeout={500}
                                 transitionLeaveTimeout={300}
                             >
-
                                 <Switch key={location.pathname} >
                                     <Route exact path="/" component={Home}></Route>
                                     <Route  path="/home" component={Home}></Route>
@@ -70,11 +69,11 @@ class App extends Component {
                                     <Route path="/buy/:id" component={Buy}></Route>
                                     <Route path="/jjh/:id" component={Jjh}></Route>
 
-                                    <Route path="/voucher" component={Voucher} />
+                                    <Auth path="/voucher" component={Voucher} />
                                     <Route path="/safety" component={Safety} />
 
-                                    <Route path="/recharge" component={Recharge} />
-                                    <Route path="/exchangeRecord" component={ExchangeRecord} />
+                                    <Auth path="/recharge" component={Recharge} />
+                                    <Auth path="/exchangeRecord" component={ExchangeRecord} />
 
                                     <Route path="/login" component={Login} />
                                     <Route path="/register" component={Register} />

@@ -10,9 +10,7 @@ const Logout = ({onLogout}) => {
         <div className={style.wrap}>
             <button onClick={
             	() => {
-            		onLogout(() =>{
-            			
-            		})
+            		onLogout()
             	}
             } className={style.btn}>退出登录</button>
         </div>
@@ -26,8 +24,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onLogout: (cb) => {
-            dispatch(authActions.logout(cb))
+        onLogout: () => {
+            dispatch(authActions.logout())
         }
     }
 }
