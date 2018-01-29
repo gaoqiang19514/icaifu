@@ -22,18 +22,6 @@ import {view as ForgetPassword } from './forgetPassword'
 
 import {view as Auth} from './auth/';
 
-const fakeAuth = {
-    isAuthenticated: false,
-    authenticate(cb) {
-        this.isAuthenticated = true
-        setTimeout(cb, 100) // fake async
-    },
-    signout(cb) {
-        this.isAuthenticated = false
-        setTimeout(cb, 100)
-    }
-}
-
 class App extends Component {
   	render() {
     	return (

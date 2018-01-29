@@ -1,6 +1,8 @@
 import React, {Component} from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import {connect} from 'react-redux';
+import axios from 'axios';
+
 import {actions as authActions} from '../../auth/'
 
 import style from './style.scss'
@@ -74,13 +76,26 @@ class Login extends Component {
         e.preventDefault()
 
         const {form: {username, password}} = this.state
-        if(!username.valid || !password.valid){
-            alert('请填写完整的登录信息')
-            return
-        }
+        // if(!username.valid || !password.valid){
+        //     alert('请填写完整的登录信息')
+        //     return
+        // }
 
-        console.log(username.value, password.value)
-        this.login()
+
+        axios.post('/login', {
+            username: username.value,
+            password: password.value
+        })
+        .then(function(response){
+            if(response.status === 200){
+                console.log(response.data)
+            }
+        })
+        .catch(function(err){
+            console.log(err)
+        })
+
+        // this.login()
     }
 
     render(){
