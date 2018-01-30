@@ -1,4 +1,4 @@
-import {LOGIN_AUTH, LOGOUT_AUTH} from './actionTypes.js';
+import {LOGIN_AUTH, LOGOUT_AUTH, SAVE_TOKEN_AUTH} from './actionTypes.js';
 
 export const login = (callback) => {
 	return {
@@ -10,4 +10,9 @@ export const login = (callback) => {
 export const logout = (callback) => ({
 	type: LOGOUT_AUTH,
 	cb: callback
+})
+
+export const saveToken = (token) => ({
+	type: SAVE_TOKEN_AUTH,
+	token: token
 })

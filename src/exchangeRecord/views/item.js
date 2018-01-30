@@ -8,7 +8,8 @@ import React from 'react'
 
 import style from './style.scss'
 
-export default () => {
+export default ({name}) => {
+
     return (
         <div className={style.item}>
 
@@ -19,7 +20,7 @@ export default () => {
 
             <div className={style.line}>
                 <span>金额</span>
-                <span className={style.text}>100元</span>
+                <span className={style.text}>{name}--100元</span>
             </div>
 
             <div className={style.line}>

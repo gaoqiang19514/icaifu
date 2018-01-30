@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux';
+import axios from 'axios'
 
 import style from './style.scss'
 
 import Item from './item.js'
+
+
 
 class ExchangeRecord extends Component {
 
@@ -13,7 +17,8 @@ class ExchangeRecord extends Component {
             currentType: "全部",
             currentDate: "近三天",
             viewTypes: false,
-            viewDates: false
+            viewDates: false,
+            list: []
         }
 
         this.selectType = this.selectType.bind(this)
@@ -21,6 +26,34 @@ class ExchangeRecord extends Component {
 
         this.selectDate = this.selectDate.bind(this)
         this.chooseDate = this.chooseDate.bind(this)
+    }
+
+    componentDidMount() {
+        const token = ''
+        const that = this
+
+        // Add a request interceptor
+        axios.interceptors.request.use(function (config) {
+            config.headers.Authorization = `token ${that.props.token}`;
+            return config;
+          }, function (error) {
+            // Do something with request error
+            return Promise.reject(error);
+          });
+
+
+        axios.get('/users')
+          .then(function (response) {
+            if(response.status === 200){
+                that.setState({
+                    list: response.data
+                })
+            }
+          })
+          .catch(function (error) {
+            console.log(error);
+          });
+         
     }
 
     selectType() {
@@ -64,6 +97,8 @@ class ExchangeRecord extends Component {
         let typeDisplayStyle = this.state.viewTypes === true ? {display: "block"} : {display: "none"}
         let dateDisplayStyle = this.state.viewDates === true ? {display: "block"} : {display: "none"}
 
+        console.log(this.state.list)
+
         return (
             <div>
                 <div className={style.nav}>
@@ -89,10 +124,11 @@ class ExchangeRecord extends Component {
                 </div>
     
                 <div className={style.list}>
-                    <Item />
-                    <Item />
-                    <Item />
-                    <Item />
+                    {
+                        this.state.list.map(function(item, index) {
+                            return <Item key={item.id} name={item.name} />;
+                        })
+                    }
                 </div>
     
             </div>
@@ -100,4 +136,15 @@ class ExchangeRecord extends Component {
     }
 }
 
-export default ExchangeRecord
+const mapStateToProps = (state) => {
+    return {
+        token: state.auth.token
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(ExchangeRecord)

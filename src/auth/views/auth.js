@@ -10,7 +10,7 @@ class Auth extends Component {
 
 	render() {
 		const {component: Part, auth: auth, ...args} = this.props
-		
+
 	    return (
 	        <Route {...args} render={
 	            (props) => (
@@ -24,7 +24,7 @@ class Auth extends Component {
 
 const mapStateToProps = (state) => {
     return {
-    	auth: state.auth
+    	auth: state.auth.isAuthenticated
     }
 }
 

@@ -32,8 +32,9 @@ class Login extends Component {
         this.handleValueChange = this.handleValueChange.bind(this)
     }
 
-    login() {
+    login(token) {
         this.props.onLogin()
+        this.props.onSaveToken(token)
     }
 
     handleValueChange(field, value, type = 'string') {
@@ -81,21 +82,23 @@ class Login extends Component {
         //     return
         // }
 
+        const that = this
 
-        axios.post('/login', {
-            username: username.value,
-            password: password.value
-        })
-        .then(function(response){
-            if(response.status === 200){
-                console.log(response.data)
+    axios.post('/login', {
+        username: 'Fred',
+        password: 'Flintstone'
+      })
+      .then(function (response) {
+        if(response.status === 200){
+            if(response.data.code === 1){
+                that.login(response.data.token)
             }
-        })
-        .catch(function(err){
-            console.log(err)
-        })
+        }
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
 
-        // this.login()
     }
 
     render(){
@@ -142,7 +145,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth
+        auth: state.auth.isAuthenticated
     }
 }
 
@@ -150,6 +153,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onLogin: () => {
             dispatch(authActions.login())
+        },
+        onSaveToken: (token) => {
+            dispatch(authActions.saveToken(token))
         }
     }
 }
