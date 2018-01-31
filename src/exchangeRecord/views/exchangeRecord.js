@@ -48,6 +48,8 @@ class ExchangeRecord extends Component {
                 that.setState({
                     list: response.data
                 })
+
+                console.log(response.data)
             }
           })
           .catch(function (error) {
@@ -96,8 +98,6 @@ class ExchangeRecord extends Component {
 
         let typeDisplayStyle = this.state.viewTypes === true ? {display: "block"} : {display: "none"}
         let dateDisplayStyle = this.state.viewDates === true ? {display: "block"} : {display: "none"}
-
-        console.log(this.state.list)
 
         return (
             <div>

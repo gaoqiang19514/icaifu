@@ -4,6 +4,8 @@ import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
 
 import style from './App.scss';
 
+import {view as Loading} from './common/loading'
+
 import {view as Home} from './home'
 import {view as Invest} from './invest'
 import {view as User} from './user'
@@ -73,6 +75,8 @@ class App extends Component {
                         )
                     }
                 } />
+
+                <Loading show={true} />
 	      	</div>
     	);
   	}
