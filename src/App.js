@@ -76,7 +76,7 @@ class App extends Component {
                     }
                 } />
 
-                <Loading show={true} />
+                <Loading />
 	      	</div>
     	);
   	}

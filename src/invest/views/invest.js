@@ -1,9 +1,29 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
+
+
+import {actions as loadingActions} from '../../common/loading'
 
 import List from './list.js'
 import Menu from '../../common/menu/'
 
-export default class Invest extends Component {
+
+
+class Invest extends Component {
+
+	constructor(props) {
+		super(props)
+
+		props.onShowLoading()
+	}
+
+	componentDidMount() {
+		
+		setTimeout(() => {
+			this.props.onHideLoading()
+		}, 1000)
+	}
+
 	render() {
 		return (
 			<div>
@@ -13,3 +33,20 @@ export default class Invest extends Component {
 		)
 	}
 }
+
+const mapStateToProps = () => {
+
+}
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onShowLoading: () => {
+			dispatch(loadingActions.showLoading())
+		},
+		onHideLoading: () => {
+			dispatch(loadingActions.hideLoading())
+		}
+	}
+}
+
+export default connect(null, mapDispatchToProps)(Invest)
