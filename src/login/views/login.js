@@ -4,8 +4,12 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 
 import {actions as authActions} from '../../auth/'
+import {actions as loadingActions} from '../../common/loading'
+
 
 import style from './style.scss'
+
+
 
 class Login extends Component {
 
@@ -84,20 +88,24 @@ class Login extends Component {
 
         const that = this
 
-    axios.post('/login', {
-        username: 'Fred',
-        password: 'Flintstone'
-      })
-      .then(function (response) {
-        if(response.status === 200){
-            if(response.data.code === 1){
-                that.login(response.data.token)
+        this.props.onShowLoading()
+
+        axios.post('/login', {
+            username: 'Fred',
+            password: 'Flintstone'
+        })
+        .then(function (response) {
+            if(response.status === 200){
+                if(response.data.code === 1){
+                    that.login(response.data.token)
+
+                    that.props.onHideLoading()
+                }
             }
-        }
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
 
     }
 
@@ -156,8 +164,16 @@ const mapDispatchToProps = (dispatch) => {
         },
         onSaveToken: (token) => {
             dispatch(authActions.saveToken(token))
-        }
+        },
+        onShowLoading: () => {
+			dispatch(loadingActions.showLoading())
+		},
+		onHideLoading: () => {
+			dispatch(loadingActions.hideLoading())
+		}
     }
 }
+
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

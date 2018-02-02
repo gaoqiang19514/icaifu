@@ -1,27 +1,74 @@
-import React from 'react'
+import React, { Component } from 'react'
+import {connect} from 'react-redux'
 
+import {toggleView} from '../actions'
+
+import {actions as authActions} from '../../auth/'
 import style from './style.scss'
 
-export default () => {
-    return (
-        <div className={style.profile}>
+class Profile extends Component {
 
-            <div className={style.total}>
-                <p className={style.num}>0.00</p>
-                <p className={style.title}>资产总额（元）</p>
-            </div>
+    constructor(props) {
+        super(props)
 
-            <div className={style.money}>
-                <div className={style.cell}>
-                    <p className={style.num}>1.00</p>
-                    <p>累计收益</p>
+        this.state = {
+            total: 111110,
+            earnings: 10,
+            balance: 20
+        }
+        this.toggleMoneyView = this.toggleMoneyView.bind(this)
+    }
+
+    toggleMoneyView() {
+        this.props.onToggle()
+    }
+
+    render() {
+
+        let {total, earnings, balance} = this.state
+
+        if(this.props.numFlag){
+            total = '****'
+            earnings = '****'
+            balance = '****'
+        }
+
+        return (
+            <div className={style.profile}>
+                <button onClick={this.toggleMoneyView}>隐藏金额</button>
+                <div className={style.total}>
+                    <p className={style.num}>{total}</p>
+                    <p className={style.title}>资产总额（元）</p>
                 </div>
-                <div className={style.cell}>
-                    <p className={style.num}>1.00</p>
-                    <p>可用余额</p>
+    
+                <div className={style.money}>
+                    <div className={style.cell}>
+                        <p className={style.num}>{earnings}</p>
+                        <p>累计收益</p>
+                    </div>
+                    <div className={style.cell}>
+                        <p className={style.num}>{balance}</p>
+                        <p>可用余额</p>
+                    </div>
                 </div>
+                
             </div>
-            
-        </div>
-    )
+        )
+    }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        numFlag: state.user
+    }
+}
+
+const mapDisaptchToProps = (disaptch) => {
+    return {
+        onToggle: () => {
+            disaptch(toggleView())
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDisaptchToProps)(Profile)

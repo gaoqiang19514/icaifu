@@ -21,7 +21,7 @@ class Home extends Component {
 		
 		setTimeout(() => {
 			this.props.onHideLoading()
-		}, 1000)
+		}, 500)
 	}
 	
 	render() {

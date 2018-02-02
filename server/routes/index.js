@@ -9,19 +9,23 @@ const login = function(req, res){
 	let username = req.param('username')
 	let password = req.param('password')
 
-	if(username && username === 'Fred' && password && password === 'Flintstone'){
-		const token = createToken(username)
-		res.send({
-			code: 1,
-			text: '登录成功',
-			token: token
-		})
-	}else{
-		res.send({
-			code: 0,
-			text: '用户名或密码错误'
-		})
-	}
+	setTimeout(() => {
+
+		if(username && username === 'Fred' && password && password === 'Flintstone'){
+			const token = createToken(username)
+			res.send({
+				code: 1,
+				text: '登录成功',
+				token: token
+			})
+		}else{
+			res.send({
+				code: 0,
+				text: '用户名或密码错误'
+			})
+		}
+	}, 2000)
+	
 }
 
 const getUsers = function(req, res){
