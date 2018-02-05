@@ -10,7 +10,6 @@ import {actions as loadingActions} from '../../common/loading'
 import style from './style.scss'
 
 
-
 class Login extends Component {
 
     constructor(props) {
@@ -153,7 +152,7 @@ class Login extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        auth: state.auth.isAuthenticated
+        auth: state.auth
     }
 }
 

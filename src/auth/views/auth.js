@@ -24,7 +24,7 @@ class Auth extends Component {
 
 const mapStateToProps = (state) => {
     return {
-    	auth: state.auth.isAuthenticated
+    	auth: state.auth
     }
 }
 

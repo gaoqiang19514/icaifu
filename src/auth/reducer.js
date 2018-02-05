@@ -1,28 +1,22 @@
 import {LOGIN_AUTH, LOGOUT_AUTH, SAVE_TOKEN_AUTH} from './actionTypes.js';
 
-const data = {
-	isAuthenticated: false,
-	token: window.sessionStorage.getItem('token')
+let isAuthenticated = false
+let token = window.localStorage.getItem('token')
+
+if(token){
+	isAuthenticated = true
 }
 
-export default (state = data, action) => {
+export default (state = isAuthenticated, action) => {
 	switch(action.type){
 		case LOGIN_AUTH:
-			return {
-				...state,
-				isAuthenticated: true
-			}
+			return true
 		case LOGOUT_AUTH:
-			return {
-				...state,
-				isAuthenticated: false
-			}
+			window.localStorage.removeItem('token')
+			return false
 		case SAVE_TOKEN_AUTH:
-			window.sessionStorage.setItem('token', action.token)
-			return {
-				...state,
-				token: action.token
-			}
+			window.localStorage.setItem('token', action.token)
+			return state
 		default:
 			return state
 	}
