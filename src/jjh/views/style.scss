@@ -66,6 +66,11 @@ a{
     border-bottom: 4px solid #ca433f;
 }
 
-button:active{
+.disable{
+    background: #ccc;
+    border-bottom: 0;
+}
+
+.button:active{
     box-shadow: inset 3px 6px 16px rgba(0,0,0,0.1);
 }

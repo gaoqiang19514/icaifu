@@ -1,58 +1,101 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
 import style from './style.scss'
 
-export default () => {
-    return (
-        <div>
-            <div className={style.head}>
-                <h2>剩余可购金额</h2>
-                <p>444400.00</p>
-            </div>
+class JPlan extends Component {
 
-            <div className={`${style.box} ${style.mg}`}>
-                <span>账户余额：<strong>0.0</strong>元</span>
-                <Link to="/recharge">充值</Link>
-            </div>
+    constructor(props) {
+        super(props)
 
-            <div className={`${style.box} ${style.mg}`}>
-                <Link to="/invest/12">
-                    <span>查看项目详情</span>
-                </Link>
-            </div>
+        this.state = {
+            total: 15000,
+            CFCode: '',
+            rate: 0.07,
+            days: 45
+        }
 
+        this.changeHandle = this.changeHandle.bind(this)
+    }
+
+    changeHandle(e) {
+        this.setState({
+            CFCode: e.target.value
+        })
+    }
+
+    render() {
+
+        let { total, CFCode, rate, days }    = this.state
+        
+        let btnClassName = style.button
+        let btnText      = '确定'
+
+        let earnings = 15000 * rate / 360 * days
+        
+        if(total < 15000){
+            btnClassName = [btnClassName, style.disable].join(' ')
+            let balance = 15000 - total
+
+            btnText = `余额不足，充值${balance}元`
+        }else if(!CFCode || (CFCode.length < 8)) {
+            btnClassName = [btnClassName, style.disable].join(' ')
+            btnText = '请输入CF码'
+        }
+      
+
+        return (
             <div>
-
-                <div className={style.box}>
-                    <span>投资金额：</span>
-                    <span>15000.00元</span>
+                <div className={style.head}>
+                    <h2>剩余可购金额</h2>
+                    <p>444400.00</p>
                 </div>
-
-                <div className={style.box}>
-                    <span>预期收益：</span>
-                    <span>129.45元 + 499.00元</span>
+    
+                <div className={`${style.box} ${style.mg}`}>
+                    <span>账户余额：<strong>0.0</strong>元</span>
+                    <Link to="/recharge">充值</Link>
                 </div>
-
-                <div className={style.box}>
-                    <span>实际支付：</span>
-                    <span>15000.00元</span>
+    
+                <div className={`${style.box} ${style.mg}`}>
+                    <Link to="/invest/12">
+                        <span>查看项目详情</span>
+                    </Link>
                 </div>
-
-                <div className={style.box}>
-                    <span className={style.shrink}>CF码</span>
-                    <input className={style.input} type="text" placeholder="请输入CF码" />
+    
+                <div>
+    
+                    <div className={style.box}>
+                        <span>投资金额：</span>
+                        <span>15000.00元</span>
+                    </div>
+    
+                    <div className={style.box}>
+                        <span>预期收益：</span>
+                        <span>{earnings}元 + 499.00元</span>
+                    </div>
+    
+                    <div className={style.box}>
+                        <span>实际支付：</span>
+                        <span>15000.00元</span>
+                    </div>
+    
+                    <div className={style.box}>
+                        <span className={style.shrink}>CF码</span>
+                        <input onChange={this.changeHandle} className={style.input} type="text" value={CFCode} placeholder="请输入CF码" />
+                    </div>
+    
+                    <div className={`${style.box} ${style.center}`}>
+                        <label><input type="checkbox"/>同意<a href="">《i财富四方借款协议》</a></label>
+                    </div>
+    
+                    <div className={style.container}>
+                        <button className={btnClassName}>{btnText}</button>
+                    </div>
                 </div>
-
-                <div className={`${style.box} ${style.center}`}>
-                    <label><input type="checkbox"/>同意<a href="">《i财富四方借款协议》</a></label>
-                </div>
-
-                <div className={style.container}>
-                    <button className={style.button}>余额不足，充值15000元</button>
-                </div>
+    
             </div>
-
-        </div>
-    )
+        )
+    }
 }
+
+export default JPlan
