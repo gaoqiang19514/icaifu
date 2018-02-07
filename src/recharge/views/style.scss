@@ -36,3 +36,15 @@ $btnColor:          #e35855;
 button:active{
     box-shadow: inset 3px 6px 16px rgba(0,0,0,0.1);
 }
+
+.list{
+    .item{
+        padding: 4%;
+        background: #fff;
+
+        h2{
+            font-size: 16px;
+            font-weight: bold;
+        }
+    }
+}

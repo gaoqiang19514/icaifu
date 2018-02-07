@@ -12,10 +12,12 @@ class JPlan extends Component {
             total: 15000,
             CFCode: '',
             rate: 0.07,
-            days: 45
+            days: 45,
+            agreen: true
         }
 
         this.changeHandle = this.changeHandle.bind(this)
+        this.checkedHandle = this.checkedHandle.bind(this)
     }
 
     changeHandle(e) {
@@ -24,9 +26,15 @@ class JPlan extends Component {
         })
     }
 
+    checkedHandle(e) {
+        this.setState({
+            agreen: e.target.checked
+        })
+    }
+
     render() {
 
-        let { total, CFCode, rate, days }    = this.state
+        let { total, CFCode, rate, days, agreen }    = this.state
         
         let btnClassName = style.button
         let btnText      = '确定'
@@ -41,6 +49,9 @@ class JPlan extends Component {
         }else if(!CFCode || (CFCode.length < 8)) {
             btnClassName = [btnClassName, style.disable].join(' ')
             btnText = '请输入CF码'
+        }else if(!agreen) {
+            btnClassName = [btnClassName, style.disable].join(' ')
+            btnText = '请同意用户协议'
         }
       
 
@@ -85,7 +96,7 @@ class JPlan extends Component {
                     </div>
     
                     <div className={`${style.box} ${style.center}`}>
-                        <label><input type="checkbox"/>同意<a href="">《i财富四方借款协议》</a></label>
+                        <label><input onChange={this.checkedHandle} type="checkbox" checked={agreen} />同意<a href="">《i财富四方借款协议》</a></label>
                     </div>
     
                     <div className={style.container}>

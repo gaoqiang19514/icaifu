@@ -32,22 +32,22 @@
 
 .box{
     padding: 4%;
+}
+
+.item{
+    font-size: 14px;
+    padding: 4%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     background: #fff;
-    dl{
-        display: flex;
-        align-items: center;
-        dt{
-            margin-right: 3%;
-        }
-        dd{
-            flex-grow: 1;
-            input{
-                box-sizing: border-box;
-                padding: 5px 10px;
-                width: 100%;
-                border: 0;
-                outline: none;
-            }
-        }
+
+    label{
+        font-weight: bold;
     }
+}
+
+input{
+    padding: 8px 10px;
+    border: 1px solid #eaeaea;
 }
