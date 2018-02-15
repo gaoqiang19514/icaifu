@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import style from './style.scss'
 
 import Head from './head.js'
+import Coupon from './coupon.js'
 
 class Buy extends Component {
 
@@ -174,85 +175,12 @@ class Buy extends Component {
 
                 {/*代金券*/}
                 <div style={cashDisplay}>
-                    <div className={style.modal}>
-                        <div className="list">
-                            {
-                                cashList.map(function(item,index) {
-                                    return (
-                                        <div key={index} className={style._item}>
-                                            <div className={style._title}>代金券<span>编号:78451241254</span></div>
-                                            <div>
-                                                <div>
-                                                    <ul>
-                                                        <li>单笔投资>0.00元</li>
-                                                        <li>期限大于等于2个月</li>
-                                                        <li>除极计划外其余产品可用</li>
-                                                    </ul>
-                                                </div>
-                                                <div>
-                                                    <div>{item.cash}元</div>
-                                                    <div>
-                                                        <button  onClick={() => { this.chooseCoupon('cash', item, index)} }>{ item.checked ? '取消' : '选择'}</button>
-                                                    </div>
-                                                </div>    
-                                            </div>
-                                            <div>
-                                                <p>有效期至：2017-09-16 00:00:00</p>
-                                            </div>
-                                        </div>
-                                    )
-                                }, this)
-                            }
-                        </div>
-
-                        <div className={style.box}>
-                            <button onClick={() => {
-                                this.showModal('cash')
-                            }}>确定</button>
-                        </div>
-                    </div>
+                    <Coupon title="代金券" type="cash" cashList={cashList} chooseCoupon={this.chooseCoupon} showModal={this.showModal} />
                 </div>
 
                 {/*加息券*/}
                 <div style={rateDisplay}>
-                    <div className={style.modal}>
-                        <div className="list">
-                            {
-                                rateList.map(function(item, index) {
-                                    let rate = (item.rate * 100).toFixed(2)
-                                    return (
-                                        <div key={index} className={style._item}>
-                                            <div className={style._title}>加息券<span>编号:78451241254</span></div>
-                                            <div>
-                                                <div>
-                                                    <ul>
-                                                        <li>单笔投资>0.00元</li>
-                                                        <li>期限大于等于2个月</li>
-                                                        <li>除极计划外其余产品可用</li>
-                                                    </ul>
-                                                </div>
-                                                <div>
-                                                    <div>{rate}%</div>
-                                                    <div>
-                                                        <button onClick={() => { this.chooseCoupon('rate', item, index)} }>{item.checked ? '取消' : '选择'}</button>
-                                                    </div>
-                                                </div>    
-                                            </div>
-                                            <div>
-                                                <p>有效期至：2017-09-16 00:00:00</p>
-                                            </div>
-                                        </div>
-                                    )
-                                }, this)
-                            }
-                        </div>
-
-                        <div className={style.box}>
-                            <button onClick={() => {
-                                this.showModal('rate')
-                            }}>确定</button>
-                        </div>
-                    </div>
+                    <Coupon title="加息券" type="rate" cashList={rateList} chooseCoupon={this.chooseCoupon} showModal={this.showModal} />
                 </div>
 
                 <div className={style.balance}>
