@@ -12,22 +12,27 @@ class Buy extends Component {
 
         this.state = {
             CFCode: '',
-            money: '',
-            expected_revenue: 0,
+            money: 0,
             rate: 0.07,
             days: 45,
+            expected_revenue: 0,
             total: 0,
+
             viewCashModalFlag: false,
             viewRateModalFlag: false,
+
+            couponList: [],
+            cashChooseList: [],
             cashList: [
-                { rate: 300, expires: new Date().getTime() },
-                { rate: 500, expires: new Date().getTime() },
-                { rate: 700, expires: new Date().getTime() }
+                { cash: 300, expires: new Date().getTime(), checked: false },
+                { cash: 500, expires: new Date().getTime(), checked: false },
+                { cash: 700, expires: new Date().getTime(), checked: false }
             ],
+            rateChooseList: [],
             rateList: [
-                { rate: 0.03, expires: new Date().getTime() },
-                { rate: 0.05, expires: new Date().getTime() },
-                { rate: 0.07, expires: new Date().getTime() }
+                { rate: 0.03, expires: new Date().getTime(), checked: false },
+                { rate: 0.05, expires: new Date().getTime(), checked: false },
+                { rate: 0.07, expires: new Date().getTime(), checked: false }
             ]
         }
 
@@ -44,9 +49,8 @@ class Buy extends Component {
                 })
                 break;
             case 'money':
-                if(isNaN(e.target.value)){return}
                 this.setState({
-                    money: e.target.value
+                    money: parseInt(e.target.value) || 0
                 })
                 break;
             default:
@@ -70,20 +74,83 @@ class Buy extends Component {
     }
 
     // 用户点选票券的事件处理逻辑
-    chooseCoupon(type, data) {
+    chooseCoupon(type, item, index) {
+        switch(type){
+            case 'cash':
+                const newCashList = this.state.cashList.map(function(item, _index){
+                    if(index === _index){
+                        return {
+                            ...item,
+                            checked: !item.checked
+                        }
+                    }
 
-        // 思路1 
-            // 用一个数组来盛放用户选择的所有票券
-            // 加入这个票券需要经过一些删选条件
-            // 用户点击确定后将这个数组里面的票券累计计算得到结果
+                    return item
+                });
 
-        console.log(type, data)
+                this.setState({
+                    cashList: newCashList
+                }, () => {
+                    // console.log(this.state.cashList)
+                })
+                break;
+            case 'rate':
+                const newRateList = this.state.rateList.map(function(item, _index){
+                    if(index === _index){
+                        return {
+                            ...item,
+                            checked: !item.checked
+                        }
+                    }
+
+                    return item
+                });
+
+                this.setState({
+                    rateList: newRateList
+                }, () => {
+                    // console.log(this.state.rateList)
+                })
+                break;
+            default:
+        }
     }
 
     render() {
-
         let disabled = true
-        let { CFCode, money, expected_revenue, rate, days, total, rateList, cashList, viewRateModalFlag, viewCashModalFlag } = this.state
+        let { CFCode, money, expected_revenue, rate, days, total, rateList, cashList, viewRateModalFlag, viewCashModalFlag, couponList, rateChooseList, cashChooseList } = this.state
+
+        total = money
+
+        let chooseCashLen = 0
+        let chooseRateLen = 0
+        let rateLength = rateList.length
+        let cashLength = cashList.length
+
+        let totalRate = 0
+        let totalCash = 0
+
+        // 计算加息券 和 代金券
+        if(money > 100){
+            rateList.map(function(item, index) {
+                // 收益率要加上加息券
+                if(item.checked){
+                    chooseRateLen++
+                    totalRate += item.rate
+                }
+            })
+
+            cashList.map(function(item, index) {
+                // 投资金额要加上代金券
+                if(item.checked){
+                    chooseCashLen++
+                    totalCash += parseInt(item.cash)
+                }
+            })
+
+            rate += totalRate 
+            total += totalCash
+        }
 
         if(CFCode && (CFCode.length > 8) && !isNaN(money) && (money > 100)){
             disabled = false
@@ -92,8 +159,6 @@ class Buy extends Component {
         if(money > 100){
             expected_revenue = (money * rate / 365 * days).toFixed(2)
         }
-
-        total = money
 
         let rateDisplay = {
             display: viewRateModalFlag ? "block" : "none"
@@ -106,7 +171,6 @@ class Buy extends Component {
         return (
             <div>
                 <Head />
-           
 
                 {/*代金券*/}
                 <div style={cashDisplay}>
@@ -114,7 +178,6 @@ class Buy extends Component {
                         <div className="list">
                             {
                                 cashList.map(function(item,index) {
-                                    let rate = (item.rate * 100).toFixed(2)
                                     return (
                                         <div key={index} className={style._item}>
                                             <div className={style._title}>代金券<span>编号:78451241254</span></div>
@@ -127,10 +190,10 @@ class Buy extends Component {
                                                     </ul>
                                                 </div>
                                                 <div>
-                                                    <div>{rate}%</div>
-                                                    <div><button onClick={() => {
-                                                        this.chooseCoupon('cash', item)
-                                                    }}>选择</button></div>
+                                                    <div>{item.cash}元</div>
+                                                    <div>
+                                                        <button  onClick={() => { this.chooseCoupon('cash', item, index)} }>{ item.checked ? '取消' : '选择'}</button>
+                                                    </div>
                                                 </div>    
                                             </div>
                                             <div>
@@ -155,7 +218,7 @@ class Buy extends Component {
                     <div className={style.modal}>
                         <div className="list">
                             {
-                                rateList.map(function(item,index) {
+                                rateList.map(function(item, index) {
                                     let rate = (item.rate * 100).toFixed(2)
                                     return (
                                         <div key={index} className={style._item}>
@@ -170,9 +233,9 @@ class Buy extends Component {
                                                 </div>
                                                 <div>
                                                     <div>{rate}%</div>
-                                                    <div><button onClick={() => {
-                                                        this.chooseCoupon('rate', item)
-                                                    }}>选择</button></div>
+                                                    <div>
+                                                        <button onClick={() => { this.chooseCoupon('rate', item, index)} }>{item.checked ? '取消' : '选择'}</button>
+                                                    </div>
                                                 </div>    
                                             </div>
                                             <div>
@@ -214,13 +277,23 @@ class Buy extends Component {
                         <span>{expected_revenue}元</span>
                     </div>
                     <div className={style.item}>
-                        <label>代金券</label>
+                        <label>
+                            代金券：
+                            {
+                                (chooseCashLen > 0) ? (<span className={style.red}>{totalCash}元代金券</span>) : (<span className={style.red}>{cashLength}张代金券可用</span>)
+                            }
+                        </label>
                         <span onClick={() => {
                             this.showModal('cash')
                         }}>请选择</span>
                     </div>
                     <div className={style.item}>
-                        <label>加息券</label>
+                        <label>
+                            加息券：
+                            {
+                                (chooseRateLen > 0) ? (<span className={style.red}>加息{totalRate}%</span>) : (<span className={style.red}>{rateLength}张加息券可用</span>)
+                            }
+                        </label>
                         <span onClick={() => {
                             this.showModal('rate')
                         }}>请选择</span>
