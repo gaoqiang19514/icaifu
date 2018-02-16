@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "alloytouch": "^0.2.5",
     "axios": "^0.17.1",
+    "better-scroll": "^1.8.1",
     "react": "^16.2.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.2.0",
     "react-redux": "^5.0.6",
     "react-scripts": "1.0.17",
     "react-transition-group": "^1.2.1",
+    "reactjs-iscroll": "^0.3.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "swiper": "^3.4.2"
