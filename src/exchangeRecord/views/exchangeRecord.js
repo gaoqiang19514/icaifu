@@ -1,12 +1,21 @@
 import React, { Component } from 'react'
-import {connect} from 'react-redux';
+import {connect} from 'react-redux'
 import axios from 'axios'
 
 import style from './style.scss'
-
+import {actions as loadingActions} from '../../common/loading'
+import Selector from './selector.js'
 import Item from './item.js'
 
-
+const styleFixed = {
+    position: 'absolute',
+    top: '50px',
+    left: '0',
+    right: '0',
+    bottom: '0',
+    overflow: 'auto',
+    padding: '4%'
+}
 
 class ExchangeRecord extends Component {
 
@@ -14,119 +23,110 @@ class ExchangeRecord extends Component {
         super(props)
 
         this.state = {
-            currentType: "全部",
-            currentDate: "近三天",
-            viewTypes: false,
-            viewDates: false,
-            list: []
+            currentTypeValue: 'all',
+            currentTermValue: 'volvo',
+            typeList: [
+                { title: '全部', value: 'all' },
+                { title: '充值', value: 'saab' },
+                { title: '提现', value: 'opel' },
+                { title: '购买', value: 'audi' },
+                { title: '回款', value: 'huikuan' }
+            ],
+            termList: [
+                { title: '近三天', value: 'saab' },
+                { title: '近三星期', value: 'opel' },
+                { title: '近三月', value: 'audi' },
+                { title: '近三年', value: 'huikuan' }
+            ],
+            exchangeRecordlist: [
+
+            ]
         }
 
-        this.selectType = this.selectType.bind(this)
-        this.chooseType = this.chooseType.bind(this)
+        this.onChangeHandle = this.onChangeHandle.bind(this)
+        this.onUpdateHandle = this.onUpdateHandle.bind(this)
 
-        this.selectDate = this.selectDate.bind(this)
-        this.chooseDate = this.chooseDate.bind(this)
+        this.onUpdateHandle()
     }
 
-    componentDidMount() {
-        const token = ''
-        const that = this
+    onUpdateHandle() {
+        const { currentTypeValue, currentTermValue } = this.state
 
-        // Add a request interceptor
-        axios.interceptors.request.use(function (config) {
-            config.headers.Authorization = `token ${that.props.token}`;
-            return config;
-          }, function (error) {
-            // Do something with request error
-            return Promise.reject(error);
-          });
+        this.props.onShowLoading()
+        const data = [
+            { id: 1, type: 'audi', title: '购买一双鞋子' },
+            { id: 2, type: 'opel', title: '提现了好多钱' },
+            { id: 3, type: 'saab', title: '充值1万块' },
+            { id: 4, type: 'huikuan', title: '疯狂回款' },
+            { id: 5, type: 'audi', title: '购买一个冰箱' },
+            { id: 6, type: 'audi', title: '购买一辆坦克' }
+        ]
 
-
-        axios.get('/users')
-          .then(function (response) {
-            if(response.status === 200){
-                that.setState({
-                    list: response.data
-                })
-
-                console.log(response.data)
+        const response = data.filter(function(item, index) {
+            if(currentTypeValue === 'all'){
+                return item
             }
-          })
-          .catch(function (error) {
-            console.log(error);
-          });
-         
+            if(item.type === currentTypeValue){
+                return item
+            }
+        })
+
+        setTimeout(() => {
+            this.setState({
+                exchangeRecordlist: response
+            }, () => {
+                this.props.onHideLoading()
+            })
+        }, 2000)
+
+        // 向后台发送请求 携带参数 得到数据后更新exchangeRecordlist
+        // 发送请求的同时 显示loading
+        // 请求回调中 隐藏loading
     }
 
-    selectType() {
-        this.setState({
-            viewTypes: !this.state.viewTypes
-        })
-    }
-
-    chooseType(e) {
-        const typeText = e.target.innerHTML
-
-        this.setState({
-            currentType: typeText
-        })
-
-        this.setState({
-            viewTypes: !this.state.viewTypes
-        })
-    }
-
-    selectDate() {
-        this.setState({
-            viewDates: !this.state.viewDates
-        })
-    }
-
-    chooseDate(e) {
-        const DateText = e.target.innerHTML
-
-        this.setState({
-            currentDate: DateText
-        })
-
-        this.setState({
-            viewDates: !this.state.viewDates
-        })
+    onChangeHandle(type, e) {
+        switch(type){
+            case 'type':
+                    this.setState({
+                        currentTypeValue: e.target.value
+                    }, () => {
+                        this.onUpdateHandle()
+                    })
+                break
+            case 'term':
+                    this.setState({
+                        currentTermValue: e.target.value
+                    }, () => {
+                        this.onUpdateHandle()
+                    })
+                break
+            default:
+        }
     }
 
     render() {
 
-        let typeDisplayStyle = this.state.viewTypes === true ? {display: "block"} : {display: "none"}
-        let dateDisplayStyle = this.state.viewDates === true ? {display: "block"} : {display: "none"}
+        const { typeList, termList, exchangeRecordlist } = this.state
 
         return (
             <div>
-                <div className={style.nav}>
-                    <div className={style.cell}>
-                        <span className={style.current} onClick={this.selectType}>{this.state.currentType}</span>
-                        <div onClick={this.chooseType} className={style.inner} style={typeDisplayStyle}>
-                            <div>全部</div>
-                            <div>充值</div>
-                            <div>提现</div>
-                            <div>购买</div>
-                            <div>回款</div>
-                        </div>
-                    </div>
-                    <div className={style.cell}>
-                        <span className={style.current} onClick={this.selectDate}>{this.state.currentDate}</span>
-                        <div onClick={this.chooseDate} className={style.inner} style={dateDisplayStyle}>
-                            <div>近三天</div>
-                            <div>近三星期</div>
-                            <div>近三月</div>
-                            <div>近三年</div>
-                        </div>
-                    </div>
+                <div className={style.box}>
+                    {/*记录类型*/}
+                    <Selector 
+                        list={typeList}
+                        onChangeHandle={ (event) => this.onChangeHandle('type', event) }
+                        initValue={this.state.currentTypeValue} />
+                    {/*记录时间范围*/}
+                    <Selector 
+                        list={termList}
+                        onChangeHandle={ (event) => this.onChangeHandle('term', event) }
+                        initValue={this.state.currentTermValue} />
                 </div>
     
-                <div className={style.list}>
+                <div className={style.list} style={styleFixed}>
                     {
-                        this.state.list.map(function(item, index) {
-                            return <Item key={item.id} name={item.name} />;
+                        this.state.exchangeRecordlist.map(function(item, index) {
+                            return <Item key={item.id} name={item.title} value={item.value} />;
                         })
                     }
                 </div>
@@ -138,13 +138,18 @@ class ExchangeRecord extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        token: state.auth.token
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-
+        onShowLoading: () => {
+            dispatch(loadingActions.showLoading())
+        },
+        onHideLoading: () => {
+            dispatch(loadingActions.hideLoading())
+        }
     }
 }
+
 export default connect(mapStateToProps, mapDispatchToProps)(ExchangeRecord)

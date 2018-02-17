@@ -1,0 +1,17 @@
+.box{
+	display: flex;
+	font-size: 14px;
+	justify-content: space-between;
+	span{
+		padding: 3% 0;
+		flex-grow: 1;
+		text-align: center;
+	}
+	background: #fff;
+}
+
+.item{
+	background: #fff;
+	padding: 4%;
+	margin-top: 2%;
+}

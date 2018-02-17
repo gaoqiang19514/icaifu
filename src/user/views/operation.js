@@ -9,7 +9,7 @@ export default () => {
             <div className={style.cell}>冻结资金：<strong>0.00</strong></div>
             <div className={style.aside}>
                 <Link to="/recharge">充值</Link>
-                <a href="">提现</a>
+                <Link to="/withdraw">提现</Link>
             </div>
         </div>
     )

@@ -15,7 +15,7 @@ export default () => {
                 </div>
 
                 <div className={style.box}>
-                    <Link to="/voucher">投资记录</Link>
+                    <Link to="/investRecord">投资记录</Link>
                     <Link to="/voucher">回款计划</Link>
                 </div>
 

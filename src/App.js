@@ -15,8 +15,11 @@ import {view as Buy} from './buy'
 import {view as Voucher} from './voucher'
 import {view as Safety} from './safety'
 import {view as Jjh} from './jjh'
+
+import {view as Withdraw} from './withdraw'
 import {view as Recharge} from './recharge'
 import {view as ExchangeRecord} from './exchangeRecord'
+import {view as InvestRecord} from './investRecord'
 
 import {view as Login } from './login'
 import {view as Register } from './register'
@@ -62,8 +65,11 @@ class App extends Component {
                                     <Auth path="/voucher" component={Voucher} />
                                     <Route path="/safety" component={Safety} />
 
+                                    
+                                    <Auth path="/withdraw" component={Withdraw} />
                                     <Auth path="/recharge" component={Recharge} />
                                     <Auth path="/exchangeRecord" component={ExchangeRecord} />
+                                    <Auth path="/investRecord" component={InvestRecord} />
 
                                     <Route path="/login" component={Login} />
                                     <Route path="/register" component={Register} />
