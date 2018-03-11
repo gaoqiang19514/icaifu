@@ -36,8 +36,7 @@ class Login extends Component {
     }
 
     login(token) {
-        this.props.onLogin()
-        this.props.onSaveToken(token)
+        this.props.onLogin(token)
     }
 
     handleValueChange(field, value, type = 'string') {
@@ -97,7 +96,6 @@ class Login extends Component {
             if(response.status === 200){
                 if(response.data.code === 1){
                     that.login(response.data.token)
-
                     that.props.onHideLoading()
                 }
             }
@@ -158,11 +156,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onLogin: () => {
-            dispatch(authActions.login())
-        },
-        onSaveToken: (token) => {
-            dispatch(authActions.saveToken(token))
+        onLogin: (token) => {
+            dispatch(authActions.login(token))
         },
         onShowLoading: () => {
 			dispatch(loadingActions.showLoading())
