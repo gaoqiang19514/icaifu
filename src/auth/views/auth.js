@@ -4,34 +4,52 @@ import { connect } from 'react-redux';
 
 import { actions as loadingActions } from '../../common/loading'
 
+let timer = null
+
 class Auth extends Component {
 
 	constructor(props) {
 		super(props)
+
+        this.state = {
+            flag: false
+        }
+        this.props.onShowLoading()
 	}
 
+    componentDidMount() {
+        timer = setTimeout(() => {
+            this.setState({
+                flag: true
+            }, () => {
+                this.props.onHideLoading()
+            })
+        }, 2000)        
+    }
+
+    componentWillUnmount() {
+        clearTimeout(timer)
+    }
+
 	render() {
-		const {component: Part, auth: auth, ...args} = this.props
 
-		// 如果token为真，则发起请求验证是否过期
-			setTimeout(() => {
-				// 已过期 重定向到login
-			}, 2000)
+		const { component: Part, auth: auth, ...args } = this.props
 
-		this.props.onShowLoading()
-		return <div></div>
+        if(this.state.flag){
+    	    return (
+    	        <Route {...args} render={
+    	            (props) => (
+    	                auth ? (<Part {...props} />)
+    	                    : (<Redirect to={{
+    	                    	pathname: '/login',  
+    	                    	state: { from: props.location }
+    	                    }} />)
+    	            )
+    	        } />
+    	    )
+        }
 
-	    return (
-	        <Route {...args} render={
-	            (props) => (
-	                auth ? (<Part {...props} />)
-	                    : (<Redirect to={{
-	                    	pathname: '/login',  
-	                    	state: { from: props.location }
-	                    }} />)
-	            )
-	        } />
-	    )
+        return (<div></div>)
 	}
 }
 
