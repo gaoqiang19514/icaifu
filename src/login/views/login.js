@@ -108,9 +108,9 @@ class Login extends Component {
 
     render(){
         
-        const {from} = this.props.location.state || {from: {path: '/'}}
+        const {from} = this.props.location.from || {from: {path: '/'}}
 
-        if(this.props.auth){
+        if(this.props.auth.isAuthenticated){
             return (
                 <Redirect to={from} />
             )
