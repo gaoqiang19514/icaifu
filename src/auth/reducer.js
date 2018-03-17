@@ -1,7 +1,7 @@
-import {LOGIN_AUTH, LOGOUT_AUTH} from './actionTypes.js';
+import {LOGIN_AUTH, LOGOUT_AUTH, ISLOGIN} from './actionTypes.js';
 
 const data = {
-	isAuthenticated: false,
+	isAuthenticated: sessionStorage.getItem('isAuthenticated') || null,
 	token: localStorage.getItem('token')
 }
 
@@ -20,6 +20,12 @@ export default (state = data, action) => {
 				...state,
 				token: null,
 				isAuthenticated: false
+			}
+		case ISLOGIN:
+			sessionStorage.setItem('isAuthenticated', true)
+			return {
+				...state,
+				isAuthenticated: true				
 			}
 		default:
 			return state

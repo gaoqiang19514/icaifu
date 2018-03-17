@@ -1,4 +1,4 @@
-import {LOGIN_AUTH, LOGOUT_AUTH} from './actionTypes.js';
+import {LOGIN_AUTH, LOGOUT_AUTH, ISLOGIN} from './actionTypes.js';
 
 export const login = (token) => ({
 	token: token,
@@ -7,4 +7,8 @@ export const login = (token) => ({
 
 export const logout = () => ({
 	type: LOGOUT_AUTH
+})
+
+export const islogin = () => ({
+	type: ISLOGIN
 })

@@ -10,6 +10,7 @@ app.use(bodyParser.json())
 router.get('/', routes.index)
 
 router.get('/users', checkToken, routes.getUsers)
+router.post('/verifyToken', routes.verifyToken)
 router.post('/login', routes.login)
 
 app.use('/', router)

@@ -28,6 +28,24 @@ const login = function(req, res){
 	
 }
 
+const verifyToken = (req, res) => {
+	let token = req.param('token')
+	console.log('server', token);
+	setTimeout(() => {
+		if(token){
+			res.send({
+				code: 1,
+				text: 'token未过期'
+			})
+		}else{
+			res.send({
+				code: 0,
+				text: 'token已经过期'
+			})
+		}
+	}, 1000)
+}
+
 const getUsers = function(req, res){
 	res.send([
 		{id: 1, name: '撒点粉', age: 12},
@@ -45,6 +63,7 @@ const getUsers = function(req, res){
 module.exports = {
 	index,
 	login,
-	getUsers
+	getUsers,
+	verifyToken
 }
 
