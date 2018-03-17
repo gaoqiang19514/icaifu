@@ -107,13 +107,17 @@ class Login extends Component {
     }
 
     render(){
+        const {from} = this.props.location.from || {from: {pathname: '/'}}
         
-        const {from} = this.props.location.from || {from: {path: '/'}}
+        // 如果登录成功 这里需要跳转走 还有一种情况是 用户已经登录，但是想到login页面来看看？
+            // 1. 进入login页面时，将用户登出处理
+            // 2. 允许用户进入 但是怎么处理呢？
+            // 3. 直接跳走，不允许登录的用户进入登录页面
+            // 什么情况需要将用户跳走？
 
+        // 目前的处理是，只要用户登录则统一跳走
         if(this.props.auth.isAuthenticated){
-            return (
-                <Redirect to={from} />
-            )
+            return (<Redirect to={from} />)
         }
 
         const {form: {username, password}} = this.state;

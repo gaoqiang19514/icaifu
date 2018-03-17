@@ -19,13 +19,18 @@ class Auth extends Component {
 	}
 
     componentDidMount() {
-		// 只调用一次
+		// 如果没有token 则将isAuthenticated置为null, 然后出发render执行 跳转到登录
+		if(!this.props.auth.token){
+			this.props.onIsLogout()
+			this.setState({flag: true});
+			return;
+		}
+
+		// 保证后面验证token是否过期的请求只会发起一次
 		if(sessionStorage.getItem('init')){
 			this.setState({flag: true})
 			return;
 		}
-
-		console.log('componentDidMount');
 
 		axios.post('/verifyToken', {
             token: 'token123455678'
@@ -88,6 +93,9 @@ const mapDispatchToProps = (dispatch) => {
     return {
 		onIsLogin: () => {
             dispatch(authActions.islogin())
+		},
+		onIsLogout: () => {
+            dispatch(authActions.islogout())
         },
         onShowLoading: () => {
 			dispatch(loadingActions.showLoading())
