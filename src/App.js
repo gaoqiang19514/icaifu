@@ -27,6 +27,8 @@ import {view as ForgetPassword } from './forgetPassword'
 
 import {view as Auth} from './auth/';
 
+import {view as Toast} from './toast';
+
 class App extends Component {
   	render() {
     	return (
@@ -83,6 +85,7 @@ class App extends Component {
                 } />
 
                 <Loading />
+                <Toast />
 	      	</div>
     	);
   	}
