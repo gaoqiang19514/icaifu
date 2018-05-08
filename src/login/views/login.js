@@ -79,12 +79,6 @@ class Login extends Component {
         e.preventDefault()
 
         const {form: {username, password}} = this.state
-        // if(!username.valid || !password.valid){
-        //     alert('请填写完整的登录信息')
-        //     return
-        // }
-
-        const that = this
 
         this.props.onShowLoading()
 
@@ -92,28 +86,21 @@ class Login extends Component {
             username: 'Fred',
             password: 'Flintstone'
         })
-        .then(function (response) {
+        .then((response) => {
             if(response.status === 200){
                 if(response.data.code === 1){
-                    that.login(response.data.token)
-                    that.props.onHideLoading()
+                    this.login(response.data.token)
+                    this.props.onHideLoading()
                 }
             }
         })
         .catch(function (error) {
             console.log(error);
         });
-
     }
 
     render(){
         const {from} = this.props.location.from || {from: {pathname: '/'}}
-        
-        // 如果登录成功 这里需要跳转走 还有一种情况是 用户已经登录，但是想到login页面来看看？
-            // 1. 进入login页面时，将用户登出处理
-            // 2. 允许用户进入 但是怎么处理呢？
-            // 3. 直接跳走，不允许登录的用户进入登录页面
-            // 什么情况需要将用户跳走？
 
         // 目前的处理是，只要用户登录则统一跳走
         if(this.props.auth.isAuthenticated){

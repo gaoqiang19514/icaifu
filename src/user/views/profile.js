@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import axios from 'axios';
 
 import {toggleView} from '../actions'
 
@@ -17,6 +18,15 @@ class Profile extends Component {
             balance: 20
         }
         this.toggleMoneyView = this.toggleMoneyView.bind(this)
+
+        axios.get('/users').then((response) => {
+            if(response.status === 200){
+         
+            }
+        }).catch((error) => {
+            this.props.onLogout();
+        });
+
     }
 
     toggleMoneyView() {
@@ -35,7 +45,11 @@ class Profile extends Component {
 
         return (
             <div className={style.profile}>
-                <button onClick={this.toggleMoneyView}>隐藏金额</button>
+                <div className={style.name}>
+                    user name
+                </div>
+
+                <button className={style.toggle} onClick={this.toggleMoneyView}>隐藏金额</button>
                 <div className={style.total}>
                     <p className={style.num}>{total}</p>
                     <p className={style.title}>资产总额（元）</p>
@@ -67,6 +81,9 @@ const mapDisaptchToProps = (disaptch) => {
     return {
         onToggle: () => {
             disaptch(toggleView())
+        },
+        onLogout: () => {
+            disaptch(authActions.logout())
         }
     }
 }

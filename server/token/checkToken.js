@@ -11,6 +11,9 @@ module.exports = function(req, res, next){
 			return next();
 		}
 	}else{
-		res.send('未认证')
+		res.status(401).send({
+            type: 'fail',
+            text: 'token过期'
+        })
 	}
 }
