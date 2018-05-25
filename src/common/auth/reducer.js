@@ -1,7 +1,10 @@
 import {LOGIN_AUTH, LOGOUT_AUTH, ISLOGIN, ISLOGOUT} from './actionTypes.js';
 
+
+const auth = localStorage.getItem('token')
+
 const initData = {
-	token: localStorage.getItem('token')
+	isAuthenticated: !!auth
 }
 
 export default (state = initData, action) => {

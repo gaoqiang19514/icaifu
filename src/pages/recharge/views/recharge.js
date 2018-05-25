@@ -7,6 +7,10 @@ class Recharge extends Component {
     constructor(props) {
         super(props)
 
+        this.state = {
+            money: ''
+        }
+
         this.onSubmitHandle = this.onSubmitHandle.bind(this)
         this.onChangeHandle = this.onChangeHandle.bind(this)
     }
