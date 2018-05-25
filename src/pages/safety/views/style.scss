@@ -1,24 +1,25 @@
 .safety{
-	padding-top: 4%;
-	.section{
-		font-size: 14px;
-		margin-bottom: 4%;
-		border-top: 1px solid #eaeaea;
-		border-bottom: 1px solid #eaeaea;
-
-		li{
-			padding: 4%;
-			display: flex;
-			justify-content: space-between;
-			background: #fff;
-		}
-		li + li{
-			border-top: 1px solid #eaeaea;
-		}
-	}
-
-	a{
-		color: #277dd3;
-		text-decoration: none;
-	}
+    li{
+        position: relative;
+        padding: 4%;
+        font-size: 14px;
+        display: flex;
+        justify-content: space-between;
+        background: #fff;
+    }
+    li:after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #eaeaea;
+        transform: scaleY(.5);
+    }
+    a{
+        padding-left: 10px;
+        color: #277dd3;
+        text-decoration: none;
+    }
 }

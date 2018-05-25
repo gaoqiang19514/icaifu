@@ -6,7 +6,7 @@ import { Provider } from 'react-redux';
 import store from './Store.js';
 
 import './common/reset.css'
-import './index.scss';
+import './index.css';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 

@@ -36,7 +36,7 @@ class JPlan extends Component {
 
         let { total, CFCode, rate, days, agreen }    = this.state
         
-        let btnClassName = style.button
+        let btnClassName = 'btn'
         let btnText      = '确定'
 
         let earnings = 15000 * rate / 360 * days

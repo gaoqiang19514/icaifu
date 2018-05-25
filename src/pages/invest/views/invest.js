@@ -1,27 +1,15 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 
-
-import {actions as loadingActions} from './../../../common/loading'
-
+import { actions as loadingActions } from './../../../common/loading'
 import List from './list.js'
 import Menu from './../../../common/menu/'
-
-
 
 class Invest extends Component {
 
 	constructor(props) {
 		super(props)
 
-		props.onShowLoading()
-	}
-
-	componentDidMount() {
-		
-		setTimeout(() => {
-			this.props.onHideLoading()
-		}, 500)
 	}
 
 	render() {
@@ -32,10 +20,6 @@ class Invest extends Component {
 			</div>		
 		)
 	}
-}
-
-const mapStateToProps = () => {
-
 }
 
 const mapDispatchToProps = (dispatch) => {

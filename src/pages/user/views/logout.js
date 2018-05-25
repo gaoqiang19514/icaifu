@@ -12,7 +12,7 @@ const Logout = ({onLogout}) => {
             	() => {
             		onLogout()
             	}
-            } className={style.btn}>退出登录</button>
+            } className="btn">退出登录</button>
         </div>
     )
 }

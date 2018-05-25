@@ -1,24 +1,27 @@
 @import "../../../common/common.scss";
 
 .menu{
-    font-size: 14px;
-    padding-top: 4%;
 
     .nav{
-        border-top: 1px solid #eaeaea;
-        border-bottom: 1px solid #eaeaea;
         a{
-            padding: 3% 4%;
+            font-size: 14px;
+            font-weight: bold;
+            display: block;
+            position: relative;
+            padding: 4%;
             background: #fff;
             text-decoration: none;
             color: #333;
-            display: block;
-        }
-        a + a{
-            border-top: 1px solid #eaeaea;
-        }
-        a:active{
-            background: #f7f7f8;
+            &:after{
+                content: '';
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 1px;
+                background: #eaeaea;
+                transform: scaleY(.5);
+            }
         }
     }
 }

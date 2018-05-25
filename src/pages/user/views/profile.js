@@ -19,13 +19,13 @@ class Profile extends Component {
         }
         this.toggleMoneyView = this.toggleMoneyView.bind(this)
 
-        axios.get('/users').then((response) => {
-            if(response.status === 200){
+        // axios.get('/users').then((response) => {
+        //     if(response.status === 200){
          
-            }
-        }).catch((error) => {
-            this.props.onLogout();
-        });
+        //     }
+        // }).catch((error) => {
+        //     this.props.onLogout();
+        // });
 
     }
 

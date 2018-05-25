@@ -81,7 +81,7 @@ export default () => (
         <div>
             <div className={style.siblings}>&nbsp;</div>
             <div className={style.fixed}>
-                <Link to="/buy/1">立即投资</Link>
+                <Link className="btn" to="/buy/1">立即投资</Link>
             </div>
         </div>
     </div>

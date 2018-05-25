@@ -1,0 +1,30 @@
+*{
+    box-sizing: border-box;
+}
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  background: #f7f7f8;
+}
+
+
+.btn{
+    text-align: center;
+    color: #fff;
+    outline: none;
+    border-radius: 3px;
+    letter-spacing: .2em;
+    width: 100%;
+    background: #fff;
+    font-size: 16px;
+    padding: 4% 0;
+    background: #e35855;
+    border: 0;
+    border-bottom: 4px solid #b9504d;
+    display: block;
+}
+.btn:active{
+    background: #ce4946;
+    border-bottom: 4px solid #ce4946;
+}

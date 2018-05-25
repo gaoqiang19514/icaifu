@@ -3,12 +3,10 @@ import { Link, Redirect } from 'react-router-dom'
 import {connect} from 'react-redux';
 import axios from 'axios';
 
+import style from './style.scss'
 import {actions as authActions} from './../../../common/auth/'
 import {actions as loadingActions} from './../../../common/loading'
-
-
-import style from './style.scss'
-
+import Menu from './../../../common/menu/'
 
 class Login extends Component {
 
@@ -125,7 +123,7 @@ class Login extends Component {
                     </div>
 
                     <div className={style.wrap}>
-                        <button className={style.button}>登录</button>
+                        <button className="btn">登录</button>
                     </div>
 
                     <div className={`${style.wrap} ${style.box}`}>
@@ -133,7 +131,8 @@ class Login extends Component {
                         <Link to="/register">注册新账号</Link>
                     </div>
                 </form>
-
+                
+                <Menu />
             </div>
         )
     }
