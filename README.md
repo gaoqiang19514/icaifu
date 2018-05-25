@@ -14,22 +14,23 @@
 
 src
     common
-    auth
-    buy
-    detail
-    exchangeRecord
-    forgetPassword
-    home
-    invest
-    investRecord
-    jPlan
-    login
-    other
-    recharge
-    register
-    safety
-    toast
-    user
-    voucher
-    withdraw
-    
+        auth
+        common
+    pages
+        buy
+        detail
+        exchangeRecord
+        forgetPassword
+        home
+        invest
+        investRecord
+        jPlan
+        login
+        other
+        recharge
+        register
+        safety
+        user
+        voucher
+        withdraw
+        

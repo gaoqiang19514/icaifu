@@ -6,28 +6,26 @@ import style from './App.scss';
 
 import {view as Loading} from './common/loading'
 
-import {view as Home} from './home'
-import {view as Invest} from './invest'
-import {view as User} from './user'
-import {view as Other} from './other'
-import {view as Detail} from './detail'
-import {view as Buy} from './buy'
-import {view as Voucher} from './voucher'
-import {view as Safety} from './safety'
-import {view as Jjh} from './jjh'
+import {view as Home} from './pages/home'
+import {view as Invest} from './pages/invest'
+import {view as User} from './pages/user'
+import {view as Other} from './pages/other'
+import {view as Detail} from './pages/detail'
+import {view as Buy} from './pages/buy'
+import {view as Voucher} from './pages/voucher'
+import {view as Safety} from './pages/safety'
+import {view as Jjh} from './pages/jjh'
 
-import {view as Withdraw} from './withdraw'
-import {view as Recharge} from './recharge'
-import {view as ExchangeRecord} from './exchangeRecord'
-import {view as InvestRecord} from './investRecord'
+import {view as Withdraw} from './pages/withdraw'
+import {view as Recharge} from './pages/recharge'
+import {view as ExchangeRecord} from './pages/exchangeRecord'
+import {view as InvestRecord} from './pages/investRecord'
 
-import {view as Login } from './login'
-import {view as Register } from './register'
-import {view as ForgetPassword } from './forgetPassword'
+import {view as Login } from './pages/login'
+import {view as Register } from './pages/register'
+import {view as ForgetPassword } from './pages/forgetPassword'
 
-import {view as Auth} from './auth/';
-
-import {view as Toast} from './toast';
+import {view as Auth} from './common/auth/';
 
 class App extends Component {
   	render() {
@@ -85,7 +83,6 @@ class App extends Component {
                 } />
 
                 <Loading />
-                <Toast />
 	      	</div>
     	);
   	}
