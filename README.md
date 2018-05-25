@@ -10,3 +10,26 @@
   <!-- 登录之后保存登录状态 刷新后仍然保存 退出登录才去除 -->
 
   voucher组件的视图tab滑动
+
+
+src
+    common
+    auth
+    buy
+    detail
+    exchangeRecord
+    forgetPassword
+    home
+    invest
+    investRecord
+    jPlan
+    login
+    other
+    recharge
+    register
+    safety
+    toast
+    user
+    voucher
+    withdraw
+    
