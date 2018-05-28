@@ -9,8 +9,6 @@ import {toggleView} from '../actions'
 import {actions as authActions} from './../../../common/auth/'
 
 
-
-
 class Profile extends Component {
 
     constructor(props) {
@@ -22,13 +20,13 @@ class Profile extends Component {
             balance: 20
         }
         this.toggleMoneyView = this.toggleMoneyView.bind(this)
-
-        axios.get('/users').then((response) => {
-            if(response.status === 200){
-         
-            }
-        }).catch((error) => {
-            // this.props.onLogout();
+        
+        axios.get('/users')
+        .then(function (response) {
+            console.log(response);
+        })
+        .catch(function (error) {
+            console.log(error);
         });
 
     }
