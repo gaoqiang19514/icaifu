@@ -33,7 +33,7 @@ class Login extends Component {
             }
         }
 
-        const APP_KAY = '9wsez1o5cc2oetj6f6n8oh'
+        const APP_KAY = ''
         
         const signature = () => {
             let signParams = [
