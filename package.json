@@ -6,6 +6,9 @@
     "alloytouch": "^0.2.5",
     "axios": "^0.17.1",
     "better-scroll": "^1.8.1",
+    "blueimp-md5": "^2.10.0",
+    "js-md5": "^0.7.3",
+    "node-forge": "^0.7.5",
     "react": "^16.2.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.2.0",
@@ -33,5 +36,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://localhost:8888"
+  "proxy": "https://api.icaifu.com/v1/"
 }

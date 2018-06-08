@@ -2,11 +2,16 @@ import React, {Component} from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import {connect} from 'react-redux';
 import axios from 'axios';
+import md5 from 'md5'
+
 
 import style from './style.scss'
 import {actions as authActions} from './../../../common/auth/'
 import {actions as loadingActions} from './../../../common/loading'
 import Menu from './../../../common/menu/'
+
+var forge = require('node-forge');
+
 
 class Login extends Component {
 
@@ -27,6 +32,52 @@ class Login extends Component {
                 }
             }
         }
+
+        var md = forge.md.md5.create();
+function replaceAll(str, sptr, sptr1){
+                    while (str.indexOf(sptr) >= 0){
+                       str = str.replace(sptr, sptr1);
+                    }
+                    return str;
+             }
+
+var _sign = [
+    'ver=5.1.0',
+    'uuid=915EFFC9-BCA6-4431-A36A-D4B5069D36D3',
+    'systemVersion=11.2',
+   'page_size=10',
+   'page_no=1',
+   'openid=p2p_ios',
+   '_type=json'
+];
+
+let _result = _sign.sort();
+// x8lg0qcdux8sh4b6c8so0bgyvorwml
+
+const appkey = '9wsez1o5cc2oetj6f6n8oh'
+
+let result2 = _result.toString();
+let result = result2.replace(',', '&') + appkey;
+
+result2 = replaceAll(result2, ',', '&');
+result = replaceAll(result, ',', '&');
+
+
+md.update(result);
+const key = md.digest().toHex();
+
+const keyStr = 'sign='+key + '&' + 'sign_type=' + 'MD5&' + result2
+
+
+    axios.get('/product/activity_list?' + keyStr)
+    .then(function (response) {
+        console.log(response);
+
+    })
+    .catch(function (error) {
+
+    });
+
         
         this.login             = this.login.bind(this)
         this.handleSubmit      = this.handleSubmit.bind(this)
@@ -34,7 +85,12 @@ class Login extends Component {
     }
 
     login(token) {
-        this.props.onLogin(token)
+// const openid = 'p2p_ios
+// const sign_type = 'MD5'
+
+
+
+        // this.props.onLogin(token)
     }
 
     handleValueChange(field, value, type = 'string') {
