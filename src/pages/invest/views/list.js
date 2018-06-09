@@ -1,20 +1,45 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
-import Item from './item.js'
+import style from './style.scss'
 
+const Item = ({ name, match, id }) => (
+	<Link className={style.link} to={`${match.url}/${id}`}>
+		<div className={style.item}>
+			<h2><span>{ name }</span><span className={style.status}>招标中</span></h2>
+			<div className={style.main}>
+				<div className={style.cell}>
+					<p className={style.percentage}>7%</p>
+					<p className={style.label}>预期年化</p>
+				</div>
+				<div className={style.cell}>
+					<p className={style.percentage}>7%</p>
+					<p className={style.label}>项目期限</p>
+				</div>
+				<div className={style.cell}>
+					<p className={style.percentage}>7%</p>
+					<p className={style.label}>可购金额（元）</p>
+				</div>
+			</div>
+		</div>
+	</Link>
+)
 
-export default ({match}) => {
+export default ({data, match}) => {
 	return (
 		<div>
-			<Item id="1" match={match} />
-			<Item id="2" match={match} />
-			<Item id="3" match={match} />
-			<Item id="4" match={match} />
-			<Item id="5" match={match} />
-			<Item id="6" match={match} />
-			<Item id="7" match={match} />
-			<Item id="8" match={match} />
-			<Item id="9" match={match} />
+			{
+				data.map((item, index) => {
+					return (
+						<Item 
+							id={ item.pro_id } 
+							name={ item.pro_name }
+							match={match} 
+							key={ item.pro_id }
+						/>
+					)
+				})
+			}
 		</div>
 	)
 }

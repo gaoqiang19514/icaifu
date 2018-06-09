@@ -15,6 +15,7 @@ import {view as Buy} from './pages/buy'
 import {view as Voucher} from './pages/voucher'
 import {view as Safety} from './pages/safety'
 import {view as Jjh} from './pages/jjh'
+import { view as Activity } from './pages/activity'
 
 import {view as Withdraw} from './pages/withdraw'
 import {view as Recharge} from './pages/recharge'
@@ -59,6 +60,7 @@ class App extends Component {
 
                                     <Route exact path="/invest" component={Invest}></Route>
                                     <Route path="/invest/:id" component={Detail}></Route>
+                                    <Route path="/activity" component={Activity} />
                                     <Route path="/buy/:id" component={Buy}></Route>
                                     <Route path="/jjh/:id" component={Jjh}></Route>
 

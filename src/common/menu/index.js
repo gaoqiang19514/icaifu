@@ -9,10 +9,10 @@ const Menu = () => {
 			<div className={style.sibling}>&nbsp;</div>
 			<div className={style.menu}>
 				<nav>
-					<Link to="/home">推荐</Link>
-					<Link to="/invest">理财</Link>
-					<Link to="/user">我的</Link>
-					<Link to="/other">其他</Link>
+					<Link to="/home">首页</Link>
+					<Link to="/invest">投资</Link>
+					<Link to="/activity">发现</Link>
+					<Link to="/other">我的</Link>
 				</nav>
 			</div>
 		</div>

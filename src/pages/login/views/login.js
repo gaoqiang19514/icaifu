@@ -2,7 +2,6 @@ import React, {Component} from 'react'
 import { Link, Redirect } from 'react-router-dom'
 import {connect} from 'react-redux';
 import axios from 'axios';
-import md5 from 'md5'
 
 
 import style from './style.scss'
@@ -10,7 +9,7 @@ import {actions as authActions} from './../../../common/auth/'
 import {actions as loadingActions} from './../../../common/loading'
 import Menu from './../../../common/menu/'
 
-var forge = require('node-forge');
+const forge = require('node-forge');
 
 
 class Login extends Component {
@@ -33,7 +32,7 @@ class Login extends Component {
             }
         }
 
-        const APP_KAY = ''
+        const APP_KAY = '9wsez1o5cc2oetj6f6n8oh'
         
         const signature = () => {
             let signParams = [
