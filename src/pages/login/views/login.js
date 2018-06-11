@@ -1,16 +1,12 @@
 import React, {Component} from 'react'
+import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom'
-import {connect} from 'react-redux';
 import axios from 'axios';
 
-
 import style from './style.scss'
+import Menu from './../../../common/menu/'
 import {actions as authActions} from './../../../common/auth/'
 import {actions as loadingActions} from './../../../common/loading'
-import Menu from './../../../common/menu/'
-
-const forge = require('node-forge');
-
 
 class Login extends Component {
 
@@ -161,7 +157,5 @@ const mapDispatchToProps = (dispatch) => {
 		}
     }
 }
-
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(Login)

@@ -67,7 +67,6 @@ class App extends Component {
                                     <Auth path="/voucher" component={Voucher} />
                                     <Route path="/safety" component={Safety} />
 
-                                    
                                     <Auth path="/withdraw" component={Withdraw} />
                                     <Auth path="/recharge" component={Recharge} />
                                     <Auth path="/exchangeRecord" component={ExchangeRecord} />
