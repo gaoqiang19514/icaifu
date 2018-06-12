@@ -3,10 +3,11 @@ import ReactDOM from 'react-dom';
 import { BrowserRouter } from 'react-router-dom'
 import { Provider } from 'react-redux';
 
-import store from './Store.js';
 
-import './common/reset.css'
-import './index.css';
+import 'normalize.css'
+import './index.scss';
+
+import store from './Store.js';
 import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 

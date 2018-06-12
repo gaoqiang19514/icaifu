@@ -9,6 +9,7 @@
     "blueimp-md5": "^2.10.0",
     "js-md5": "^0.7.3",
     "node-forge": "^0.7.5",
+    "normalize.css": "^8.0.0",
     "react": "^16.2.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-dom": "^16.2.0",

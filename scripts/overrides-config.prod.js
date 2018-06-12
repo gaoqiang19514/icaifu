@@ -1,11 +1,6 @@
-/*
-* @Author: gao
-* @Date:   2018-01-19 15:06:03
-* @Last Modified by:   gao
-* @Last Modified time: 2018-01-19 15:07:14
-*/
 const paths = require('react-scripts/config/paths');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const baseConfig = require('./overrides-config.base');
 
 // Webpack uses `publicPath` to determine where the app is being served from.
 // It requires a trailing slash, or the file assets will get an incorrect path.
@@ -20,6 +15,9 @@ const extractTextPluginOptions = shouldUseRelativeAssetPaths
     : {};
 
 module.exports = function(config) {
+    // Define the root path alias
+    let alias = config.resolve.alias;
+    alias["@"] = baseConfig.rootPath;
 
     // Use your ESLint
     /*let eslintLoader = config.module.rules[0];

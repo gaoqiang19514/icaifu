@@ -1,23 +1,35 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import style from './style.scss'
-
-const Menu = () => {
-	return (
-		<div>
-			<div className={style.sibling}>&nbsp;</div>
-			<div className={style.menu}>
-				<nav>
-					<Link to="/home">首页</Link>
-					<Link to="/invest">投资</Link>
-					<Link to="/activity">发现</Link>
-					<Link to="/other">我的</Link>
-				</nav>
-			</div>
-		</div>
-
-	)
+const navStyle = {
+    display: "flex",
+    background: "#fff"
 }
+
+const linkStyle = {
+    letterSpacing: '.1em',
+    fontSize: "12px",
+    flex: "1",
+    textAlign: "center",
+    lineHeight: "50px"
+}
+
+const siblingStyle = {
+    height: "50px"
+}
+
+const Menu = () => (
+    <div>
+        <div style={ siblingStyle }></div>
+        <div className="l-fixed-bottom">
+            <nav style={ navStyle }>
+                <Link style={ linkStyle } to="/home">首页</Link>
+                <Link style={ linkStyle } to="/invest">投资</Link>
+                <Link style={ linkStyle } to="/activity">发现</Link>
+                <Link style={ linkStyle } to="/other">我的</Link>
+            </nav>
+        </div>
+    </div>
+)
 
 export default Menu

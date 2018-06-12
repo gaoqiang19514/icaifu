@@ -1,5 +1,5 @@
 const forge = require('node-forge');
-const APP_KAY = 'xxxxxxxxxxxxxx'
+const APP_KAY = ''
 
 export const createSignature = () => {
     let signParams = [
