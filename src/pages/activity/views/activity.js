@@ -7,33 +7,36 @@ import Menu from '@/common/menu/'
 import './style.scss'
 
 const imgStyle = {
-    "display": "block",
-    "maxWidth": "100%"
+    display: "block",
+    maxWidth: "100%"
 }
 
 const imgBoxStyle = {
-    "overflow": "hidden",
-    "borderRadius": "3px",
+
 }
 
 const boxStyle = {
-    "width": "92%",
-    "margin": "auto",   
-    "padding": "4% 0"
+    width: "92%",
+    margin: "auto",   
+    padding: "4% 0"
 }
 
 const titleStyle = {
-    "fontWeight": "bold",
-    "fontSize": "16px"
+    fontWeight: "bold",
+    fontSize: "16px"
+}
+
+const dateStyle = {
+    fontSize: "12px",
+    color: "#888"
 }
 
 const Item = ({ id, name, intro, imgSrc, url, startDate, endDate}) => (
     <div className="activity">
         <a href={ url }>
-            <div style={ imgBoxStyle }><img style={ imgStyle } src={ imgSrc } alt={ name }/></div>
+            <div className="img" style={{ backgroundImage: `url(${imgSrc})` }}><img style={ imgStyle } src={ imgSrc } alt={ name }/></div>
             <h2 style={ titleStyle }>{ name }</h2>
-            <div>{ intro }</div>
-            <div>
+            <div style={ dateStyle }>
                 活动时间：{ startDate } { endDate }
             </div>
         </a>

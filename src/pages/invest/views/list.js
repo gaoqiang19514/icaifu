@@ -1,45 +1,46 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import style from './style.scss'
-
-const Item = ({ name, match, id }) => (
-	<Link className={style.link} to={`${match.url}/${id}`}>
-		<div className={style.item}>
-			<h2><span>{ name }</span><span className={style.status}>招标中</span></h2>
-			<div className={style.main}>
-				<div className={style.cell}>
-					<p className={style.percentage}>7%</p>
-					<p className={style.label}>预期年化</p>
+const Item = ({ name, match, id, percent, timeLimit, borrowingRate, gift, full }) => (
+	<Link className="link" to={`${match.url}/${id}`}>
+		<tr>
+			<td>{ borrowingRate }% + {gift}元</td>
+			<td>期限{ timeLimit }天</td>
+			<td>{ percent }%</td>
+		</tr>
+		<tr>
+			<td className="stt">预期年化利率</td>
+			<td className="stt">投资金额{ full }元</td>
+			<td>
+				<div className="bar">
+					<div className="bar__per" style={ { width: `${percent}%` } }></div>
 				</div>
-				<div className={style.cell}>
-					<p className={style.percentage}>7%</p>
-					<p className={style.label}>项目期限</p>
-				</div>
-				<div className={style.cell}>
-					<p className={style.percentage}>7%</p>
-					<p className={style.label}>可购金额（元）</p>
-				</div>
-			</div>
-		</div>
+			</td>
+		</tr>
 	</Link>
 )
 
-export default ({data, match}) => {
+export default ({ data, match }) => {
 	return (
-		<div>
+		<table className="table">
 			{
 				data.map((item, index) => {
 					return (
-						<Item 
-							id={ item.pro_id } 
-							name={ item.pro_name }
-							match={match} 
-							key={ item.pro_id }
-						/>
+							<Item 
+								id={ item.pro_id } 
+								name={ item.pro_name }
+								match={ match } 
+								timeLimit={ item.time_limit }
+								borrowingRate={ item.borrowing_rate }
+								gift={ item.gift }
+								full={ item.full }
+								percent={ item.percent }
+								key={ item.pro_id }
+							/>
 					)
 				})
 			}
-		</div>
+		</table>
+
 	)
 }

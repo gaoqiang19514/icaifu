@@ -3,7 +3,6 @@ import axios from 'axios';
 import Swiper from "swiper"
 import "swiper/dist/css/swiper.css"
 
-import './banner.scss'
 import { createSignature } from '@/api/api.js'
 
 const Item = ({ activityUrl, intro, appPicUrl }) => (

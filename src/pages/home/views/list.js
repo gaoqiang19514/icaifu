@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import axios from 'axios';
-import Item from './item.js'
 import JiPlan from './jiPlan.js'
 import IEnjoy from './ienjoy.js'
 
@@ -18,12 +17,12 @@ class List extends Component {
 	}
 
 	componentWillMount() {
-		this._isMounted = true
+		this.loadFlag = true
 		this.loadProductList()
 	}
 
 	componentWillUnmount() {
-		this._isMounted = false
+		this.loadFlag = false
 	}
 
 	loadProductList() {
@@ -32,7 +31,7 @@ class List extends Component {
         axios.get('/product/p2p_data_info?' + keyStr)
         .then((response) => {
             if(response.status === 200){
-				if(!this._isMounted){return}
+				if(!this.loadFlag){return}
 				this.setState({
 					jiPlanList: response.data.items,
 					ienjoyList: response.data.p2pSubjectList
@@ -53,8 +52,22 @@ class List extends Component {
    
 		return (
 			<div>
-				<JiPlan arr={ jiPlanList } />
-				<IEnjoy arr={ ienjoyList } />
+				<div className="l-box">
+					<div className="l-box-hd">
+						<h2 className="tt">极计划</h2>
+					</div>
+					<div className="l-box-bd">
+						<JiPlan arr={ jiPlanList } />
+					</div>
+				</div>
+				<div className="l-box">
+					<div className="l-box-hd">
+						<h2 className="tt">i享系列</h2>
+					</div>
+					<div className="l-box-bd">
+						<IEnjoy arr={ ienjoyList } />
+					</div>
+				</div>
 			</div>
 		)
 	}
