@@ -26,7 +26,7 @@ const Menu = () => (
                 <Link style={ linkStyle } to="/home">首页</Link>
                 <Link style={ linkStyle } to="/invest">投资</Link>
                 <Link style={ linkStyle } to="/activity">发现</Link>
-                <Link style={ linkStyle } to="/other">我的</Link>
+                <Link style={ linkStyle } to="/user">我的</Link>
             </nav>
         </div>
     </div>

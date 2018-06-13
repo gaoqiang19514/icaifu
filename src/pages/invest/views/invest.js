@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
+import InfiniteScroll from 'infinite-scroll'
 
 import './style.scss'
 import { createSignature } from '@/api/api.js'
@@ -26,8 +27,12 @@ class Invest extends Component {
 	componentWillMount() {
 		this.loadFlag = true
 		this.loadProductList()
-		this.loadJiPlanList()
-	}
+        this.loadJiPlanList()
+    }
+    
+    componentDidMount() {
+        var elem = document.querySelector('.ienjoy');
+    }
 
 	componentWillUnmount() {
 		this.loadFlag = false
