@@ -13,7 +13,7 @@ import {actions as loadingActions} from '@/common/loading'
 
 
 const forge = require('node-forge');
-const APP_KAY = '9wsez1o5cc2oetj6f6n8oh'
+const APP_KAY = ''
 
 const sha1 = (value) => {
     const md = forge.md.sha1.create().update(value);

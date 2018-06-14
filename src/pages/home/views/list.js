@@ -1,9 +1,12 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
 import axios from 'axios';
+
 import JiPlan from './jiPlan.js'
 import IEnjoy from './ienjoy.js'
 
-import { createSignature } from './../../../api/api.js'
+import { createSignature } from '@/api/api.js'
+import { actions as loadingActions } from '@/common/loading'
 
 class List extends Component {
 
@@ -28,6 +31,7 @@ class List extends Component {
 	loadProductList() {
 		const keyStr = createSignature()
 
+		this.props.onShowLoading();
         axios.get('/product/p2p_data_info?' + keyStr)
         .then((response) => {
             if(response.status === 200){
@@ -40,7 +44,10 @@ class List extends Component {
         })
         .catch((error) => {
 
-        })		
+		})	
+		.finally(() => {
+			this.props.onHideLoading();
+		});	
 	}
 
 	render() {
@@ -73,4 +80,16 @@ class List extends Component {
 	}
 }
 
-export default List
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onShowLoading: () => {
+			dispatch(loadingActions.showLoading())
+		},
+		onHideLoading: () => {
+			console.log('hide');
+			dispatch(loadingActions.hideLoading())
+		}
+	}
+}
+
+export default connect(null, mapDispatchToProps)(List)

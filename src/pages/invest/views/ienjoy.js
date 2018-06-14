@@ -1,5 +1,7 @@
-import React from 'react'
+import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
+
+import Infinite from 'react-infinite'
 
 const Item = ({ pro_name, match, id, percent, timeLimit, interest_rate, gift, full }) => {
     if(gift){
@@ -24,24 +26,34 @@ const Item = ({ pro_name, match, id, percent, timeLimit, interest_rate, gift, fu
     )
 }
 
-export default ({ data, match }) => {
-	return (
-        <div>
-            {
-                data.map((item, index) => (
-                    <Item 
-                        id={ item.pro_id } 
-                        pro_name={ item.pro_name }
-                        match={ match } 
-                        timeLimit={ item.time_limit }
-                        interest_rate={ item.interest_rate }
-                        gift={ item.gift }
-                        full={ item.full }
-                        percent={ item.percent }
-                        key={ item.pro_id }
-                    />
-                ))
-            }
-        </div>        
-	)
+export default class Ienjoy extends Component {
+
+    constructor(props) {
+        super(props)
+    }
+
+    render() {
+
+        const { data, match } = this.props
+
+        return (
+            <div>
+                {
+                    data.map((item, index) => (
+                        <Item 
+                            id={ item.pro_id } 
+                            pro_name={ item.pro_name }
+                            match={ match } 
+                            timeLimit={ item.time_limit }
+                            interest_rate={ item.interest_rate }
+                            gift={ item.gift }
+                            full={ item.full }
+                            percent={ item.percent }
+                            key={ item.pro_id }
+                        />
+                    ))
+                }
+            </div>  
+        )
+    }
 }

@@ -1,13 +1,16 @@
 const forge = require('node-forge');
 const APP_KAY = ''
 
-export const createSignature = () => {
+export const createSignature = (page) => {
+    if(!page){
+        page = 1
+    }
     let signParams = [
         'ver=5.1.0',
         'uuid=915EFFC9-BCA6-4431-A36A-D4B5069D36D3',
         'systemVersion=11.2',
         'page_size=10',
-        'page_no=1',
+        `page_no=${page}`,
         'openid=p2p_ios',
         '_type=json'
     ];

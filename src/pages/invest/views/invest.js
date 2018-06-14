@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
-import InfiniteScroll from 'infinite-scroll'
 
 import './style.scss'
 import { createSignature } from '@/api/api.js'
@@ -11,14 +10,13 @@ import Ienjoy from './ienjoy.js'
 import Menu from '@/common/menu/'
 
 
-
-
 class Invest extends Component {
 
 	constructor(props) {
 		super(props)
 
 		this.state = {
+			page: 1,
 			sort: 1,
 			flag1: false,
 			flag2: false,
@@ -34,28 +32,50 @@ class Invest extends Component {
     }
     
     componentDidMount() {
-        var elem = document.querySelector('.ienjoy');
+		var elem = document.querySelector('.ienjoy');
+		
+		window.addEventListener('scroll', this.scrollCheck)
+	}
+
+	scrollCheck = () => {
+		if(window.innerHeight >= document.body.scrollHeight - document.documentElement.scrollTop){
+			this.loadList();
+		}
+	}
+	
+    loadList = () => {
+		this.loadProductList();
     }
 
-	componentWillUnmount() {
+	componentWillUnmount  = () => {
 		this.loadFlag = false
+		window.removeEventListener('scroll', this.scrollCheck)
 	}
 
 	loadProductList() {
-		const keyStr = createSignature()
+		const keyStr = createSignature(this.state.page)
 
+		this.props.onShowLoading();
         axios.get('/product/p2p_subject_info?' + keyStr)
         .then((response) => {
             if(response.status === 200){
 				if(!this.loadFlag){return}
+				let arr = []
+				arr = this.state.ienjoyList.concat(response.data.items)
 				this.setState({
-					ienjoyList: response.data.items
+					page: this.state.page + 1
+				})
+				this.setState({
+					ienjoyList: arr
 				})
 			}
         })
         .catch((error) => {
 
-        })			
+		})
+		.finally(() => {
+			this.props.onHideLoading();
+		})			
 	}
 
 	loadJiPlanList() {
@@ -68,6 +88,7 @@ class Invest extends Component {
 				this.setState({
 					jiPlanList: response.data.items
 				})
+
             }
         })
         .catch((error) => {
@@ -150,6 +171,7 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(loadingActions.showLoading())
 		},
 		onHideLoading: () => {
+			console.log('hide');
 			dispatch(loadingActions.hideLoading())
 		}
 	}
