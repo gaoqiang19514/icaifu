@@ -1,36 +1,47 @@
-.link{
+.link {
     text-decoration: none;
 }
-.table{
+
+.table {
     width: 100%;
-    td{
+    td {
         padding: 10px;
     }
 }
-.item{
+
+.item {
     display: flex;
     align-content: space-between;
 }
-.stt{
-    font-size: 14px;
-    color: #898996;
+
+
+.bar {
+    background: #eceff8;
 }
-.bar{
-    background: #eceff8;   
-}
-.bar__per{
+
+.bar__per {
     height: 4px;
     background: #ff5151;
 }
 
-.l-hd{
+
+
+.l-hd {
     display: flex;
-    margin-bottom: 4%;
+    margin-bottom: 0.2667rem;
     background: #fff;
 }
-.l-hd-item{
+
+.l-hd-item {
     padding: 15px 0;
     flex: 1;
     text-align: center;
     justify-content: center;
+}
+
+.item__box{
+    display: flex;
+    & > div{
+        flex: 1;
+    }
 }

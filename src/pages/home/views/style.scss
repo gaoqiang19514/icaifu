@@ -1,18 +1,15 @@
+$borderColor: #eaeaea;
+
 .l-box{
     background: #fff;
     margin-bottom: 4%;
 }
 .l-box-hd{
     padding: 4%;
+    border-bottom: 1px solid $borderColor;
 }
 .l-box-bd{
     padding: 4%;
-}
-
-.tt{
-    margin: 0;
-    font-size: 16px;
-    font-weight: bold;
 }
 
 .banner{
@@ -29,3 +26,4 @@
         height: 4px;
     }
 }
+

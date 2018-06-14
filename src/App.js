@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom'
 import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import 'react-flexible';
 
 import style from './App.scss';
 

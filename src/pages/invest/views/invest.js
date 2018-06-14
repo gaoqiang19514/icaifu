@@ -7,7 +7,10 @@ import './style.scss'
 import { createSignature } from '@/api/api.js'
 import { actions as loadingActions } from '@/common/loading'
 import List from './list.js'
+import Ienjoy from './ienjoy.js'
 import Menu from '@/common/menu/'
+
+
 
 
 class Invest extends Component {
@@ -121,7 +124,7 @@ class Invest extends Component {
 				</div>
 				<div className="l-box">
 					<div className="l-box-hd">
-						<h2>极计划</h2>
+						<h2 className="title">极计划</h2>
 					</div>
 					<div className="l-box-bd">
 						<List data={ jiPlanList } match={ this.props.match } />
@@ -129,10 +132,10 @@ class Invest extends Component {
 				</div>
 				<div className="l-box">
 					<div className="l-box-hd">
-						<h2>i享系列</h2>
+						<h2 className="title">i享系列</h2>
 					</div>
 					<div className="l-box-bd">
-						<List data={ ienjoyList } match={ this.props.match } />
+						<Ienjoy data={ ienjoyList } match={ this.props.match } />
 					</div>
 				</div>
 				<Menu />

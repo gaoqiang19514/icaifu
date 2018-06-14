@@ -3,7 +3,7 @@ import {connect} from 'react-redux'
 import axios from 'axios';
 
 
-import style from './style.scss'
+import './style.scss'
 
 import {toggleView} from '../actions'
 import {actions as authActions} from './../../../common/auth/'
@@ -46,28 +46,35 @@ class Profile extends Component {
         }
 
         return (
-            <div className={style.profile}>
-                <div className={style.name}>
-                    user name
-                </div>
-
-                <button className={style.toggle} onClick={this.toggleMoneyView}>隐藏金额</button>
-                <div className={style.total}>
-                    <p className={style.num}>{total}</p>
-                    <p className={style.title}>资产总额（元）</p>
-                </div>
-    
-                <div className={style.money}>
-                    <div className={style.cell}>
-                        <p className={style.num}>{earnings}</p>
-                        <p>累计收益</p>
-                    </div>
-                    <div className={style.cell}>
-                        <p className={style.num}>{balance}</p>
-                        <p>可用余额</p>
-                    </div>
+            <div>
+                <div>
+                    name
                 </div>
                 
+                <div className="card">
+                    <div>
+                        <p>资产总额（元）</p>
+                        <p>{total}</p>
+                    </div>
+        
+                    <div className="card__row">
+                        <div className="card__cell">
+                            <p>投资中的资金(元)</p>
+                            <p>{earnings}</p>
+                        </div>
+                        <div className="card__cell">
+                            <p>待收总收益(元)</p>
+                            <p>{balance}</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        冻结资金(元)  134581.61
+                    </div>
+                </div>
+
+                <button onClick={this.toggleMoneyView}>隐藏金额</button>
+
             </div>
         )
     }

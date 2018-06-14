@@ -47,14 +47,14 @@ class List extends Component {
 		const { jiPlanList, ienjoyList } = this.state
 
 		if(ienjoyList.length < 1){
-			return <div>no data</div>;
+			return null;
 		}
    
 		return (
 			<div>
 				<div className="l-box">
 					<div className="l-box-hd">
-						<h2 className="tt">极计划</h2>
+						<h2 className="title">极计划</h2>
 					</div>
 					<div className="l-box-bd">
 						<JiPlan arr={ jiPlanList } />
@@ -62,7 +62,7 @@ class List extends Component {
 				</div>
 				<div className="l-box">
 					<div className="l-box-hd">
-						<h2 className="tt">i享系列</h2>
+						<h2 className="title">i享系列</h2>
 					</div>
 					<div className="l-box-bd">
 						<IEnjoy arr={ ienjoyList } />

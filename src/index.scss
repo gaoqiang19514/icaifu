@@ -1,7 +1,40 @@
 $linkColor : #08c;
 $btnColor : #e35855;
+$borderColor: #eaeaea;
+
+*,
+*:after,
+*:before{
+    box-sizing: border-box;
+}
+
 body {
+    color: #333;
     background: #f7f7f8;
+    font-family: "PingFangSC-Regular","Helvetica Neue",Helvetica,Arial,"PingFang SC","Heiti SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+
+a{
+    color: #333;
+    text-decoration: none;
+}
+
+input::-webkit-input-placeholder, 
+textarea::-webkit-input-placeholder {   
+    /* WebKit browsers */   
+    color: #fff;   
+}   
+input:-moz-placeholder, textarea:-moz-placeholder {   
+    /* Mozilla Firefox 4 to 18 */   
+    color: #fff;   
+}   
+input::-moz-placeholder, textarea::-moz-placeholder {   
+    /* Mozilla Firefox 19+ */   
+    color: #fff;   
+}   
+input:-ms-input-placeholder, textarea:-ms-input-placeholder {   
+    /* Internet Explorer 10+ */   
+    color: #fff;   
 }
 
 h1,
@@ -13,28 +46,42 @@ h6{
     margin: 0;
 }
 
-.btn {
-    line-height: 50px;
-    border-radius: 25px;
-    text-align: center;
-    color: #fff;
-    outline: none;
-    letter-spacing: .2em;
-    width: 100%;
-    font-size: 16px;
-    background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #f7645b, #f7645b);
-    border: 0;
-    display: block;
-    box-shadow: 0px 2px 8px 0px rgba(249, 82, 83, 0.75);
-}
-
-button:active {
-    box-shadow: inset 3px 6px 16px rgba(0, 0, 0, 0.1);
-}
-
 .l-fixed-bottom {
     position: fixed;
     left: 0;
     right: 0;
     bottom: 0;
 }
+
+.title {
+    color: #fff;
+    display: inline-block;
+    font-size: 0.3467rem;
+    padding: 0.1067rem 0.6rem;
+    transform: skewX(-15deg);
+    border-radius: 3px;
+    background-image: linear-gradient(90deg, #fb7850 0%, #ff5b33 100%), linear-gradient( #ff5b33, #ff5b33);
+    box-shadow: 0rem 0.04rem 0.1067rem 0rem rgba(255, 91, 51, 0.75);
+}
+
+.btn{
+    border:0;
+    width: 100%;
+    outline: none;
+    display: block;
+    text-decoration: none;
+}
+.btn--primary{
+    color: #f8695e;
+    font-size: 0.4267rem;
+    height: 1.3333rem;
+    line-height: 1.3333rem;
+    background: #fff;
+    border-radius: 0.6667rem;
+    box-shadow: 0rem 0.0267rem 0.1067rem 0rem rgba(249, 82, 83, 0.75);
+}
+.login-wrap{
+    width: 83%;
+    margin: auto;
+}
+

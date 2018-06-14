@@ -22,8 +22,9 @@ const boxStyle = {
 }
 
 const titleStyle = {
+    marginBottom: ".5em",
     fontWeight: "bold",
-    fontSize: "16px"
+    fontSize: "0.3467rem"
 }
 
 const dateStyle = {

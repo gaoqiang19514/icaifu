@@ -13,11 +13,23 @@ class IEnjoy extends Component {
             <div>
                 {
                     arr.map((item, index) => {
+                        let gift = '';
+                        if(item.gift){
+                            gift = `+${item.gift}%`;
+                        }
+
                         return (
                             <div key={ item.pro_id }>
-                                <div>{ item.pro_name }</div>
-                                <div>{ item.amount }</div>
-                                <div>{ item.available_amount }</div>
+                                <div>
+                                    <div>{item.interest_rate}%{gift}</div>
+                                    <div>期限{item.time_limit}天</div>
+                                    <div>{item.percent}%</div>
+                                </div>
+                                <div>
+                                    <div>预期年化利率</div>
+                                    <div>投资金额{item.full}元</div>
+                                    <div>{item.percent}%</div>
+                                </div>
                             </div>
                         )
                     })

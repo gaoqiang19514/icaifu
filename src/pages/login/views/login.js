@@ -2,15 +2,18 @@ import React, {Component} from 'react'
 import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios';
+import swal from 'sweetalert'
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import style from './style.scss'
-import Menu from './../../../common/menu/'
-import {actions as authActions} from './../../../common/auth/'
-import {actions as loadingActions} from './../../../common/loading'
+import './style.scss'
+import logo from './images/logo.png'
+
+import {actions as authActions} from '@/common/auth/'
+import {actions as loadingActions} from '@/common/loading'
 
 
 const forge = require('node-forge');
-const APP_KAY = 'x8lg0qcdux8sh4b6c8so0bgyvorwml'
+const APP_KAY = '9wsez1o5cc2oetj6f6n8oh'
 
 const sha1 = (value) => {
     const md = forge.md.sha1.create().update(value);
@@ -53,6 +56,13 @@ const createRandomNumStr = (num) => {
     return str.substr(0, 6)
 }
 
+const buttonsStyle = {
+    display: "flex",
+    justifyContent: "space-between",
+    marginBottom: "1.0667rem",
+    paddingTop: "0.4rem"
+}
+
 class Login extends Component {
 
     constructor(props) {
@@ -78,6 +88,15 @@ class Login extends Component {
         this.handleValueChange = this.handleValueChange.bind(this)
     }
 
+    componentDidMount() {
+        // 为了进入登录页时 给body添加背景
+        document.body.className = 'login'
+    }
+
+    componentWillUnmount() {
+        document.body.className = ''
+    }
+
     login(token) {
         this.props.onLogin(token)
     }
@@ -85,13 +104,13 @@ class Login extends Component {
     handleValueChange(field, value, type = 'string') {
         if(type === 'number'){value = value + 0}
 
-        const {form} = this.state
+        const { form } = this.state
         const newFileObj = {value: value, valid: true, error: ''}
 
         switch(field){
             case 'username':
                 if(value.length >= 12){
-                    newFileObj.error = '用户名最多4个字符'
+                    newFileObj.error = '用户名最多12个字符'
                     newFileObj.valid = false
                 }else if(value.length === 0){
                     newFileObj.error = '请输入用户名'
@@ -100,7 +119,7 @@ class Login extends Component {
                 break
             case 'password':
                 if(value.length >= 12){
-                    newFileObj.error = '密码最多4个字符'
+                    newFileObj.error = '密码最多12个字符'
                     newFileObj.valid = false
                 }else if(value.length === 0){
                     newFileObj.error = '请输入密码'
@@ -121,27 +140,33 @@ class Login extends Component {
     handleSubmit(e) {
         e.preventDefault();
 
+        const { username, password } = this.state.form
 
-        this.props.onShowLoading();
+        if(!username.value || !password.value){return;}
 
-        // const {form: {username, password}} = this.state
-
-        const username = '13112340090';
-        const pwd      = '123456';
         const salt     = createRandomNumStr(Math.random());
 
-        let keyStr = createLoginSign(username, pwd, salt);
+        let keyStr = createLoginSign(username.value, password.value, salt);
 
+        this.props.onShowLoading();
         axios.get('/my/login?' + keyStr)
         .then((response) => {
             if(response.status === 200){
-                this.login(response.data.access_token)
-                this.props.onHideLoading()
+                if(response.data.retcode === 0){
+                    this.login(response.data.access_token)
+                }else{
+                    if(response.data.msg){
+                        swal(response.data.msg)
+                    }
+                }
 			}
         })
         .catch((error) => {
-
-        })	
+            console.log(error);
+        })
+        .finally(() => {
+            this.props.onHideLoading()
+        });
     }
 
     render(){
@@ -149,37 +174,72 @@ class Login extends Component {
 
         // 目前的处理是，只要用户登录则统一跳走
         if(this.props.auth.isAuthenticated){
-            return (<Redirect to={from} />)
+            return <Redirect to={from} />
         }
 
         const {form: {username, password}} = this.state;
 
         return (
-            <div className={style.login}>
-                
-                <form onSubmit={(e) => this.handleSubmit(e)}>
-                    <div className={style.wrap}>
-                        <div className={style.line}>
-                            <input type="text" onChange={(e) => this.handleValueChange('username', e.target.value)} placeholder="请输入手机号/用户名" />
-                        </div>
-                        <div>{!username.valid && <span>{username.error}</span>}</div>
-                        <div className={style.line}>
-                            <input type="password" onChange={(e) => this.handleValueChange('password', e.target.value)} placeholder="请输入您的密码" minLength="6" maxLength="12" />
-                        </div>
-                        <div>{!password.valid && <span>{password.error}</span>}</div>
-                    </div>
+            <div className="login-wrap">
 
-                    <div className={style.wrap}>
-                        <button>登录</button>
-                    </div>
+                <div className="logo">
+                    <img src={logo} alt=""/>
+                </div>
 
-                    <div className={`${style.wrap} ${style.box}`}>
-                        <Link to="/forgetPassword">忘记密码？</Link>
-                        <Link to="/register">注册新账号</Link>
-                    </div>
-                </form>
-                
-                <Menu />
+                <Tabs className="tab login-form" selectedTabClassName="tab__trigger--selected">
+                    <TabList className="tab__hd">
+                        <Tab className="tab__trigger">账号登录</Tab>
+                        <Tab className="tab__trigger">短信登录</Tab>
+                    </TabList>
+
+                    <TabPanel>
+                        <form onSubmit={(e) => this.handleSubmit(e)}>
+                            <div>
+                                <div>
+                                    <input type="text" onChange={(e) => this.handleValueChange('username', e.target.value)} placeholder="请输入手机号/用户名" />
+                                </div>
+                                <div className="error">{!username.valid && <span>{username.error}</span>}</div>
+                                <div>
+                                    <input type="password" onChange={(e) => this.handleValueChange('password', e.target.value)} placeholder="请输入您的密码" />
+                                </div>
+                                <div className="error">{!password.valid && <span>{password.error}</span>}</div>
+                            </div>
+
+                            <div style={buttonsStyle}>
+                                <Link to="/forgetPassword">忘记密码？</Link>
+                                <Link to="/register">注册新账号</Link>
+                            </div>
+
+                            <div>
+                                <button className="btn btn--primary">登录</button>
+                            </div>
+                        </form>
+                    </TabPanel>
+                    <TabPanel>
+                        <form onSubmit={(e) => this.handleSubmit(e)}>
+                            <div>
+                                <div>
+                                    <input type="text" onChange={(e) => this.handleValueChange('username', e.target.value)} placeholder="请输入手机号/用户名" />
+                                </div>
+                                <div className="error">{!username.valid && <span>{username.error}</span>}</div>
+                                <div>
+                                    <input type="password" onChange={(e) => this.handleValueChange('password', e.target.value)} placeholder="请输入验证码" />
+                                    <button>获取验证码</button>
+                                </div>
+                                <div className="error">{!password.valid && <span>{password.error}</span>}</div>
+                            </div>
+
+                            <div style={buttonsStyle}>
+                                <Link to="/forgetPassword">忘记密码？</Link>
+                                <Link to="/register">注册新账号</Link>
+                            </div>
+
+                            <div>
+                                <button className="btn btn--primary">登录</button>
+                            </div>
+                        </form>
+                    </TabPanel>
+                </Tabs>
             </div>
         )
     }
