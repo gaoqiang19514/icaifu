@@ -8,6 +8,51 @@ import Menu from './../../../common/menu/'
 import {actions as authActions} from './../../../common/auth/'
 import {actions as loadingActions} from './../../../common/loading'
 
+
+const forge = require('node-forge');
+const APP_KAY = 'x8lg0qcdux8sh4b6c8so0bgyvorwml'
+
+const sha1 = (value) => {
+    const md = forge.md.sha1.create().update(value);
+    return md.digest().toHex();
+}
+
+export const createLoginSign = (username, pwd, salt) => {
+
+    const pwd_hash_double = sha1(salt + sha1(username + pwd));
+    const pwd_hash = sha1(pwd);
+    let date = new Date().getTime();
+    let uuid = date + username;
+
+    let signParams = [
+        'page_size=10',
+        'page_no=1',
+        `uuid=${uuid}`,
+        `user_name=${username}`,
+        `pwd=${pwd_hash_double}`,
+        `pwd_hash=${pwd_hash}`,
+        'salt=679443',
+        'openid=p2p_ios',
+        '_type=json'
+    ];
+
+    signParams = signParams.sort()
+
+    let signParamsString = signParams.join('&');
+    let signParamsAndAppkey = signParamsString + APP_KAY;
+
+    const md = forge.md.md5.create();
+    md.update(signParamsAndAppkey);
+    const sign = md.digest().toHex();
+
+    return 'sign='+ sign + '&' + 'sign_type=' + 'MD5&' + signParamsString;
+}
+
+const createRandomNumStr = (num) => {
+    let str = num.toString().replace('0.', '');
+    return str.substr(0, 6)
+}
+
 class Login extends Component {
 
     constructor(props) {
@@ -74,27 +119,29 @@ class Login extends Component {
     }
 
     handleSubmit(e) {
-        e.preventDefault()
+        e.preventDefault();
 
-        const {form: {username, password}} = this.state
 
-        this.props.onShowLoading()
+        this.props.onShowLoading();
 
-        axios.post('/login', {
-            username: 'Fred',
-            password: 'Flintstone'
-        })
+        // const {form: {username, password}} = this.state
+
+        const username = '13112340090';
+        const pwd      = '123456';
+        const salt     = createRandomNumStr(Math.random());
+
+        let keyStr = createLoginSign(username, pwd, salt);
+
+        axios.get('/my/login?' + keyStr)
         .then((response) => {
             if(response.status === 200){
-                if(response.data.code === 1){
-                    this.login(response.data.token)
-                    this.props.onHideLoading()
-                }
-            }
+                this.login(response.data.access_token)
+                this.props.onHideLoading()
+			}
         })
-        .catch(function (error) {
-            console.log(error);
-        });
+        .catch((error) => {
+
+        })	
     }
 
     render(){
@@ -123,7 +170,7 @@ class Login extends Component {
                     </div>
 
                     <div className={style.wrap}>
-                        <button className="btn">登录</button>
+                        <button>登录</button>
                     </div>
 
                     <div className={`${style.wrap} ${style.box}`}>

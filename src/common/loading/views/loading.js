@@ -8,7 +8,7 @@ const Loading = ({show}) => {
     let displayStyle = show === true ? {display: "flex"} : {display: "none"}
 
     return (
-        <div style={displayStyle} className={style.loading}></div>
+        <div style={displayStyle} className={style.loading}>loading...</div>
     )
 }
 
