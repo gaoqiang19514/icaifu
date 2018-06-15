@@ -16,9 +16,8 @@ const sha1 = (value) => {
 }
 
 export const createAuthKey = (username, access_token, userid) => {
-
-    let date = new Date().getTime();
-    let uuid = '1111111111111111111111111111111111';
+    let uuid = localStorage.getItem('uuid');
+    if(!uuid){uuid = ''};
 
     let signParams = [
         'page_size=10',
@@ -48,10 +47,19 @@ const createRandomNumStr = (num) => {
     let str = num.toString().replace('0.', '');
     return str.substr(0, 6)
 }
+
 class Profile extends Component {
 
     constructor(props) {
         super(props)
+
+        this.state = {
+            cash_use: 0,
+            p2p_assets: 0,
+            cash_frozen: 0,
+            total_assets: 0,
+            regular_receive_profit: 0
+        };
     }
 
     componentDidMount() {
@@ -63,6 +71,7 @@ class Profile extends Component {
         axios.get('/my/user_assets?' + keyStr)
         .then((response) => {
             if(response.status === 200){
+                console.log(response)
 			}
         })
         .catch((error) => {
@@ -73,32 +82,34 @@ class Profile extends Component {
     }
     
     render() {
+
+        const {p2p_assets, cash_frozen, total_assets, regular_receive_profit, cash_use} = this.state;
+
         return (
             <div className="l-box2">
                 <div className="card">
                     <div>
                         <div>资产总额（元）</div>
-                        <div>10000</div>
+                        <div>{total_assets}</div>
                     </div>
                     <div className="card__row">
                         <div className="card__cell">
                             <div>投资中的资金(元)</div>
-                            <div>10</div>
+                            <div>{p2p_assets}</div>
                         </div>
                         <div className="card__cell">
                             <div>待收总收益(元)</div>
-                            <div>10</div>
+                            <div>{regular_receive_profit}</div>
                         </div>
                     </div>
                     <div>
-                        冻结资金(元)  134581.61
+                        冻结资金(元){cash_frozen}
                     </div>
                 </div>
-
                 <div className="l-box1">
                     <div className="l-box1-main">
                         <div className="m-account-amount">
-                            账户余额：<strong>100.00</strong>
+                            账户余额：<strong>{cash_use}</strong>
                         </div>
                     </div>
                     <div className="l-box1-aside">
@@ -106,7 +117,6 @@ class Profile extends Component {
                         <Link to="/withdraw">提现</Link>
                     </div>
                 </div>
-
             </div>
         )
     }

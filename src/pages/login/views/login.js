@@ -11,12 +11,11 @@ import logo from './images/logo.png'
 import {actions as authActions} from '@/common/auth/'
 import {actions as loadingActions} from '@/common/loading'
 
-
 const forge = require('node-forge');
 const APP_KAY = ''
 
-const sha1 = (value) => {
-    const md = forge.md.sha1.create().update(value);
+const sha1 = (str) => {
+    const md = forge.md.sha1.create().update(str);
     return md.digest().toHex();
 }
 
@@ -24,17 +23,18 @@ export const createLoginSign = (username, pwd, salt) => {
 
     const pwd_hash_double = sha1(salt + sha1(username + pwd));
     const pwd_hash = sha1(pwd);
-    let date = new Date().getTime();
-    let uuid = date + username;
+    let uuid = new Date().getTime() + username;
+
+    localStorage.setItem('uuid', uuid);
 
     let signParams = [
         'page_size=10',
         'page_no=1',
-        `uuid=1111111111111111111111111111111111`,
+        `uuid=${uuid}`,
         `user_name=${username}`,
         `pwd=${pwd_hash_double}`,
         `pwd_hash=${pwd_hash}`,
-        'salt=679443',
+        `salt=${salt}`,
         'openid=p2p_ios',
         '_type=json'
     ];
@@ -144,7 +144,7 @@ class Login extends Component {
 
         if(!username.value || !password.value){return;}
 
-        const salt     = createRandomNumStr(Math.random());
+        const salt = createRandomNumStr(Math.random());
 
         let keyStr = createLoginSign(username.value, password.value, salt);
 
