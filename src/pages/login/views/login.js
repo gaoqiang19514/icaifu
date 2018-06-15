@@ -30,7 +30,7 @@ export const createLoginSign = (username, pwd, salt) => {
     let signParams = [
         'page_size=10',
         'page_no=1',
-        `uuid=${uuid}`,
+        `uuid=1111111111111111111111111111111111`,
         `user_name=${username}`,
         `pwd=${pwd_hash_double}`,
         `pwd_hash=${pwd_hash}`,
@@ -97,8 +97,8 @@ class Login extends Component {
         document.body.className = ''
     }
 
-    login(token) {
-        this.props.onLogin(token)
+    login(token, userid) {
+        this.props.onLogin(token, userid)
     }
 
     handleValueChange(field, value, type = 'string') {
@@ -153,7 +153,7 @@ class Login extends Component {
         .then((response) => {
             if(response.status === 200){
                 if(response.data.retcode === 0){
-                    this.login(response.data.access_token)
+                    this.login(response.data.access_token, response.data.usr_id)
                 }else{
                     if(response.data.msg){
                         swal(response.data.msg)
@@ -253,8 +253,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onLogin: (token) => {
-            dispatch(authActions.login(token))
+        onLogin: (token, userid) => {
+            dispatch(authActions.login(token, userid))
         },
         onShowLoading: () => {
 			dispatch(loadingActions.showLoading())

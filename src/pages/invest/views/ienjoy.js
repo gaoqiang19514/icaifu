@@ -1,8 +1,6 @@
 import React, {Component} from 'react'
 import { Link } from 'react-router-dom'
 
-import Infinite from 'react-infinite'
-
 const Item = ({ pro_name, match, id, percent, timeLimit, interest_rate, gift, full }) => {
     if(gift){
         gift = `+${gift}%`

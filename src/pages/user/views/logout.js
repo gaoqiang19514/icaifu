@@ -1,25 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux';
 
-import {actions as authActions} from './../../../common/auth/'
-
-import style from './style.scss'
+import './style.scss'
+import {actions as authActions} from '@/common/auth/'
 
 const Logout = ({onLogout}) => {
-    return (
-        <div className={style.wrap}>
-            <button onClick={
-            	() => {
-            		onLogout()
-            	}
-            } className="btn">退出登录</button>
-        </div>
-    )
-}
-
-const mapStateToProps = (state) => {
-    return {
-    }
+    return <button onClick={() => {onLogout()}}>退出登录</button>
 }
 
 const mapDispatchToProps = (dispatch) => {
@@ -30,4 +16,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Logout)
+export default connect(null, mapDispatchToProps)(Logout)

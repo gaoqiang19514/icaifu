@@ -1,15 +1,61 @@
 .card {
     color: #fff;
-    margin: auto;
     padding: 0.4rem;
-    width: 9.2rem;
     height: 4.96rem;
     border-radius: 0.1333rem;
     background-image: linear-gradient(105deg, #ff7e7a 0%, #ff4242 100%), linear-gradient( #ffffff, #ffffff);
 }
-.card__row{
+
+.card__row {
     display: flex;
 }
-.card__cell{
 
+.record-nav {
+    background: #fff;
+    margin-bottom: 0.2667rem;
+    a {
+        padding: 0.4rem;
+        font-size: 0.4rem;
+        display: block;
+    }
+}
+
+.other-nav {
+    background: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 0.2667rem;
+    a {
+        font-weight: bold;
+        font-size: 0.4rem;
+        padding: 0.5333rem 0.6667rem;
+        display: block;
+        width: 50%;
+    }
+}
+
+.l-box1 {
+    padding: 0.4rem;
+    display: flex;
+    background: #fff;
+    justify-content: space-between;
+    a {
+        font-size: 0.3467rem;
+        margin-left: 0.4rem;
+        color: #fff;
+        padding: 0.16rem 0.2667rem;
+        display: inline-block;
+        background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #ff6364, #ff6364);
+        box-shadow: 0rem 0.0267rem 0.1067rem 0rem rgba(249, 82, 83, 0.75);
+        border-radius: 0.1067rem;
+    }
+}
+.l-box2{
+    padding: 0.4rem;
+    margin-bottom: 0.2667rem;
+    background: #fff;
+}
+
+.m-account-amount{
+    font-size: 0.4rem;
 }

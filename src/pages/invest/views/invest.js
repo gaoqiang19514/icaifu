@@ -1,14 +1,17 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios'
+import ReactLoading from 'react-loading';
 
 import './style.scss'
-import { createSignature } from '@/api/api.js'
-import { actions as loadingActions } from '@/common/loading'
+import {createSignature} from '@/api/api.js'
+import {actions as loadingActions} from '@/common/loading'
 import List from './list.js'
 import Ienjoy from './ienjoy.js'
 import Menu from '@/common/menu/'
 
+let page = 1;
+let flag = true;
 
 class Invest extends Component {
 
@@ -16,66 +19,65 @@ class Invest extends Component {
 		super(props)
 
 		this.state = {
-			page: 1,
-			sort: 1,
-			flag1: false,
-			flag2: false,
+            _loading: false,
 			ienjoyList: [],
 			jiPlanList: []
 		}
 	}
 
 	componentWillMount() {
-		this.loadFlag = true
-		this.loadProductList()
-        this.loadJiPlanList()
+		this.loadFlag = true;
+		this.loadIenjoy();
+        this.loadJiPlanList();
     }
     
     componentDidMount() {
-		var elem = document.querySelector('.ienjoy');
-		
-		window.addEventListener('scroll', this.scrollCheck)
-	}
-
+		window.addEventListener('scroll', this.scrollCheck);
+    }
+    
+	componentWillUnmount  = () => {
+		this.loadFlag = false;
+		window.removeEventListener('scroll', this.scrollCheck);
+    }
+    
 	scrollCheck = () => {
-		if(window.innerHeight >= document.body.scrollHeight - document.documentElement.scrollTop){
-			this.loadList();
+        if(!flag){return;}
+
+        let scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
+		if(window.innerHeight >= document.body.scrollHeight - scrollTop){
+			this.loadIenjoy();
 		}
 	}
-	
-    loadList = () => {
-		this.loadProductList();
-    }
 
-	componentWillUnmount  = () => {
-		this.loadFlag = false
-		window.removeEventListener('scroll', this.scrollCheck)
-	}
+	loadIenjoy() {
+		const keyStr = createSignature(page);
 
-	loadProductList() {
-		const keyStr = createSignature(this.state.page)
-
-		this.props.onShowLoading();
+        this.props.onShowLoading();
+        flag = false;
+        this.setState({
+            _loading: true
+        });
         axios.get('/product/p2p_subject_info?' + keyStr)
         .then((response) => {
             if(response.status === 200){
-				if(!this.loadFlag){return}
+				if(!this.loadFlag){return;}
 				let arr = []
-				arr = this.state.ienjoyList.concat(response.data.items)
-				this.setState({
-					page: this.state.page + 1
-				})
+                arr = this.state.ienjoyList.concat(response.data.items)
+                page++;
 				this.setState({
 					ienjoyList: arr
 				})
 			}
         })
         .catch((error) => {
-
 		})
 		.finally(() => {
-			this.props.onHideLoading();
-		})			
+            flag = true;
+            this.props.onHideLoading();
+            this.setState({
+                _loading: false
+            });
+		});	
 	}
 
 	loadJiPlanList() {
@@ -88,60 +90,27 @@ class Invest extends Component {
 				this.setState({
 					jiPlanList: response.data.items
 				})
-
             }
         })
         .catch((error) => {
-
         })	
-	}
-
-	switchSort = (sort) => {
-		console.log(sort);
-
-		this.setState({
-			sort: sort
-		})
-	}
-
-	sort1 = () => {
-		this.switchSort(1);
-	}
-
-	sort2 = () => {
-		this.setState({
-			flag1: !this.state.flag1
-		}, () => {
-			if(this.state.flag1){
-				this.switchSort(2);
-			}else{
-				this.switchSort(3);
-			}
-		})
-	}
-
-	sort3 = () => {
-		this.setState({
-			flag2: !this.state.flag2
-		}, () => {
-			if(this.state.flag2){
-				this.switchSort(4);
-			}else{
-				this.switchSort(5);
-			}
-		})
-	}
-
+    }
+    
 	render = () => {
 
-		const { jiPlanList, ienjoyList } = this.state
+        const { jiPlanList, ienjoyList, _loading } = this.state;
+
+        let loadingStyle = {display: 'none'};
+        if(_loading){
+            loadingStyle = {display: 'block'};
+        }
 
 		return (
 			<div>
 				<div className="l-hd">
-					<div onClick={ () => { this.sort1() } } className="l-hd-item">默认</div>
-					<div onClick={ () => { this.sort2() } } className="l-hd-item">收益率</div>
-					<div onClick={ () => { this.sort3() } } className="l-hd-item">期限</div>
+					<div className="l-hd-item">默认</div>
+					<div className="l-hd-item">收益率</div>
+					<div className="l-hd-item">期限</div>
 				</div>
 				<div className="l-box">
 					<div className="l-box-hd">
@@ -159,6 +128,8 @@ class Invest extends Component {
 						<Ienjoy data={ ienjoyList } match={ this.props.match } />
 					</div>
 				</div>
+
+                <ReactLoading style={loadingStyle} type="spin" className="page-loading" />
 				<Menu />
 			</div>		
 		)
@@ -171,7 +142,6 @@ const mapDispatchToProps = (dispatch) => {
 			dispatch(loadingActions.showLoading())
 		},
 		onHideLoading: () => {
-			console.log('hide');
 			dispatch(loadingActions.hideLoading())
 		}
 	}
