@@ -9,7 +9,7 @@ import Item from './item.js'
 
 
 const forge = require('node-forge');
-const APP_KAY = ''
+const APP_KAY = 'APP_KAY'
 
 const sha1 = (value) => {
     const md = forge.md.sha1.create().update(value);

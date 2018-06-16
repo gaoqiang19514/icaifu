@@ -1,12 +1,14 @@
-.activity{
-    color: #333;
-    margin-bottom: 4%;
-}
-.activity .img{
-    height: 0;
-    padding-top: 47.24%;
-    overflow: hidden;
-    border-radius: 3px;
-    background-size: 100%;
-    margin-bottom: 10px;
+.list{
+    a{
+        position: relative;
+        display: block;
+        margin-bottom: 0.4rem;
+    }
+    a:last-child{
+        margin: 0;
+        
+        &:after{
+            content: none;
+        }
+    }
 }

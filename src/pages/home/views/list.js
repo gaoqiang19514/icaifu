@@ -4,7 +4,7 @@ import axios from 'axios';
 
 import JiPlan from './jiPlan.js'
 import IEnjoy from './ienjoy.js'
-
+import style from './style.scss'
 import { createSignature } from '@/api/api.js'
 import { actions as loadingActions } from '@/common/loading'
 
@@ -34,6 +34,7 @@ class List extends Component {
 		this.props.onShowLoading();
         axios.get('/product/p2p_data_info?' + keyStr)
         .then((response) => {
+			console.log(response)
             if(response.status === 200){
 				if(!this.loadFlag){return}
 				this.setState({
@@ -59,20 +60,21 @@ class List extends Component {
    
 		return (
 			<div>
-				<div className="l-box">
-					<div className="l-box-hd">
-						<h2 className="title">极计划</h2>
+				<div className={style.l_b}>
+					<div className={style.l_b_h}>
+						<h2 className="label">极计划</h2>
 					</div>
-					<div className="l-box-bd">
-						<JiPlan arr={ jiPlanList } />
+					<div className={style.l_b_b}>
+						<JiPlan data={jiPlanList} match={this.props.match} />
 					</div>
 				</div>
-				<div className="l-box">
-					<div className="l-box-hd">
-						<h2 className="title">i享系列</h2>
+
+				<div className={style.l_b}>
+					<div className={style.l_b_h}>
+						<h2 className="label">i享系列</h2>
 					</div>
-					<div className="l-box-bd">
-						<IEnjoy arr={ ienjoyList } />
+					<div className={style.l_b_b}>
+						<IEnjoy data={ienjoyList} match={this.props.match} />
 					</div>
 				</div>
 			</div>

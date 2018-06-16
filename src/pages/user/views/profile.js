@@ -8,7 +8,7 @@ import {toggleView} from '../actions'
 import {actions as authActions} from '@/common/auth/'
 
 const forge = require('node-forge');
-const APP_KAY = '9wsez1o5cc2oetj6f6n8oh'
+const APP_KAY = ''
 
 const sha1 = (value) => {
     const md = forge.md.sha1.create().update(value);
@@ -54,11 +54,11 @@ class Profile extends Component {
         super(props)
 
         this.state = {
-            cash_use: 0,
-            p2p_assets: 0,
-            cash_frozen: 0,
-            total_assets: 0,
-            regular_receive_profit: 0
+            cash_use: '- -',
+            p2p_assets: '- -',
+            cash_frozen: '- -',
+            total_assets: '- -',
+            regular_receive_profit: '- -'
         };
     }
 
@@ -71,13 +71,18 @@ class Profile extends Component {
         axios.get('/my/user_assets?' + keyStr)
         .then((response) => {
             if(response.status === 200){
-                console.log(response)
+                this.setState({
+                    cash_use: response.data.item.cash_use,
+                    p2p_assets: response.data.item.p2p_assets,
+                    cash_frozen: response.data.item.cash_frozen,
+                    total_assets: response.data.item.total_assets,
+                    regular_receive_profit: response.data.item.regular_receive_profit
+                })
 			}
         })
         .catch((error) => {
 		})
 		.finally(() => {
-  
 		});	
     }
     

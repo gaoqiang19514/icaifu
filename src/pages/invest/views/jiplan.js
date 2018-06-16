@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react'
 import { Link } from 'react-router-dom'
 
 import style from './style.scss'
@@ -35,24 +35,33 @@ const cell3Style = {
     flexBasis: '15%'
 }
 
-const titleStyle = {
-    fontSize: '0.3467rem',
-	color: '#1a1b1c'
+const labelStyle = {
+    color: '#fff',
+    padding: '0.0667rem 0.2rem',
+    display: 'inline-block',
+    fontSize: '0.2667rem',
+    borderRadius: '0.4rem'
 }
 
-const Item = ({ pro_name, match, id, percent, timeLimit, interest_rate, gift, full }) => {
-    if(gift){gift = `+${gift}%`}
+const Item = ({ novice, novice_restrictions_desc, match, id, percent, timeLimit, borrowingRate, gift, full }) => {
+    if(gift){
+        gift = `+${gift}元`
+    }
+    let badgeStyle = {display: 'none'};
+    if(novice){
+        badgeStyle = {display: 'block'};
+    }
 
-    return(
+    return (
         <Link to={`${match.url}/${id}`}>
             <div className={style.l_box}>
-                <div className={style.l_box_hd}>
-                    <h2 style={titleStyle}>{pro_name}</h2>
+                <div style={badgeStyle} className={style.l_box_hd}>
+                    <label className="gradient" style={labelStyle}>{novice_restrictions_desc}</label>
                 </div>
                 <div className={style.l_box_bd} style={itemStyle}>
                     <div style={cell1Style}>
                         <div className={style.l_c_t}>
-                            <strong style={t1}>{interest_rate}%</strong>
+                            <strong style={t1}>{borrowingRate}%</strong>
                             <span style={t2}>{gift}</span>
                         </div>
                         <div className={`${style.sub_text}`}>预期年化利率</div>
@@ -77,16 +86,17 @@ const Item = ({ pro_name, match, id, percent, timeLimit, interest_rate, gift, fu
     )
 }
 
-export default ({data, match}) => (
+export default ({ data, match }) => (
     <div className={style.l_box_wrap}>
         {
             data.map((item, index) => (
                 <Item 
                     id={ item.pro_id } 
-                    pro_name={ item.pro_name }
+                    novice={item.novice}
+                    novice_restrictions_desc={ item.novice_restrictions_desc }
                     match={ match } 
                     timeLimit={ item.time_limit }
-                    interest_rate={ item.interest_rate }
+                    borrowingRate={ item.borrowing_rate }
                     gift={ item.gift }
                     full={ item.full }
                     percent={ item.percent }
@@ -94,5 +104,5 @@ export default ({data, match}) => (
                 />
             ))
         }
-    </div>  
+    </div>        
 )

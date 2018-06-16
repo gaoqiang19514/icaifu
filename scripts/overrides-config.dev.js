@@ -15,7 +15,7 @@ module.exports = function(config) {
 
     loaderList.splice(loaderList.length - 1, 0, {
         test: /\.scss$/,
-        use: ["style-loader", "css-loader", "sass-loader"] // "css-loader?modules"
+        use: ["style-loader", "css-loader?modules", "sass-loader"] // "css-loader?modules"
     });
 
 };

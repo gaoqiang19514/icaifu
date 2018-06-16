@@ -1,12 +1,14 @@
-import React, {Component} from 'react'
-import {connect} from 'react-redux'
-import axios from 'axios'
+import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import axios from 'axios';
 import ReactLoading from 'react-loading';
 
-import './style.scss'
-import {createSignature} from '@/api/api.js'
+import style from './style.scss'
+import {buildPublicSign} from '@/api/api.js'
 import {actions as loadingActions} from '@/common/loading'
-import List from './list.js'
+
+import Sort from './sort.js'
+import JiPlan from './jiplan.js'
 import Ienjoy from './ienjoy.js'
 import Menu from '@/common/menu/'
 
@@ -50,9 +52,8 @@ class Invest extends Component {
 	}
 
 	loadIenjoy() {
-		const keyStr = createSignature(page);
+		const keyStr = buildPublicSign(page);
 
-        this.props.onShowLoading();
         flag = false;
         this.setState({
             _loading: true
@@ -73,7 +74,6 @@ class Invest extends Component {
 		})
 		.finally(() => {
             flag = true;
-            this.props.onHideLoading();
             this.setState({
                 _loading: false
             });
@@ -81,7 +81,7 @@ class Invest extends Component {
 	}
 
 	loadJiPlanList() {
-		const keyStr = createSignature()
+		const keyStr = buildPublicSign()
 
 		axios.get('/product/p2p_data_info?' + keyStr)
         .then((response) => {
@@ -107,29 +107,31 @@ class Invest extends Component {
 
 		return (
 			<div>
-				<div className="l-hd">
-					<div className="l-hd-item">默认</div>
-					<div className="l-hd-item">收益率</div>
-					<div className="l-hd-item">期限</div>
+				
+				<div className={style.l_b}>
+					<Sort />
 				</div>
-				<div className="l-box">
-					<div className="l-box-hd">
-						<h2 className="title">极计划</h2>
+
+				<div className={style.l_b}>
+					<div className={style.l_b_h}>
+						<h2 className="label">极计划</h2>
 					</div>
-					<div className="l-box-bd">
-						<List data={ jiPlanList } match={ this.props.match } />
+					<div className={style.l_b_b}>
+						<JiPlan data={ jiPlanList } match={ this.props.match } />
 					</div>
 				</div>
-				<div className="l-box">
-					<div className="l-box-hd">
-						<h2 className="title">i享系列</h2>
+
+				<div className={style.l_b}>
+					<div className={style.l_b_h}>
+						<h2 className="label">i享系列</h2>
 					</div>
-					<div className="l-box-bd">
+					<div className={style.l_b_b}>
 						<Ienjoy data={ ienjoyList } match={ this.props.match } />
 					</div>
 				</div>
 
-                <ReactLoading style={loadingStyle} type="spin" className="page-loading" />
+                <ReactLoading style={loadingStyle} type="spin" className={style.loading} />
+
 				<Menu />
 			</div>		
 		)

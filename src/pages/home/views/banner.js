@@ -4,6 +4,7 @@ import Swiper from "swiper"
 import "swiper/dist/css/swiper.css"
 
 import { createSignature } from '@/api/api.js'
+import style from './style.scss';
 
 const Item = ({ activityUrl, intro, appPicUrl }) => (
     <div className="swiper-slide">
@@ -13,7 +14,7 @@ const Item = ({ activityUrl, intro, appPicUrl }) => (
     </div>        
 )
 
-class Banner extends Component {
+export default class extends Component {
 
     constructor(props) {
         super(props)
@@ -23,16 +24,16 @@ class Banner extends Component {
     }
 
     componentWillMount(){
-        this.loadFlag = true
-        this.loadBanners()
+        this.loadFlag = true;
+        this.loadBanners();
     }
 
     componentWillUnmount() {
-        this.loadFlag = false
+        this.loadFlag = false;
     }
 
     loadBanners() {
-        const keyStr = createSignature()
+        const keyStr = createSignature();
 
         axios.get('/product/activity_list?' + keyStr)
         .then((response) => {
@@ -52,34 +53,30 @@ class Banner extends Component {
             })
         })
         .catch((error) => {
-        })
+        });
     }
 
 	render() {
-        const { banners } = this.state
+        const {banners} = this.state;
 
 		return (
-			<div className="banner">
-                <div className="swiper-container">
-                    <div className="swiper-wrapper">
-                        {
-                            banners.map((item, index) => {
-                                return (
-                                    <Item 
-                                        key={ item.id }
-                                        activityUrl={ item.appPicUrl }
-                                        intro={ item.intro }
-                                        appPicUrl={ item.appPicUrl }
-                                    />
-                                )
-                            })
-                        }
-                    </div>
-                    <div className="swiper-pagination swiper-pagination"></div>
+            <div className={`swiper-container ${style.swiper__container}`}>
+                <div className="swiper-wrapper">
+                    {
+                        banners.map((item, index) => {
+                            return (
+                                <Item 
+                                    key={item.id}
+                                    activityUrl={item.appPicUrl}
+                                    intro={item.intro}
+                                    appPicUrl={item.appPicUrl}
+                                />
+                            )
+                        })
+                    }
                 </div>
-			</div>
+                <div className={`swiper-pagination swiper-pagination ${style.swiper__pagination}`}></div>
+            </div>
 		)
 	}
 }
-
-export default Banner
