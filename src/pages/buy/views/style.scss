@@ -1,0 +1,38 @@
+.l_box{
+    padding: 0.4667rem 0.4rem;
+    margin-bottom: 0.2667rem;
+    background: #fff;
+}
+.l_box_in{
+    display: flex;
+    justify-content: space-between;
+}
+.u_t1{
+    font-size: 0.4rem;
+}
+.u_t2{
+    font-size: 0.3467rem;
+}
+.u_c_g{
+    color: #898996;
+}
+.u_c_r{
+    color: #f8695e;
+}
+.u_m_b{
+    margin-bottom: 0.2667rem;
+}
+.u_m_b_c{
+    margin-bottom: 0.4667rem;
+}
+
+.m_input{
+    font-size: 0.6667rem;
+    border: 0;
+    border-radius: 0;
+    outline: 1px solid red;
+    width: auto;
+}
+.m_button{
+    width: auto;
+}

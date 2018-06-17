@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 
-import style from './style.scss'
-
-import Head from './head.js'
+import styles from './style.scss'
 import Coupon from './coupon.js'
 
 class Buy extends Component {
@@ -171,7 +169,51 @@ class Buy extends Component {
 
         return (
             <div>
-                <Head />
+
+                <div className={`${styles.l_box} ${styles.u_t1}`}>
+                    <div className={`${styles.l_box_in} ${styles.u_c_g} ${styles.u_m_b}`}>
+                        <span>剩余可购(元)</span>
+                        <span>预期收益(元)</span>
+                    </div>
+                    <div className={`${styles.l_box_in} ${styles.u_m_b_c}`}>
+                        <span>894,531</span>
+                        <span>129.45+499</span>
+                    </div>
+                    <div className={styles.u_m_b_c}>
+                        <div className={styles.l_box_in}>
+                            <input className={styles.m_input} type="text" placeholder="100元起投"/>
+                            <button className={styles.m_button}>余额全投</button>
+                        </div>
+                    </div>
+                    <div className={`${styles.l_box_in} ${styles.u_c_g}`}>
+                        <span>可用余额0.00元</span>
+                    </div>
+                </div>
+
+                <div className={`${styles.l_box} ${styles.u_t1}`}>
+                    <div className={styles.l_box_in}>
+                        <span>优惠券</span>
+                        <span>无可用</span>
+                    </div>
+                </div>
+
+                <div className={`${styles.l_box} ${styles.u_t1}`}>
+                    <div className={styles.l_box_in}>
+                        <span>实际支付</span>
+                        <span>9850元</span>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
 
                 {/*代金券*/}
                 <div style={cashDisplay}>
@@ -183,55 +225,55 @@ class Buy extends Component {
                     <Coupon title="加息券" type="rate" cashList={rateList} chooseCoupon={this.chooseCoupon} showModal={this.showModal} />
                 </div>
 
-                <div className={style.balance}>
+                <div>
                     <span>账户余额：<strong>0.00</strong>元</span>
                     <Link to="/recharge">充值</Link>
                 </div>
-                <div className={style.list}>
-                    <div className={style.item}>
+                <div>
+                    <div>
                         <label>CF码</label>
                         <input onChange={(e) => {
                             this.onChangeHandle('cfcode', e)
                         }} type="text" value={CFCode} placeholder="请输入CF码（没有可不填）" />
                     </div>
-                    <div className={style.item}>
+                    <div>
                         <label>投资金额</label>
                         <input onChange={(e) => {
                             this.onChangeHandle('money', e)
                         }} type="text" value={money} placeholder="请输入投资金额，100元起投" />
                     </div>
-                    <div className={style.item}>
+                    <div>
                         <label>预期收益</label>
                         <span>{expected_revenue}元</span>
                     </div>
-                    <div className={style.item}>
+                    <div>
                         <label>
                             代金券：
                             {
-                                (chooseCashLen > 0) ? (<span className={style.red}>{totalCash}元代金券</span>) : (<span className={style.red}>{cashLength}张代金券可用</span>)
+                                (chooseCashLen > 0) ? (<span>{totalCash}元代金券</span>) : (<span>{cashLength}张代金券可用</span>)
                             }
                         </label>
                         <span onClick={() => {
                             this.showModal('cash')
                         }}>请选择</span>
                     </div>
-                    <div className={style.item}>
+                    <div>
                         <label>
                             加息券：
                             {
-                                (chooseRateLen > 0) ? (<span className={style.red}>加息{totalRate}%</span>) : (<span className={style.red}>{rateLength}张加息券可用</span>)
+                                (chooseRateLen > 0) ? (<span>加息{totalRate}%</span>) : (<span>{rateLength}张加息券可用</span>)
                             }
                         </label>
                         <span onClick={() => {
                             this.showModal('rate')
                         }}>请选择</span>
                     </div>
-                    <div className={style.item}>
+                    <div>
                         <label>实际支付</label>
                         <span>{total}元</span>
                     </div>
                 </div>
-                <div className={style.box}>
+                <div>
                     <button disabled={disabled}>立即投资</button>
                 </div>
             </div>

@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 
 import styles from './style.scss';
 import arrowSrc from './images/arrow_icon.png';
+import { height } from 'window-size';
 
 export default class extends Component {
 
@@ -11,6 +12,8 @@ export default class extends Component {
     }
 
     render() {
+        const {id} = this.props.match.params;
+
         return (
             <div>
                 
@@ -18,7 +21,7 @@ export default class extends Component {
 
                     <div style={{paddingTop: '1.4667rem'}}>
                         <div style={{textAlign: 'center'}}>
-                            <div>7.00%</div>
+                            <div style={{fontSize: '0.6667rem'}}>7.00%</div>
                             <div>预期年华</div>
                         </div>
                     </div>
@@ -45,10 +48,12 @@ export default class extends Component {
                     </div>
 
                     <div style={{padding: '0.2667rem 0.4rem'}}>
+
                         <div style={{display: 'flex', justifyContent: 'space-between'}}>
                             <div>剩余额度 500,000,.00元</div>
                             <div>已售 50.00%</div>
                         </div>
+                        
                     </div>
                 </div>
 
@@ -63,6 +68,26 @@ export default class extends Component {
 
                     </div>
                 </div>
+
+                <div className={`${styles.l_box} ${styles.bg} ${styles.l_box_in}`}>
+
+                    <div className={styles.l_box_flex}>
+                        <div className="u-tc">
+                            <div>今日投资</div>
+                            <div>03-19</div>
+                        </div>
+                        <div className="u-tc">
+                            <div>开始计息</div>
+                            <div>预计03-05</div>
+                        </div>
+                        <div className="u-tc">
+                            <div>产品到期</div>
+                            <div>预计04-24</div>
+                        </div>
+                    </div>
+
+                </div>
+
 
                 <div className={`${styles.l_box} ${styles.bg}`}>
                     <div className={styles.m_calc}>
@@ -80,6 +105,16 @@ export default class extends Component {
                         <Link to="/">投资记录</Link>
                         <Link to="/">常见问题</Link>
                     </nav>
+                </div>
+
+                <div>
+                    <div className={styles.m_fixed_fill}></div>
+                    <div className="fixed-bottom">
+                        <div className={styles.m_op}>
+                            <div className={styles.m_op__service}>客服</div>
+                            <Link className={styles.m_op__invest} to={`/buy/${id}`}>立即投资</Link>
+                        </div>
+                    </div>
                 </div>
 
             </div>

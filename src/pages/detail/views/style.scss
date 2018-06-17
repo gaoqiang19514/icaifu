@@ -1,40 +1,47 @@
-.l_box{
+.l_box {
     margin-bottom: 0.2667rem;
 }
-.l_box_in{
+
+.l_box_in {
     padding: 0.5333rem 0.4rem;
 }
-.bg{
+
+.l_box_flex {
+    display: flex;
+    justify-content: space-around;
+}
+
+.bg {
     background: #fff;
 }
 
-
-.m_box{
+.m_box {
     font-size: .4rem;
     display: flex;
+    align-items: center;
     justify-content: space-between;
-    &__icon{
+    &__icon {
         width: 0.24rem;
         height: 0.4rem;
     }
 }
 
-.m_percent{
+.m_percent {
     background: #eaeaea;
-    &__bar{
+    &__bar {
         background: #a5daff;
         height: 4px;
     }
 }
 
-.m_calc{
+.m_calc {
     font-size: 0.4rem;
     padding: 0.5333rem;
-    &__title{
-        padding-left: 0.8rem;
+    &__title {
+        // padding-left: 0.8rem;
         margin-bottom: 0.2667rem;
     }
-    &__btn{
+    &__btn {
         height: 1.4667rem;
         line-height: 1.4667rem;
         padding: 0 0.4rem;
@@ -42,14 +49,14 @@
     }
 }
 
-.m_desc{
+.m_desc {
     display: flex;
     flex-direction: column;
-    a{
+    a {
         position: relative;
         font-size: 0.4rem;
         padding: 0.5333rem;
-        &::after{
+        &::after {
             content: '';
             position: absolute;
             left: 0;
@@ -59,8 +66,36 @@
             background: #eaeaea;
             transform: scaleY(.5);
         }
-        &:last-child::after{
+        &:last-child::after {
             content: none;
         }
     }
+}
+
+.m_fixed_fill{
+    height: 1.3333rem;
+}
+.m_op {
+    display: flex;
+    justify-content: space-between;
+}
+
+.m_op__service {
+    font-size: 0.2667rem;
+    text-align: center;
+    flex-grow: 1;
+    height: 1.3333rem;
+    line-height: 1.3333rem;
+    color: #898996;
+    background: #fff;
+}
+
+.m_op__invest {
+    font-size: 0.4267rem;
+    color: #fff;
+    text-align: center;
+    height: 1.3333rem;
+    line-height: 1.3333rem;
+    width: 7.8667rem;
+    background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #d7d7d7, #d7d7d7);
 }

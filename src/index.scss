@@ -57,6 +57,14 @@ h6 {
 }
 
 :global {
+    .fixed-bottom{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+
+
     .label {
         color: #fff;
         display: inline-block;
@@ -78,7 +86,9 @@ h6 {
             justify-content: space-between;
         }
     }
-
+    .u-tc{
+        text-align: center;
+    }
     .u-border:after{
         content: '';
         position: absolute;
