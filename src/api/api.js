@@ -11,24 +11,6 @@ export const createRandomNumStr = (num) => {
     return str.substr(0, 6)
 }
 
-export const createSignature = (pageNo = 1, pageSize = 10) => {
-    let signStr   = '';
-    let paramsStr = '';
-    const md      = forge.md.md5.create();
-
-    let params = [
-        `page_no=${pageNo}`,
-        `page_size=${pageSize}`,
-        'openid=p2p_ios',
-        '_type=json'
-    ];
-
-    paramsStr = params.sort().join('&');
-
-    signStr = md.update(paramsStr + APP_KAY).digest().toHex();
-
-    return `sign=${signStr}&sign_type=MD5&${paramsStr}`;
-}
 
 /**
  * 
@@ -58,11 +40,32 @@ export const buildPublicSign = (pageNo = 1, pageSize = 10) => {
 
 /**
  * 构建需要校验登录的签名
- * @param {如果这个请求需要分页，则传入页码，默认为1} pageNo 
- * @param {如果这个请求需要分页，则传入每页数据条数，默认为10} pageSize 
+ * @param {*} username 
+ * @param {*} access_token 
+ * @param {*} userid 
+ * @param {*} pageNo 
+ * @param {*} pageSize 
  */
-export const buildAuthSign = (pageNo = 1, pageSize = 10) => {
-    
+export const buildAuthSign = (username, access_token, userid, pageNo = 1, pageSize = 10) => {
+    const md   = forge.md.md5.create();
+    const uuid = localStorage.getItem('uuid') || '';
+
+    const params = [
+        `page_no=${pageNo}`,
+        `page_size=${pageSize}`,
+        `uuid=${uuid}`,
+        `user_name=${username}`,
+        'openid=p2p_ios',
+        '_type=json',
+        `access_token=${access_token}`,
+        `userId=${userid}`,
+        `userid=${userid}`
+    ];
+
+    const paramsStr = params.sort().join('&');
+    const sign      = md.update(paramsStr + APP_KAY).digest().toHex();
+
+    return `sign=${sign}&sign_type=MD5&${paramsStr}`;
 }
 
 
@@ -80,7 +83,7 @@ export const buildLoginSign = (username, pwd) => {
 
     localStorage.setItem('uuid', uuid);
 
-    let params = [
+    const params = [
         `uuid=${uuid}`,
         `user_name=${username}`,
         `pwd=${pwd_hash_double}`,

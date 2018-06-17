@@ -10,11 +10,11 @@ export default class extends Component {
     }
 
     clearInput = () => {
-
+        console.log('clearInput');
     }
 
     getCode = () => {
-
+        console.log('getCode');
     }
 
     render() {

@@ -3,7 +3,7 @@ import axios from 'axios';
 import Swiper from "swiper"
 import "swiper/dist/css/swiper.css"
 
-import { createSignature } from '@/api/api.js'
+import { buildPublicSign } from '@/api/api.js'
 import style from './style.scss';
 
 const Item = ({ activityUrl, intro, appPicUrl }) => (
@@ -33,7 +33,7 @@ export default class extends Component {
     }
 
     loadBanners() {
-        const keyStr = createSignature();
+        const keyStr = buildPublicSign();
 
         axios.get('/product/activity_list?' + keyStr)
         .then((response) => {

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 
-import { createSignature } from '@/api/api.js'
+import { buildPublicSign } from '@/api/api.js'
 import Menu from '@/common/menu/'
 
 import style from './style.scss'
@@ -129,7 +129,7 @@ export default class extends Component {
     }
 
     loadActivity() {
-        const keyStr = createSignature()
+        const keyStr = buildPublicSign()
 
         axios.get('/product/activity_list?' + keyStr)
         .then((response) => {

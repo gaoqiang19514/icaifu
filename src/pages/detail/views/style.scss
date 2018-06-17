@@ -1,0 +1,66 @@
+.l_box{
+    margin-bottom: 0.2667rem;
+}
+.l_box_in{
+    padding: 0.5333rem 0.4rem;
+}
+.bg{
+    background: #fff;
+}
+
+
+.m_box{
+    font-size: .4rem;
+    display: flex;
+    justify-content: space-between;
+    &__icon{
+        width: 0.24rem;
+        height: 0.4rem;
+    }
+}
+
+.m_percent{
+    background: #eaeaea;
+    &__bar{
+        background: #a5daff;
+        height: 4px;
+    }
+}
+
+.m_calc{
+    font-size: 0.4rem;
+    padding: 0.5333rem;
+    &__title{
+        padding-left: 0.8rem;
+        margin-bottom: 0.2667rem;
+    }
+    &__btn{
+        height: 1.4667rem;
+        line-height: 1.4667rem;
+        padding: 0 0.4rem;
+        background: #fff3f3;
+    }
+}
+
+.m_desc{
+    display: flex;
+    flex-direction: column;
+    a{
+        position: relative;
+        font-size: 0.4rem;
+        padding: 0.5333rem;
+        &::after{
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            height: 1px;
+            background: #eaeaea;
+            transform: scaleY(.5);
+        }
+        &:last-child::after{
+            content: none;
+        }
+    }
+}

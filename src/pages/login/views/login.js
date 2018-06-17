@@ -18,6 +18,9 @@ class Login extends Component {
 
     constructor(props) {
         super(props);
+        this.state = {
+            tabIndex: 0
+        };
     }
 
     componentDidMount() {
@@ -48,12 +51,24 @@ class Login extends Component {
         console.log('msgLoginHandle', username, msgcode);
     }
 
+    selectHandle = (index, lastIndex, e) => {
+        this.setState({
+            tabIndex: index
+        });
+    }
+
     render(){
         const {from} = this.props.location.from || {from: {pathname: '/'}}
+        const {tabIndex} = this.state;
 
         // 目前的处理是，只要用户登录则统一跳走
         if(this.props.auth.isAuthenticated){
             return <Redirect to={from} />
+        }
+
+        let slideClass = styles.slider;
+        if(tabIndex === 1){
+            slideClass = `${styles.slider} ${styles.slider_aside}`;
         }
 
         return (
@@ -61,10 +76,11 @@ class Login extends Component {
                 <div>
                     <img className={styles.logo} src={logo} alt="logo"/>
                 </div>
-                <Tabs className={styles.tabs}>
+                <Tabs className={styles.tabs} onSelect={this.selectHandle}>
                     <TabList className={styles.tab__navs}>
                         <Tab className={styles.tab__nav}>账号登录</Tab>
                         <Tab className={styles.tab__nav}>短信登录</Tab>
+                        <div className={slideClass}></div>
                     </TabList>
                     <TabPanel>
                         <PswdLogin onLoginHandle={this.pswdLoginHandle} />

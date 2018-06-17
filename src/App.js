@@ -53,7 +53,7 @@ class App extends Component {
                             >
                                 <Switch key={location.pathname} >
                                     <Route exact path="/" component={Home} />
-                                    <Route  path="/home" component={Home} />
+                                    <Route path="/home" component={Home} />
                                     
                                     <Auth path="/user" component={User} />
 

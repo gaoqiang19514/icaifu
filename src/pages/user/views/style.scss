@@ -1,61 +1,182 @@
-.card {
-    color: #fff;
-    padding: 0.4rem;
-    height: 4.96rem;
-    border-radius: 0.1333rem;
-    background-image: linear-gradient(105deg, #ff7e7a 0%, #ff4242 100%), linear-gradient( #ffffff, #ffffff);
-}
-
-.card__row {
-    display: flex;
-}
-
-.record-nav {
+.l_hd {
     background: #fff;
     margin-bottom: 0.2667rem;
-    a {
-        padding: 0.4rem;
-        font-size: 0.4rem;
-        display: block;
+}
+
+.l_box1 {
+    margin-bottom: 0.5333rem;
+}
+
+.l_box2 {
+    display: flex;
+    margin-bottom: 0.5367rem;
+}
+
+.l_box3 {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem;
+}
+
+.l_box4 {
+    margin-bottom: 0.2667rem;
+}
+
+.l_box5{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.4rem;
+}
+
+.m_card {
+    color: #fff;
+    padding: 0.6133rem;
+    width: 9.6267rem;
+    height: 5.3867rem;
+    margin: auto;
+    background: url(./images/card_bg.png) no-repeat center center;
+    background-size: cover;
+}
+
+
+.m_profile{
+    padding-left: 1.0133rem;
+	font-size: 0.2933rem;
+    color: #898996;
+    background: url(./images/profile_icon.png) no-repeat left center;
+    background-size: 0.8rem 0.8rem;
+}
+.m_profile__username{
+    font-size: 0.4rem;
+    color: #1a1b1c;
+    margin-bottom: 0.0933rem;
+}
+.m_e_e{
+    display: flex;
+}
+.m_e_e__icon{
+    width: 0.5733rem;
+    height: 0.56rem;
+    margin: 0 0.4rem;
+}
+.m_title {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.32rem;
+    margin-bottom: 0.24rem;
+}
+
+.m_p_v {
+    font-size: 0.8rem;
+}
+
+.m_s_v {
+    font-size: 0.48rem;
+}
+
+.m_a_a {
+    font-size: 0.4rem;
+}
+
+.m_b {
+    color: #fff;
+    font-size: 0.3467rem;
+    display: inline-block;
+    padding: 0.16rem 0.24rem;
+    margin-left: 0.4rem;
+    background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #ff6364, #ff6364);
+    box-shadow: 0rem 0.0267rem 0.1067rem 0rem rgba(249, 82, 83, 0.75);
+    border-radius: 0.1067rem;
+}
+
+.m_nav {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    background: #fff;
+    margin-bottom: 0.2667rem;
+    & a:last-child:after {
+        content: none;
     }
 }
 
-.other-nav {
+.m_link {
+    position: relative;
+    font-size: 0.4rem;
+    display: block;
+    padding: 0.5333rem 0.4rem 0.5333rem 1.6267rem;
+    &:after {
+        content: '';
+        position: absolute;
+        left: 1.6rem;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background: #eaeaea;
+        transform: scaleY(.5);
+    }
+}
+.m_nav__icon{
+    position: absolute;
+    top: 0.27rem;
+    left: .4rem;
+    width: 0.9467rem;
+    height: 0.9733rem;
+    background-size: cover;
+}
+
+.m_nav__icon_doc{
+    @extend .m_nav__icon;
+    background-image: url(./images/doc_icon.png);
+}
+.m_nav__icon_record{
+    @extend .m_nav__icon;
+    background-image: url(./images/record_icon.png);
+}
+.m_nav__icon_calendar{
+    @extend .m_nav__icon;
+    background-image: url(./images/calendar_icon.png);
+}
+
+.m_nav2 {
     background: #fff;
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 0.2667rem;
-    a {
-        font-weight: bold;
-        font-size: 0.4rem;
-        padding: 0.5333rem 0.6667rem;
-        display: block;
-        width: 50%;
+    font-size: 0.4267rem;
+    font-weight: bold;
+    & a:last-child::before{
+        content: none;
     }
 }
-
-.l-box1 {
-    padding: 0.4rem;
-    display: flex;
-    background: #fff;
-    justify-content: space-between;
-    a {
-        font-size: 0.3467rem;
-        margin-left: 0.4rem;
-        color: #fff;
-        padding: 0.16rem 0.2667rem;
-        display: inline-block;
-        background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #ff6364, #ff6364);
-        box-shadow: 0rem 0.0267rem 0.1067rem 0rem rgba(249, 82, 83, 0.75);
-        border-radius: 0.1067rem;
+.m_nav2__link {
+    position: relative;
+    padding: 0.5333rem 0.6667rem 0.6667rem 0.6667rem;
+    width: 50%;
+    &::before{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #eaeaea;
+        transform: scaleY(.5);
+    }
+    &:nth-child(2n-1)::after{
+        content: '';
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        width: 1px;
+        background: #eaeaea;
+        transform: scaleX(.5);
     }
 }
-.l-box2{
-    padding: 0.4rem;
-    margin-bottom: 0.2667rem;
-    background: #fff;
-}
-
-.m-account-amount{
-    font-size: 0.4rem;
+.m_nav2__subText{
+    color: #898996;
+    font-size: 0.2667rem;
+    font-weight: normal;
+    padding-top: 0.2667rem;
 }

@@ -5,7 +5,7 @@ import axios from 'axios';
 import JiPlan from './jiPlan.js'
 import IEnjoy from './ienjoy.js'
 import style from './style.scss'
-import { createSignature } from '@/api/api.js'
+import { buildPublicSign } from '@/api/api.js'
 import { actions as loadingActions } from '@/common/loading'
 
 class List extends Component {
@@ -17,26 +17,23 @@ class List extends Component {
 			jiPlanList: [],
 			ienjoyList: []
 		}
+
+		this.loadProductList = this.loadProductList.bind(this);
 	}
 
 	componentWillMount() {
-		this.loadFlag = true
-		this.loadProductList()
+		this.loadProductList();
 	}
 
 	componentWillUnmount() {
-		this.loadFlag = false
 	}
 
 	loadProductList() {
-		const keyStr = createSignature()
+		const keyStr = buildPublicSign()
 
-		this.props.onShowLoading();
         axios.get('/product/p2p_data_info?' + keyStr)
         .then((response) => {
-			console.log(response)
             if(response.status === 200){
-				if(!this.loadFlag){return}
 				this.setState({
 					jiPlanList: response.data.items,
 					ienjoyList: response.data.p2pSubjectList
@@ -44,15 +41,13 @@ class List extends Component {
             }
         })
         .catch((error) => {
-
 		})	
 		.finally(() => {
-			this.props.onHideLoading();
 		});	
 	}
 
 	render() {
-		const { jiPlanList, ienjoyList } = this.state
+		const {jiPlanList, ienjoyList} = this.state
 
 		if(ienjoyList.length < 1){
 			return null;
