@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
-
+import { view as Skeleton } from '@/common/skeleton';
 import style from './style.scss'
 
 const t1 = {
@@ -87,23 +87,25 @@ const Item = ({ novice, novice_restrictions_desc, match, id, percent, timeLimit,
     )
 }
 
-export default ({ data, match }) => (
+export default ({ data, match, ready }) => (
     <div className={style.l_box_wrap}>
-        {
-            data.map((item, index) => (
-                <Item 
-                    id={ item.pro_id } 
-                    novice={item.novice}
-                    novice_restrictions_desc={ item.novice_restrictions_desc }
-                    match={ match } 
-                    timeLimit={ item.time_limit }
-                    borrowingRate={ item.borrowing_rate }
-                    gift={ item.gift }
-                    full={ item.full }
-                    percent={ item.percent }
-                    key={ item.pro_id }
-                />
-            ))
-        }
+        <Skeleton count={3} ready={ready}>
+            {
+                data.map((item, index) => (
+                    <Item 
+                        id={ item.pro_id } 
+                        novice={item.novice}
+                        novice_restrictions_desc={ item.novice_restrictions_desc }
+                        match={ match } 
+                        timeLimit={ item.time_limit }
+                        borrowingRate={ item.borrowing_rate }
+                        gift={ item.gift }
+                        full={ item.full }
+                        percent={ item.percent }
+                        key={ item.pro_id }
+                    />
+                ))
+            }
+        </Skeleton>
     </div>        
 )

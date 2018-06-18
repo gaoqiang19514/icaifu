@@ -7,6 +7,13 @@
     display: flex;
     justify-content: space-between;
 }
+.l_box_inv{
+    padding: 0.6667rem 0.2667rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff3f0;
+}
 .u_t1{
     font-size: 0.4rem;
 }
@@ -25,14 +32,78 @@
 .u_m_b_c{
     margin-bottom: 0.4667rem;
 }
-
-.m_input{
+.m_label{
     font-size: 0.6667rem;
+    margin-right: 0.2667rem;
+}
+.m_input{
+    color: #1a1b1c;
+    padding: 0;
+    outline: none;
     border: 0;
     border-radius: 0;
-    outline: 1px solid red;
-    width: auto;
+    width: 100%;
+    font-size: 0.6667rem;
+    background: transparent;
+    line-height: normal;
 }
 .m_button{
+    align-self: stretch;
+    margin-left: 0.2667rem;
+    padding: 0;
+    color: #f8695e;
     width: auto;
+    flex-shrink: 0;
+    border: 0;
+    outline: none;
+    background: transparent;
+}
+.m_checkbox_icon{
+    width: 0.32rem;
+    height: 0.32rem;
+    margin-right: 0.1333rem;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.m_fixed_fill{
+    height: 1.3333rem;
+}
+.m_op {
+    display: flex;
+    justify-content: space-between;
+}
+
+.m_op__service {
+    font-size: 0.2667rem;
+    text-align: center;
+    flex-grow: 1;
+    height: 1.3333rem;
+    color: #898996;
+    background: #fff;
+}
+
+.m_op__invest {
+    font-size: 0.4267rem;
+    color: #fff;
+    text-align: center;
+    height: 1.3333rem;
+    line-height: 1.3333rem;
+    width: 7.8667rem;
+    background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #d7d7d7, #d7d7d7);
+}
+.m_op__service_icon{
+    margin: 0.2rem auto 0.1333rem auto;
+    width: 0.5333rem;
+    height: 0.52rem;
 }

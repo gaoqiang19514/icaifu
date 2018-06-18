@@ -5,6 +5,7 @@ $borderColor: #eaeaea;
 *:after,
 *:before {
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
 }
 
 body {
@@ -23,29 +24,7 @@ img{
     max-width: 100%;
 }
 
-input::-webkit-input-placeholder,
-textarea::-webkit-input-placeholder {
-    /* WebKit browsers */
-    color: #fff;
-}
 
-input:-moz-placeholder,
-textarea:-moz-placeholder {
-    /* Mozilla Firefox 4 to 18 */
-    color: #fff;
-}
-
-input::-moz-placeholder,
-textarea::-moz-placeholder {
-    /* Mozilla Firefox 19+ */
-    color: #fff;
-}
-
-input:-ms-input-placeholder,
-textarea:-ms-input-placeholder {
-    /* Internet Explorer 10+ */
-    color: #fff;
-}
 
 h1,
 h2,

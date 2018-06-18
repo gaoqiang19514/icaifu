@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
-import styles from './style.scss';
+import service_icon from './images/service_icon.png';
 import arrowSrc from './images/arrow_icon.png';
+import styles from './style.scss';
 import { height } from 'window-size';
 
 export default class extends Component {
@@ -111,11 +112,15 @@ export default class extends Component {
                     <div className={styles.m_fixed_fill}></div>
                     <div className="fixed-bottom">
                         <div className={styles.m_op}>
-                            <div className={styles.m_op__service}>客服</div>
+                            <div className={styles.m_op__service}>
+                                <img className={styles.m_op__service_icon} src={service_icon} alt="客服图标"/>
+                                客服
+                            </div>
                             <Link className={styles.m_op__invest} to={`/buy/${id}`}>立即投资</Link>
                         </div>
                     </div>
                 </div>
+                
 
             </div>
         )

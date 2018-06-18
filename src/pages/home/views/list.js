@@ -14,6 +14,7 @@ class List extends Component {
 		super(props)
 
 		this.state = {
+			ready: false,
 			jiPlanList: [],
 			ienjoyList: []
 		}
@@ -37,7 +38,11 @@ class List extends Component {
 				this.setState({
 					jiPlanList: response.data.items,
 					ienjoyList: response.data.p2pSubjectList
-				})
+				}, () => {
+					this.setState({
+						ready: true
+					});
+				});
             }
         })
         .catch((error) => {
@@ -47,11 +52,7 @@ class List extends Component {
 	}
 
 	render() {
-		const {jiPlanList, ienjoyList} = this.state
-
-		if(ienjoyList.length < 1){
-			return null;
-		}
+		const {ready, jiPlanList, ienjoyList} = this.state
    
 		return (
 			<div>
@@ -60,7 +61,7 @@ class List extends Component {
 						<h2 className="label">极计划</h2>
 					</div>
 					<div className={style.l_b_b}>
-						<JiPlan data={jiPlanList} match={this.props.match} />
+						<JiPlan ready={ ready } data={jiPlanList} match={this.props.match} />
 					</div>
 				</div>
 
@@ -69,7 +70,7 @@ class List extends Component {
 						<h2 className="label">i享系列</h2>
 					</div>
 					<div className={style.l_b_b}>
-						<IEnjoy data={ienjoyList} match={this.props.match} />
+						<IEnjoy ready={ ready } data={ienjoyList} match={this.props.match} />
 					</div>
 				</div>
 			</div>

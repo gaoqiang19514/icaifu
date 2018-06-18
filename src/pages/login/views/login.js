@@ -33,18 +33,22 @@ class Login extends Component {
 
     pswdLoginHandle = (username, password) => {
         const keyStr = buildLoginSign(username, password);
+        this.props.onShowLoading();
 
-        axios.get('/my/login?' + keyStr)
-        .then((response) => {
-            if(response.status === 200){
-                const {access_token, usr_id} = response.data;
-                this.props.onLogin(access_token, usr_id);
-			}
-        })
-        .catch((error) => {
-		})
-		.finally(() => {
-		});	
+        setTimeout(() => {
+            axios.get('/my/login?' + keyStr)
+            .then((response) => {
+                if(response.status === 200){
+                    const {access_token, usr_id} = response.data;
+                    this.props.onLogin(access_token, usr_id);
+                }
+            })
+            .catch((error) => {
+            })
+            .finally(() => {
+                this.props.onHideLoading();
+            });	
+        }, 2000);
     }
 
     msgLoginHandle = (username, msgcode) => {

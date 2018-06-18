@@ -11,6 +11,7 @@ import Sort from './sort.js'
 import JiPlan from './jiplan.js'
 import Ienjoy from './ienjoy.js'
 import Menu from '@/common/menu/'
+import { view as Skeleton } from '@/common/skeleton';
 
 let page = 1;
 let flag = true;
@@ -21,7 +22,9 @@ class Invest extends Component {
 		super(props)
 
 		this.state = {
-            _loading: false,
+			_loading: false,
+			jiplanReady: false,
+			ienjoyReady: false,
 			ienjoyList: [],
 			jiPlanList: []
 		}
@@ -66,6 +69,7 @@ class Invest extends Component {
                 arr = this.state.ienjoyList.concat(response.data.items)
                 page++;
 				this.setState({
+					ienjoyReady: true,
 					ienjoyList: arr
 				})
 			}
@@ -88,6 +92,7 @@ class Invest extends Component {
             if(response.status === 200){
 				if(!this.loadFlag){return}
 				this.setState({
+					jiplanReady: true,
 					jiPlanList: response.data.items
 				})
             }
@@ -98,7 +103,7 @@ class Invest extends Component {
     
 	render = () => {
 
-        const { jiPlanList, ienjoyList, _loading } = this.state;
+        const { jiplanReady, ienjoyReady, jiPlanList, ienjoyList, _loading } = this.state;
 
         let loadingStyle = {display: 'none'};
         if(_loading){
@@ -107,6 +112,7 @@ class Invest extends Component {
 
 		return (
 			<div>
+
 				
 				<div className={style.l_b}>
 					<Sort />
@@ -117,7 +123,9 @@ class Invest extends Component {
 						<h2 className="label">极计划</h2>
 					</div>
 					<div className={style.l_b_b}>
-						<JiPlan data={ jiPlanList } match={ this.props.match } />
+						<Skeleton count={3} ready={jiplanReady}>
+							<JiPlan data={ jiPlanList } match={ this.props.match } />
+						</Skeleton>
 					</div>
 				</div>
 
@@ -126,7 +134,9 @@ class Invest extends Component {
 						<h2 className="label">i享系列</h2>
 					</div>
 					<div className={style.l_b_b}>
-						<Ienjoy data={ ienjoyList } match={ this.props.match } />
+						<Skeleton count={4} ready={ienjoyReady}>
+							<Ienjoy data={ ienjoyList } match={ this.props.match } />
+						</Skeleton>
 					</div>
 				</div>
 

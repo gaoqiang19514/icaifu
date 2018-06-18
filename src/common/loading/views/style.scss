@@ -1,17 +1,20 @@
-.loading{
+.loading_layer{
     position: fixed;
-    z-index: 999;
     top: 0;
-    left: 0;
     right: 0;
+    left: 0;
     bottom: 0;
-    background: #fff url(./loading.gif) no-repeat center center;
-    background-size: 100px 100px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    letter-spacing: .2em;
-    font-size: 28px;
 }
-
+.loading_wrap{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    padding: 0.4rem;
+    transform: translate(-50%, -50%);
+    border-radius: 3px;
+    background: rgba(0, 0, 0, .3);
+}
+.loading{
+    width: .8rem !important;
+    height: .8rem !important;
+}

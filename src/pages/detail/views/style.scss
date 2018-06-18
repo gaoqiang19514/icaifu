@@ -85,7 +85,6 @@
     text-align: center;
     flex-grow: 1;
     height: 1.3333rem;
-    line-height: 1.3333rem;
     color: #898996;
     background: #fff;
 }
@@ -98,4 +97,9 @@
     line-height: 1.3333rem;
     width: 7.8667rem;
     background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #d7d7d7, #d7d7d7);
+}
+.m_op__service_icon{
+    margin: 0.2rem auto 0.1333rem auto;
+    width: 0.5333rem;
+    height: 0.52rem;
 }
