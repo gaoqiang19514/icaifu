@@ -30,22 +30,25 @@ class Profile extends Component {
         const userid       = localStorage.getItem('userid');
         const keyStr       = buildAuthSign('15014095291', access_token, userid);
 
-        // axios.get('/my/user_assets?' + keyStr)
-        // .then((response) => {
-        //     if(response.status === 200){
-        //         this.setState({
-        //             cash_use: response.data.item.cash_use,
-        //             p2p_assets: response.data.item.p2p_assets,
-        //             cash_frozen: response.data.item.cash_frozen,
-        //             total_assets: response.data.item.total_assets,
-        //             regular_receive_profit: response.data.item.regular_receive_profit
-        //         })
-		// 	}
-        // })
-        // .catch((error) => {
-		// })
-		// .finally(() => {
-		// });	
+        axios.get('/my/user_assets?' + keyStr)
+        .then((response) => {
+            if(response.status === 200){
+                if(response.data.retnum === 0){
+                    return this.props.onLogout();
+                }
+                this.setState({
+                    cash_use: response.data.item.cash_use,
+                    p2p_assets: response.data.item.p2p_assets,
+                    cash_frozen: response.data.item.cash_frozen,
+                    total_assets: response.data.item.total_assets,
+                    regular_receive_profit: response.data.item.regular_receive_profit
+                })
+			}
+        })
+        .catch((error) => {
+		})
+		.finally(() => {
+		});	
     }
     
     render() {
@@ -55,16 +58,16 @@ class Profile extends Component {
             <div className={styles.l_hd}>
 
                 <div className={styles.l_box5}>
-                    <Link className={styles.m_profile} to="/recharge">
+                    <Link className={styles.m_profile} to="/userinfo">
                         <div className={styles.m_profile__username}>186****6666</div>
                         <div>查看个人信息 ></div>
                     </Link>
                     <div className={styles.m_e_e}>
-                        <Link className={styles.m_e_e__icon} to="/recharge">
-                            <img src={gearIcon} alt="站内信"/>
+                        <Link className={styles.m_e_e__icon} to="/setting">
+                            <img src={gearIcon} alt="设置"/>
                         </Link>
-                        <Link className={styles.m_e_e__icon} to="/recharge">
-                            <img src={bellIcon} alt="设置"/>
+                        <Link className={styles.m_e_e__icon} to="/staionletter">
+                            <img src={bellIcon} alt="站内信"/>
                         </Link>
                     </div>
                 </div>

@@ -27,6 +27,9 @@ import {view as Login } from './pages/login'
 import {view as Register } from './pages/register'
 import {view as ForgetPassword } from './pages/forgetPassword'
 
+import { view as UserInfo } from './pages/userinfo';
+import { view as Setting } from './pages/setting';
+
 import {view as Auth} from './common/auth/';
 
 
@@ -78,6 +81,10 @@ class App extends Component {
                                     <Route path="/register" component={Register} />
                                     <Route path="/forgetPassword" component={ForgetPassword} />
 
+                                    
+                                    <Auth path="/setting" component={ Setting } />
+                                    <Auth path="/userinfo" component={ UserInfo } />
+                                    
                                     <Route component={Home} />
                                 </Switch>
                             </CSSTransitionGroup>

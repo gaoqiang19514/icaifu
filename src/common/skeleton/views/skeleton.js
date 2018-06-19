@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Skeleton from 'react-loading-skeleton';
+import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+
+import styles from './styles.scss';
 
 const Item = () => {
 	return (
@@ -12,6 +15,32 @@ const Item = () => {
 			</div>
 		</div>
 	)
+}
+
+const Banner = () => {
+    return (
+        <div>
+            <div style={{fontSize: '4.73rem', lineHeight: '1'}}>
+				<Skeleton/>
+			</div>
+        </div>
+    )
+}
+
+const Activity = () => {
+    return (
+        <div>
+            <div style={{fontSize: '4.73rem', lineHeight: '1', marginBottom: '0.2667rem'}}>
+				<Skeleton />
+			</div>
+            <div style={{fontSize: '0.4267rem', lineHeight: '1', marginBottom: '0.2667rem'}}>
+				<Skeleton/>
+			</div>
+            <div style={{fontSize: '12px', lineHeight: '1', marginBottom: '0.6667rem'}}>
+				<Skeleton/>
+			</div>
+        </div>
+    )    
 }
 
 const buildArr = (count) => {
@@ -47,7 +76,41 @@ export default class extends Component {
     render() {
 
         if(this.state.ready){
-            return this.props.children;
+            return (
+                <CSSTransitionGroup
+                    component="div"
+                    transitionName={{
+                        enter: `${styles['fade-enter']}`,
+                        enterActive: `${styles['fade-enter-active']}`,
+                        leave: `${styles['fade-leave']}`,
+                        leaveActive: `${styles['fade-leave-active']}`,
+                        appear: `${styles['fade-appear']}`,
+                        appearActive: `${styles['fade-appear-active']}`
+                    }}
+                    transitionAppear={true}
+                    transitionAppearTimeout={500}
+                    transitionEnterTimeout={500}
+                    transitionLeaveTimeout={300}
+                >
+                <div>
+                    {this.props.children}
+                </div>
+                </CSSTransitionGroup>
+            );
+        }
+
+        if(this.props.type === 'banner'){
+            return <Banner />            
+        }
+
+        if(this.props.type === 'activity'){
+            return(
+                <div>
+                    {
+                        this.arr.map((item, index) => <Activity key={index} />)
+                    }
+                </div>
+            )            
         }
 
         return(

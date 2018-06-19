@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import { buildPublicSign } from '@/api/api.js'
 import Menu from '@/common/menu/'
+import { view as Skeleton } from '@/common/skeleton';
 
 import style from './style.scss'
 
@@ -152,8 +153,8 @@ export default class extends Component {
 
         return (
             <div>
-                <ReactPlaceholder ready={ready}>
-                    <div className={style.list} style={ boxStyle }>
+                <div className={style.list} style={ boxStyle }>
+                    <Skeleton type="activity" count={ 4 } ready={ready}>
                         {
                             list.map((item, index) => (
                                 <Item 
@@ -166,8 +167,8 @@ export default class extends Component {
                                 />
                             ))
                         }
-                    </div>
-                </ReactPlaceholder>
+                    </Skeleton>
+                </div>
 
                 <Menu />
             </div>

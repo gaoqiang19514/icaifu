@@ -4,6 +4,7 @@ import Swiper from "swiper"
 import "swiper/dist/css/swiper.css"
 
 import { buildPublicSign } from '@/api/api.js'
+import { view as Skeleton } from '@/common/skeleton';
 import style from './style.scss';
 
 const Item = ({ activityUrl, intro, appPicUrl }) => (
@@ -19,6 +20,7 @@ export default class extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            ready: false,
             banners: []
         }
     }
@@ -43,6 +45,7 @@ export default class extends Component {
 
             if(!this.loadFlag){return}
             this.setState({
+                ready: true,
                 banners: response.data.item
             }, () => {
                 new Swiper('.swiper-container', {
@@ -60,23 +63,25 @@ export default class extends Component {
         const {banners} = this.state;
 
 		return (
-            <div className={`swiper-container ${style.swiper__container}`}>
-                <div className="swiper-wrapper">
-                    {
-                        banners.map((item, index) => {
-                            return (
-                                <Item 
-                                    key={item.id}
-                                    activityUrl={item.appPicUrl}
-                                    intro={item.intro}
-                                    appPicUrl={item.appPicUrl}
-                                />
-                            )
-                        })
-                    }
+            <Skeleton type="banner" ready={this.state.ready}>
+                <div className={`swiper-container ${style.swiper__container}`}>
+                    <div className="swiper-wrapper">
+                        {
+                            banners.map((item, index) => {
+                                return (
+                                    <Item 
+                                        key={item.id}
+                                        activityUrl={item.appPicUrl}
+                                        intro={item.intro}
+                                        appPicUrl={item.appPicUrl}
+                                    />
+                                )
+                            })
+                        }
+                    </div>
+                    <div className={`swiper-pagination swiper-pagination ${style.swiper__pagination}`}></div>
                 </div>
-                <div className={`swiper-pagination swiper-pagination ${style.swiper__pagination}`}></div>
-            </div>
+            </Skeleton>
 		)
 	}
 }

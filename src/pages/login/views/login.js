@@ -13,6 +13,7 @@ import logo from './images/logo.png';
 
 import PswdLogin from './pswdLogin.js';
 import MsgLogin from './msgLogin.js';
+require('es6-promise').polyfill();
 
 class Login extends Component {
 

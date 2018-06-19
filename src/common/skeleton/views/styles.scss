@@ -1,12 +1,41 @@
-.skeleton{
+.skeleton {
     padding: 0.4rem 0 0.5333rem 0;
 }
-.skeleton__box{
+
+.skeleton__box {
     height: 1.413rem;
     background: #eaeaea;
 }
-.skeleton__box_small{
+
+.skeleton__box_small {
     margin-bottom: 0.4rem;
     height: 0.3467rem;
     background: #eaeaea;
+}
+
+.fade-appear {
+    opacity: 0.01;
+}
+
+.fade-appear.fade-appear-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.fade-enter {
+    opacity: 0.01;
+}
+
+.fade-enter.fade-enter-active {
+    opacity: 1;
+    transition: opacity 500ms ease-in;
+}
+
+.fade-leave {
+    opacity: 1;
+}
+
+.fade-leave.fade-leave-active {
+    opacity: 0.01;
+    transition: opacity 300ms ease-in;
 }
