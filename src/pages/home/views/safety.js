@@ -57,7 +57,7 @@ export default () => (
                     </div>
                     <dl style={{margin: 0}}>
                         <dt style={itemTitleStyle}>央企入股</dt>
-                        <dd style={textStyle}>三大央企战略入股</dd>
+                        <dd style={textStyle}>央企战略入股</dd>
                         <dd style={textStyle}>恒信集团控股平台</dd>
                     </dl>
                 </a>
@@ -67,7 +67,7 @@ export default () => (
                     </div>
                     <dl style={{margin: 0}}>
                         <dt style={itemTitleStyle}>银行存管</dt>
-                        <dd style={textStyle}>与上海银行联手</dd>
+                        <dd style={textStyle}>与上饶银行联手</dd>
                         <dd style={textStyle}>实现资金存管</dd>
                     </dl>
                 </a>

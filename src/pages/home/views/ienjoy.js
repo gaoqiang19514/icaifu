@@ -45,7 +45,7 @@ const Item = ({ pro_name, match, id, percent, timeLimit, interest_rate, gift, fu
     if(gift){gift = `+${gift}%`}
 
     return(
-        <Link to={`${match.url}/${id}`}>
+        <Link to={`/buy/${id}`}>
             <div className={style.l_box}>
                 <div className={style.l_box_hd}>
                     <h2 style={titleStyle}>{pro_name}</h2>

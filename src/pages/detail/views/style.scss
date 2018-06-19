@@ -1,77 +1,127 @@
-.l_box {
-    margin-bottom: 0.2667rem;
-}
+// 工具
 
-.l_box_in {
-    padding: 0.5333rem 0.4rem;
-}
-
-.l_box_flex {
-    display: flex;
-    justify-content: space-around;
-}
-
-.bg {
-    background: #fff;
-}
-
-.m_box {
-    font-size: .4rem;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    &__icon {
-        width: 0.24rem;
-        height: 0.4rem;
-    }
-}
-
-.m_percent {
-    background: #eaeaea;
-    &__bar {
-        background: #a5daff;
-        height: 4px;
-    }
-}
-
-.m_calc {
-    font-size: 0.4rem;
-    padding: 0.5333rem;
-    &__title {
-        // padding-left: 0.8rem;
+    // 边距
+    .u_m1{
         margin-bottom: 0.2667rem;
     }
-    &__btn {
-        height: 1.4667rem;
-        line-height: 1.4667rem;
-        padding: 0 0.4rem;
-        background: #fff3f3;
+    .u_m2{
+        margin-bottom: 0.8rem;
     }
-}
+    .u_m3{
+        margin-right: 0.5333rem;
+    }
 
-.m_desc {
-    display: flex;
-    flex-direction: column;
-    a {
-        position: relative;
+    .u_p1{
+        padding-top: 1.2rem;
+    }
+    .u_p2{
+        padding: 0.4rem;
+    }
+
+    // 字体尺寸
+    .u_t1{
+        font-size: 1.0667rem;
+    }
+    .u_t2{
+        font-size: 0.64rem;
+    }
+    .u_t3{
         font-size: 0.4rem;
-        padding: 0.5333rem;
-        &::after {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            height: 1px;
-            background: #eaeaea;
-            transform: scaleY(.5);
-        }
-        &:last-child::after {
-            content: none;
-        }
     }
+    .u_t4{
+        font-size: 0.3733rem;
+    }
+    .u_t5{
+        font-size: 0.32rem;
+    }
+    .u_t6{
+        font-size: 0.2933rem;
+    }
+
+    // 文字颜色
+    .u_c1{
+        color: #1a1b1c;
+    }
+    .u_c2{
+        color: #898996;
+    }
+    .u_c3{
+        color: #f8695e;
+    }
+    .u_c4{
+        color: #fff;
+    }
+
+
+    // 背景
+    .u_b1{
+        background: #fff;
+    }
+    .u_b2{
+        background: #d7d7d7;
+    } 
+    .u_b3{
+        background: #fff3f0;
+    }
+
+
+// 布局
+.l_box1{ 
+    padding: 0.4rem; 
 }
 
+
+.l_flex1{
+    display: flex;
+    justify-content: space-between
+}
+.l_flex2{
+    display: flex;
+    justify-content: center;
+}
+.l_flex3{
+    display: flex;
+}
+.l_flex4{
+    align-items: center;
+}
+.l_flex5{
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+.l_flex6{
+    display: flex;
+    justify-content: space-around
+}
+// 模块
+
+
+
+
+.m_arrow{
+    width: 0.24rem;
+    height: 0.4rem;
+}
+.m_arrow_wrap{
+    padding: 0 0.3rem
+}
+.m_nav{
+    a{
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.3733rem;
+        padding: 0.4rem;
+    }
+}
+.m_line{
+    width: 6.8rem;
+    height: 0.1333rem;
+}
+
+
+
+// 定位模块
 .m_fixed_fill{
     height: 1.3333rem;
 }
@@ -103,3 +153,19 @@
     width: 0.5333rem;
     height: 0.52rem;
 }
+
+
+
+
+
+
+
+.m_percent {
+    background: #eaeaea;
+    &_bar {
+        background: #f8695e;
+        height: 4px;
+    }
+}
+
+

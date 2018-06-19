@@ -29,6 +29,7 @@ import {view as ForgetPassword } from './pages/forgetPassword'
 
 import {view as Auth} from './common/auth/';
 
+
 class App extends Component {
   	render() {
     	return (

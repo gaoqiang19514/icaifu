@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
 
 import service_icon from './images/service_icon.png';
-import arrowSrc from './images/arrow_icon.png';
+import arrow_icon from './images/arrow_icon.png';
+import line from './images/line.png'
 import styles from './style.scss';
-import { height } from 'window-size';
 
 export default class extends Component {
 
@@ -13,100 +13,117 @@ export default class extends Component {
     }
 
     render() {
-        const {id} = this.props.match.params;
+        const { id } = this.props.match.params;
 
         return (
             <div>
                 
-                <div className={`${styles.l_box} ${styles.bg}`}>
+                <div className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
 
-                    <div style={{paddingTop: '1.4667rem'}}>
-                        <div style={{textAlign: 'center'}}>
-                            <div style={{fontSize: '0.6667rem'}}>7.00%</div>
-                            <div>预期年华</div>
+                    <div className={ `${styles.u_m2} ${styles.u_p1}` }>
+                        <div className={ `${styles.l_flex5} ${styles.u_m1} ${styles.u_c3}` }>
+                            <strong className={ `${styles.u_t1}` }>12.00</strong>
+                            <strong className={ `${styles.u_t2}` }>% + 2.00%</strong>
                         </div>
+                        <div className={ `${styles.l_flex2} ${styles.u_t5} ${styles.u_c2}` }>参考年化利率</div>
                     </div>
 
-                    <div style={{width: '6.3333rem', margin: 'auto'}}>
-                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
-                            <div style={{textAlign: 'center'}}>
-                                30天
-                                <div>投资期限</div>
+                    <div className={ `${styles.u_m1}` }>
+                        <div className={ styles.l_flex6 }>
+                            <div>
+                                <div className={ `${styles.l_flex2} ${styles.u_t3} ${styles.u_m1}` }>90天</div>
+                                <div className={ `${styles.l_flex2} ${styles.u_t5} ${styles.u_c2}` }>投资期限</div>
                             </div>
-                            <div style={{textAlign: 'center'}}>
-                                100元
-                                <div>起购金额</div>
+                            <div>
+                                <div className={ `${styles.l_flex2} ${styles.u_t3} ${styles.u_m1}` }>15000元</div>
+                                <div className={ `${styles.l_flex2} ${styles.u_t5} ${styles.u_c2}` }>起购金额</div>
                             </div>
                         </div>
                     </div>
 
-                    <div style={{padding: '0.2667rem 0.4rem'}}>
-
-                        <div className={styles.m_percent}>
-                            <div className={styles.m_percent__bar} style={{width: '50%'}}></div>
+                    <div>
+                        <div className={ `${styles.m_percent} ${styles.u_m1}` }>
+                            <div className={styles.m_percent_bar} style={{width: '50%'}}></div>
                         </div>
-
                     </div>
 
-                    <div style={{padding: '0.2667rem 0.4rem'}}>
-
-                        <div style={{display: 'flex', justifyContent: 'space-between'}}>
+                    <div>
+                        <div className={ `${styles.l_flex1} ${styles.u_t6} ${styles.u_c2}` }>
                             <div>剩余额度 500,000,.00元</div>
                             <div>已售 50.00%</div>
                         </div>
-                        
                     </div>
+
                 </div>
 
-                <div className={`${styles.l_box} ${styles.bg}`}>
-                    <div className={styles.l_box_in}>
 
-                        <div className={styles.m_box}>
-                            <img className={styles.m_box__icon} src={arrowSrc} alt="箭头"/>
-                            <div style={{flexGrow: 1, marginLeft: '0.2667rem'}}>上饶银行资金存管</div>
-                            <img className={styles.m_box__icon} src={arrowSrc} alt="箭头"/>
+                <div className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
+                    <div className={ `${styles.l_flex1} ${styles.u_t3}` }>
+                        <strong>上饶银行资金存管</strong>
+                        <div className={ styles.m_arrow_wrap }>
+                            <img className={ styles.m_arrow } src={arrow_icon} alt="箭头"/>
                         </div>
-
                     </div>
                 </div>
 
-                <div className={`${styles.l_box} ${styles.bg} ${styles.l_box_in}`}>
-
-                    <div className={styles.l_box_flex}>
+                <div className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
+                    <div className={ `${styles.l_flex6} ${styles.u_c2} ${styles.u_t5}` }>
                         <div className="u-tc">
-                            <div>今日投资</div>
+                            <div className={ `${styles.u_m1}` }>今日投资</div>
                             <div>03-19</div>
                         </div>
                         <div className="u-tc">
-                            <div>开始计息</div>
+                            <div className={ `${styles.u_m1}` }>开始计息</div>
                             <div>预计03-05</div>
                         </div>
                         <div className="u-tc">
-                            <div>产品到期</div>
+                            <div className={ `${styles.u_m1}` }>产品到期</div>
                             <div>预计04-24</div>
                         </div>
                     </div>
-
-                </div>
-
-
-                <div className={`${styles.l_box} ${styles.bg}`}>
-                    <div className={styles.m_calc}>
-                        <div className={styles.m_calc__title}>投资10,000元，30天到期后预计可赚</div>
-                        <div className={styles.m_calc__btn}>57.53元</div>
+                    <div className={ styles.l_flex2 }>
+                        <img className={ styles.m_line } src={line} alt="线条"/>
                     </div>
                 </div>
 
-                <div className={`${styles.l_box} ${styles.bg}`}>
-                    <nav className={styles.m_desc}>
-                        <Link to="/">产品信息</Link>
-                        <Link to="/">产品介绍</Link>
-                        <Link to="/">风险控制</Link>
-                        <Link to="/">相关材料</Link>
-                        <Link to="/">投资记录</Link>
-                        <Link to="/">常见问题</Link>
+                <div className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
+                    <div>
+                        <div className={ `${styles.u_t5} ${styles.u_m1}` }>投资10,000元，90天到期后预计可赚</div>
+                        <div className={ `${styles.u_p2} ${styles.u_b3} ${styles.u_c3} ${styles.u_t2}` }>10,000.23元</div>
+                    </div>
+                </div>
+
+                <div className={ `${styles.u_b1} ${styles.u_m1}` }>
+                    <nav className={ styles.m_nav }>
+                        <Link to="/">
+                            <spang>产品信息</spang>
+                            <img className={ styles.m_arrow } src={arrow_icon} alt="箭头"/>
+                        </Link>
+                        <Link to="/">
+                            <span>产品介绍</span>
+                            <img className={ styles.m_arrow } src={arrow_icon} alt="箭头"/>
+                        </Link>
+                        <Link to="/">
+                            <span>风险控制</span>
+                            <img className={ styles.m_arrow } src={arrow_icon} alt="箭头"/>
+                        </Link>
+                        <Link to="/">
+                            <span>相关材料</span>
+                            <img className={ styles.m_arrow } src={arrow_icon} alt="箭头"/>
+                        </Link>
+                        <Link to="/">
+                            <span>投资记录</span>
+                            <img className={ styles.m_arrow } src={arrow_icon} alt="箭头"/>
+                        </Link>
+                        <Link to="/">
+                            <span>常见问题</span>
+                            <img className={ styles.m_arrow } src={arrow_icon} alt="箭头"/>
+                        </Link>
                     </nav>
                 </div>
+
+
+
 
                 <div>
                     <div className={styles.m_fixed_fill}></div>
@@ -121,7 +138,6 @@ export default class extends Component {
                     </div>
                 </div>
                 
-
             </div>
         )
     }

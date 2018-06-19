@@ -113,7 +113,6 @@ class Invest extends Component {
 		return (
 			<div>
 
-				
 				<div className={style.l_b}>
 					<Sort />
 				</div>

@@ -1,112 +1,92 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
-import style from './style.scss'
+import service_icon from './images/service_icon.png';
+import arrow_icon from './images/arrow_icon.png';
+import checkbox_ok from './images/checkbox_icon_ok.png';
+import checkbox_no from './images/checkbox_icon_no.png';
+import styles from './style.scss';
 
-class JPlan extends Component {
+export default class extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
-            total: 15000,
-            CFCode: '',
-            rate: 0.07,
-            days: 45,
-            agreen: true
-        }
-
-        this.changeHandle = this.changeHandle.bind(this)
-        this.checkedHandle = this.checkedHandle.bind(this)
+            agree: false
+        };
     }
 
-    changeHandle(e) {
+    toggleAgree = () => {
         this.setState({
-            CFCode: e.target.value
-        })
-    }
-
-    checkedHandle(e) {
-        this.setState({
-            agreen: e.target.checked
-        })
+            agree: !this.state.agree
+        });
     }
 
     render() {
-
-        let { total, CFCode, rate, days, agreen }    = this.state
-        
-        let btnClassName = 'btn'
-        let btnText      = '确定'
-
-        let earnings = 15000 * rate / 360 * days
-        
-        if(total < 15000){
-            btnClassName = [btnClassName, style.disable].join(' ')
-            let balance = 15000 - total
-
-            btnText = `余额不足，充值${balance}元`
-        }else if(!CFCode || (CFCode.length < 8)) {
-            btnClassName = [btnClassName, style.disable].join(' ')
-            btnText = '请输入CF码'
-        }else if(!agreen) {
-            btnClassName = [btnClassName, style.disable].join(' ')
-            btnText = '请同意用户协议'
-        }
-      
+        const { agree } = this.state;
+        const { match } = this.props;
+        const id = match.params.id;
+ 
+        const agree_icon = agree ? checkbox_ok : checkbox_no;
 
         return (
             <div>
-                <div className={style.head}>
-                    <h2>剩余可购金额</h2>
-                    <p>444400.00</p>
+
+                <div className={ `${styles.l_box2} ${styles.u_m1} ${styles.u_b1}` }>
+                    <div className={ `${styles.l_flex1} ${styles.u_c2} ${styles.u_t4} ${styles.u_m1} ` }>
+                        <span>剩余可购(元)</span>
+                        <span>预期收益(元)</span>
+                    </div>
+                    <div className={ `${styles.l_flex1} ${styles.u_t2} ${styles.u_m2}` }>
+                        <strong>894,531</strong>
+                        <strong className={ styles.u_c3 }>129.45+499</strong>
+                    </div>
+                    <div className={ `${styles.u_m2} ${styles.l_box3} ${styles.m_border}` }>
+                        <div className={ `${styles.l_flex2} ${styles.u_c2} ${styles.u_t2} ${styles.u_m1}` }>投资金额(元)</div>
+                        <strong className={ `${styles.l_flex2} ${styles.u_t1}` }>15000</strong>
+                    </div>
+                    <div className={ `${styles.u_c2} ${styles.u_t4}` }>
+                        <span>可用余额0.00元</span>
+                    </div>
                 </div>
-    
-                <div className={`${style.box} ${style.mg}`}>
-                    <span>账户余额：<strong>0.0</strong>元</span>
-                    <Link to="/recharge">充值</Link>
-                </div>
-    
-                <div className={`${style.box} ${style.mg}`}>
-                    <Link to="/invest/12">
-                        <span>查看项目详情</span>
+
+                <div className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
+                    <Link to={ `/invest/${id}` }>
+                        <div className={ `${styles.l_flex1} ${styles.l_flex4}` }>
+                            <span className={ styles.u_t3 }>项目详情</span>
+                            <span className={ styles.m_arrow_wrap }><img className={ styles.m_arrow } src={ arrow_icon } alt="箭头"/></span>
+                        </div>
                     </Link>
                 </div>
-    
+
+                <div className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
+                    <div className={ `${styles.l_flex1} ${styles.l_flex4}` }>
+                        <input className={ styles.m_input } type="text" placeholder="请输入CF码"/>
+                        <button className={ styles.m_button }>如何获取CF码</button>
+                    </div> 
+                </div>
+                
+                <div className={ styles.l_box1 }>
+                    <label onClick={ this.toggleAgree } className={ `${styles.l_flex3} ${styles.u_c2} ${styles.u_t4}` }>
+                        <img src={ agree_icon } alt="checkbox" className={ styles.m_checkbox }/>我已阅读并同意<a href="" className={ styles.u_c3 }>《i财富四方借款协议》</a>
+                    </label>
+                </div>
+                
                 <div>
-    
-                    <div className={style.box}>
-                        <span>投资金额：</span>
-                        <span>15000.00元</span>
-                    </div>
-    
-                    <div className={style.box}>
-                        <span>预期收益：</span>
-                        <span>{earnings}元 + 499.00元</span>
-                    </div>
-    
-                    <div className={style.box}>
-                        <span>实际支付：</span>
-                        <span>15000.00元</span>
-                    </div>
-    
-                    <div className={style.box}>
-                        <span className={style.shrink}>CF码</span>
-                        <input onChange={this.changeHandle} className={style.input} type="text" value={CFCode} placeholder="请输入CF码" />
-                    </div>
-    
-                    <div className={`${style.box} ${style.center}`}>
-                        <label><input onChange={this.checkedHandle} type="checkbox" checked={agreen} />同意<a href="">《i财富四方借款协议》</a></label>
-                    </div>
-    
-                    <div className={style.container}>
-                        <button className={btnClassName}>{btnText}</button>
+                    <div className={styles.m_fixed_fill}></div>
+                    <div className="fixed-bottom">
+                        <div className={styles.m_op}>
+                            <div className={styles.m_op__service}>
+                                <img className={styles.m_op__service_icon} src={service_icon} alt="客服图标"/>
+                                客服
+                            </div>
+                            <Link className={styles.m_op__invest} to="/">余额不足，请充值14251元</Link>
+                        </div>
                     </div>
                 </div>
-    
+
             </div>
         )
     }
 }
-
-export default JPlan

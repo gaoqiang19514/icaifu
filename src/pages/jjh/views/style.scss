@@ -1,0 +1,145 @@
+// 工具
+
+    // 边距
+    .u_m1{
+        margin-bottom: 0.2667rem;
+    }
+    .u_m2{
+        margin-bottom: 0.4667rem;
+    }
+    .u_m3{
+        margin-right: 0.1333rem;
+    }
+
+    // 字体尺寸
+    .u_t1{
+        font-size: 0.6667rem;
+    }
+    .u_t2{
+        font-size: 0.4267rem;
+    }
+    .u_t3{
+        font-size: 0.4rem;
+    }
+    .u_t4{
+        font-size: 0.3467rem;
+    }
+
+    // 文字颜色
+    .u_c1{
+        color: #1a1b1c;
+    }
+    .u_c2{
+        color: #898996;
+    }
+    .u_c3{
+        color: #f8695e;
+    }
+    .u_c4{
+        color: #fff;
+    }
+
+    // 背景
+    .u_b1{
+        background: #fff;
+    }
+    .u_b2{
+        background: #d7d7d7;
+    }
+
+    .button{
+        border: 0;
+        outline: none;
+        padding: 0;
+        text-decoration: none;
+        background: transparent;
+    }
+    .input{
+        border: 0;
+        outline: none;
+        padding: 0;
+    }
+
+// 布局
+.l_box1{
+    padding: 0.4667rem 0.4rem;
+}
+.l_box2{
+    padding: 0.6rem 0.4rem;
+}
+.l_box3{
+    padding: 0.3333rem;
+}
+
+.l_flex1{
+    display: flex;
+    justify-content: space-between
+}
+.l_flex2{
+    display: flex;
+    justify-content: center;
+}
+.l_flex3{
+    display: flex;
+}
+.l_flex4{
+    align-items: center;
+}
+// 模块
+
+.m_input{
+    composes: input u_t3;
+    width: auto;
+    line-height: normal;
+}
+.m_button{
+    composes: button u_t4 u_c3;
+}
+.m_checkbox{
+    composes: u_m3;
+    width: 0.32rem;
+    height: 0.32rem;
+}
+.m_arrow{
+    width: 0.24rem;
+    height: 0.4rem;
+}
+.m_arrow_wrap{
+    padding: 0 0.3rem
+}
+.m_border{
+}
+
+
+// 定位模块
+.m_fixed_fill{
+    height: 1.3333rem;
+}
+.m_op {
+    display: flex;
+    justify-content: space-between;
+}
+
+.m_op__service {
+    font-size: 0.2667rem;
+    text-align: center;
+    flex-grow: 1;
+    height: 1.3333rem;
+    color: #898996;
+    background: #fff;
+}
+
+.m_op__invest {
+    font-size: 0.4267rem;
+    color: #fff;
+    text-align: center;
+    height: 1.3333rem;
+    line-height: 1.3333rem;
+    width: 7.8667rem;
+    background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #d7d7d7, #d7d7d7);
+}
+.m_op__service_icon{
+    margin: 0.2rem auto 0.1333rem auto;
+    width: 0.5333rem;
+    height: 0.52rem;
+}
