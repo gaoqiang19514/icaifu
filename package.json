@@ -48,5 +48,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "proxy": "https://api.icaifu.com/v1/"
+  "proxy": "http://icaifu.51vip.biz:8991/v1/"
 }

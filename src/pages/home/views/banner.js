@@ -5,12 +5,12 @@ import "swiper/dist/css/swiper.css"
 
 import { buildPublicSign } from '@/api/api.js'
 import { view as Skeleton } from '@/common/skeleton';
-import style from './style.scss';
+import styles from './style.scss';
 
 const Item = ({ activityUrl, intro, appPicUrl }) => (
     <div className="swiper-slide">
         <a href={ activityUrl }>
-            <img alt={ intro } src={ appPicUrl } />
+            <img className={ styles.banner_item } alt={ intro } src={ appPicUrl } />
         </a>
     </div>        
 )
@@ -20,7 +20,6 @@ export default class extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            ready: false,
             banners: []
         }
     }
@@ -45,7 +44,6 @@ export default class extends Component {
 
             if(!this.loadFlag){return}
             this.setState({
-                ready: true,
                 banners: response.data.item
             }, () => {
                 new Swiper('.swiper-container', {
@@ -60,12 +58,11 @@ export default class extends Component {
     }
 
 	render() {
-        const {banners} = this.state;
+        const { banners } = this.state;
 
 		return (
-            <Skeleton type="banner" ready={this.state.ready}>
-                <div className={`swiper-container ${style.swiper__container}`}>
-                    <div className="swiper-wrapper">
+                <div className="swiper-container">
+                    <div className={ `${styles.banner} swiper-wrapper` }>
                         {
                             banners.map((item, index) => {
                                 return (
@@ -79,9 +76,8 @@ export default class extends Component {
                             })
                         }
                     </div>
-                    <div className={`swiper-pagination swiper-pagination ${style.swiper__pagination}`}></div>
+                    <div className={`swiper-pagination swiper-pagination swiper__pagination`}></div>
                 </div>
-            </Skeleton>
 		)
 	}
 }

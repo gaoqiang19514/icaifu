@@ -33,6 +33,17 @@ import { view as Setting } from './pages/setting';
 import {view as Auth} from './common/auth/';
 
 
+const pageNotFound = {
+    fontWeight: 'bold',
+    paddingTop: '40%',
+    fontSize: '0.8rem',
+    textAlign: 'center'
+};
+
+const PageNotFound = () => {
+    return <div style={ pageNotFound }>404 Page Not Found </div>
+}
+
 class App extends Component {
   	render() {
     	return (
@@ -85,7 +96,9 @@ class App extends Component {
                                     <Auth path="/setting" component={ Setting } />
                                     <Auth path="/userinfo" component={ UserInfo } />
                                     
-                                    <Route component={Home} />
+                                    <Route path='/404' component={PageNotFound} />
+                                    <Redirect from='*' to='/404' />
+
                                 </Switch>
                             </CSSTransitionGroup>
                         )

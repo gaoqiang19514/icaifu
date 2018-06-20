@@ -1,13 +1,5 @@
-.swiper__container{
 
-}
-.swiper__pagination {
-    span{
-        border-radius: 0;
-        width: 20px;
-        height: 4px;
-    }
-}
+
 
 .l_box_wrap{
     a:last-child > div:after{
@@ -101,4 +93,14 @@
     margin-bottom: 0.4rem;
     height: 0.3467rem;
     background: #eaeaea;
+}
+
+
+.banner{
+    width: 10rem;
+    height: 4.48rem;    
+}
+.banner_item{
+    width: 10rem;
+    height: 4.48rem;
 }

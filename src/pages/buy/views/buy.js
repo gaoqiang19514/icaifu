@@ -1,11 +1,13 @@
-import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import axios from 'axios';
+
+import { buildBuyAuthSign } from '@/api/api.js';
 
 import service_icon from './images/service_icon.png';
 import checkbox_ok from './images/checkbox_icon_ok.png';
 import checkbox_no from './images/checkbox_icon_no.png';
-import styles from './style.scss'
-import Coupon from './coupon.js'
+import styles from './style.scss';
+import Coupon from './coupon.js';
 
 export default class extends Component {
 
@@ -35,6 +37,29 @@ export default class extends Component {
         this.setState({
             investAmount: amout
         });
+    }
+
+    submitHandle = () => {
+
+        const keyStr = buildBuyAuthSign({
+            user_name: '',
+            operate_type: '',
+            product_id: '',
+            amount: '',
+            act_code: '',
+            rate_code: '',
+            p2pSubjectId: '',
+            p2pProductId: '',
+            nbCode: ''
+        });
+
+        axios.get('/my/account_operate?=' + keyStr)
+        .then(function (response) {
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+
     }
 
     render() {
@@ -109,7 +134,7 @@ export default class extends Component {
                                 <img className={styles.m_op__service_icon} src={service_icon} alt="客服图标"/>
                                 客服
                             </div>
-                            <Link className={styles.m_op__invest} to="/">余额不足，请充值14251元</Link>
+                            <button onClick={ this.submitHandle } className={styles.m_op__invest} to="/">余额不足，请充值14251元</button>
                         </div>
                     </div>
                 </div>

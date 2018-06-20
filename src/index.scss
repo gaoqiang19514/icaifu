@@ -36,6 +36,16 @@ h6 {
 }
 
 :global {
+
+    .swiper__pagination {
+        span{
+            border-radius: 0;
+            width: 20px;
+            height: 4px;
+        }
+    }
+
+
     .fixed-bottom{
         position: fixed;
         bottom: 0;

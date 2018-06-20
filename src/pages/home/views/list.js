@@ -30,7 +30,7 @@ class List extends Component {
 	}
 
 	loadProductList() {
-		const keyStr = buildPublicSign()
+		const keyStr = buildPublicSign();
 
         axios.get('/product/p2p_data_info?' + keyStr)
         .then((response) => {
