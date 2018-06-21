@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import swal from 'sweetalert';
 
 import styles from './style.scss';
 import bellIcon from './images/bell_icon.png';
@@ -23,6 +24,33 @@ class Profile extends Component {
             total_assets: '- -',
             regular_receive_profit: '- -'
         };
+
+
+        swal({
+            title: "提示",
+            text: "请尽快开通存管账户",
+            buttons: {
+                cancel: {
+                  text: "Cancel",
+                  value: null,
+                  visible: true,
+                  className: "",
+                  closeModal: false,
+                },
+                confirm: {
+                  text: "OK",
+                  value: true,
+                  visible: true,
+                  className: "",
+                  closeModal: true
+                }
+              }
+          })
+          .then(willDelete => {
+              if(!willDelete){
+                setTimeout(() => swal('ok'), 2000)
+              }
+          });
     }
 
     componentDidMount() {

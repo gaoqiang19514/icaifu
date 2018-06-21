@@ -52,7 +52,12 @@ export default class extends Component {
                 </div>
 
                 <div className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
-                    <Link to={ `/invest/${id}` }>
+                    <Link to={{
+                        pathname: `/invest/${id}`,
+                        state: {
+                            type: 'jjh'
+                        }
+                    }}>
                         <div className={ `${styles.l_flex1} ${styles.l_flex4}` }>
                             <span className={ styles.u_t3 }>项目详情</span>
                             <span className={ styles.m_arrow_wrap }><img className={ styles.m_arrow } src={ arrow_icon } alt="箭头"/></span>

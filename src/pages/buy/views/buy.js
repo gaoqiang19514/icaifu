@@ -4,10 +4,53 @@ import axios from 'axios';
 import { buildBuyAuthSign } from '@/api/api.js';
 
 import service_icon from './images/service_icon.png';
+import arrow_icon from './images/arrow_icon.png';
 import checkbox_ok from './images/checkbox_icon_ok.png';
 import checkbox_no from './images/checkbox_icon_no.png';
+import circle_ok from './images/circle_check_icon_ok.png';
+import circle_no from './images/circle_check_icon_no.png';
 import styles from './style.scss';
-import Coupon from './coupon.js';
+
+
+const Coupon = ({ id, checkState, onSelectCouponHandle }) => {
+    let checkIcon = checkState ? circle_ok : circle_no;
+
+    return (
+        <div className={ styles.coupon }>
+            <div className={ styles.coupon_aside }>
+                <div className={ styles.coupon_amount }>￥15000</div>
+                <div className={ styles.coupon_condition }>满20000元可用</div>
+            </div>
+            <div className={ styles.coupon_main }>
+                <div className={ styles.coupon_hd }>
+                    <span onClick={ () => onSelectCouponHandle(id) } className={ styles.coupon_checkbox }>
+                        <img src={ checkIcon } alt="勾选"/>
+                    </span>
+                    <span className={ styles.coupon_title }>代金券</span>
+                    <span className={ styles.coupon_badge }>今天过期</span>
+                </div>
+                <div className={ styles.coupon_bd }>
+                    <div>投资期限=30天或60天</div>
+                    <div>除极计划外其余产品可用</div>
+                </div>
+                <div className={ styles.coupon_ft }>
+                    <span className={ styles.coupon_expire }>
+                    有效期至 2018-12-31
+                    </span>
+                </div>
+            </div>
+        </div>
+    )
+}
+
+const FixedButton = ({ children }) => {
+    return (
+        <div>
+            <div style={{ height: '1.3333rem' }}></div>
+            { children }
+        </div>
+    )
+}
 
 export default class extends Component {
 
@@ -16,7 +59,15 @@ export default class extends Component {
 
         this.state = {
             investAmount: '',
-            agree: true
+            agree: true,
+            visibleCouponLayer: false,
+            coupons: [
+                { id: 1, checked: true },
+                { id: 2, checked: false },
+                { id: 3, checked: false },
+                { id: 4, checked: false },
+                { id: 5, checked: false }
+            ]
         };
     }
 
@@ -62,13 +113,49 @@ export default class extends Component {
 
     }
 
+    visibleCouponHandle = () => {
+        this.setState({
+            visibleCouponLayer: true
+        });
+    }
+
+    selectCouponHandle = (id) => {
+    }
+
+    hideCouponHandle = () => {
+        this.setState({
+            visibleCouponLayer: false
+        });
+    }
+
     render() {
-        const {investAmount, agree} = this.state;
+        const {investAmount, coupons, agree, visibleCouponLayer} = this.state;
 
         const agree_icon = agree ? checkbox_ok : checkbox_no;
 
+        const visibleCouponStyle = visibleCouponLayer ? { display: 'block' } : { display: 'none' };
+
         return (
             <div>
+
+                <div style={ visibleCouponStyle } className="layer">
+                    <div className="layer__wrap">
+                        {
+                            coupons.map((item, index) => {
+                                return <Coupon 
+                                        key={ item.id } 
+                                        id={ item.id }
+                                        checkState={ item.checked }
+                                        onSelectCouponHandle={ this.selectCouponHandle } />
+                            })
+                        }
+                        <FixedButton>
+                            <div className="layer__btn-wrap">
+                                <button onClick={ this.hideCouponHandle } className="button button--primary">确定</button>
+                            </div>
+                        </FixedButton>
+                    </div>
+                </div>
 
                 <div className={`${styles.l_box} ${styles.u_t1}`}>
                     <div className={`${styles.l_box_in} ${styles.u_c_g} ${styles.u_m_b} ${styles.u_t2}`}>
@@ -90,11 +177,14 @@ export default class extends Component {
                         <span>可用余额0.00元</span>
                     </div>
                 </div>
-
+            
                 <div className={`${styles.l_box} ${styles.u_t1}`}>
                     <div className={styles.l_box_in}>
                         <span>优惠券</span>
-                        <span>无可用</span>
+                        <div onClick={ this.visibleCouponHandle } className={ styles.l_flex }>
+                            <span>有优惠券未使用</span>
+                            <img className={ styles.m_arrow } src={ arrow_icon } alt="箭头"/>
+                        </div>
                     </div>
                 </div>
 

@@ -1,0 +1,136 @@
+.list{
+    display: flex;
+    padding: 0;
+    margin: 0;
+    background: #fff;
+}
+.tab{
+    outline: none;
+    flex-grow: 1;
+    color: #9299a4;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0.4rem 0;
+    font-weight: bold;
+    font-size: 0.4267rem;
+}
+.tabState{
+    outline: none;
+    flex-grow: 1;
+    color: #9299a4;
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0.4rem 0;
+    font-size: 0.3733rem;
+}
+
+.selected{
+    color: #1a1b1c;
+}
+.selectedState{
+    color: #ff4949;
+}
+
+.panel{
+    padding: 0.4rem;
+}
+.nav{
+    position: relative;
+    &::after{
+        content: '';
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        height: 1px;
+        background: #eaeaea;
+        transform: scaleY(.5);
+    }
+}
+
+
+
+.coupon {
+    display: flex;
+    margin-bottom: 0.4rem;
+    box-shadow: 0rem 0.0267rem 0.08rem 0rem 
+    rgba(0, 0, 0, 0.08);
+}
+
+.coupon_aside {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+    width: 3.5rem;
+    padding: 0.4rem;
+    border-radius: 0.1067rem 0rem 0rem 0.1067rem;
+    background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #f8695e, #f8695e);
+}
+.coupon_amount{
+    margin-bottom: 0.2667rem;
+    font-size: 0.6667rem;
+}
+
+.coupon_condition{
+    font-size: 0.3467rem;
+}
+.coupon_main {
+    flex-grow: 1;
+    background: #fff;
+    border-radius: 0rem 0.1067rem 0.1067rem 0rem ;
+}
+.coupon_hd{
+    position: relative;
+
+    display: flex;
+    align-items: flex-end;
+    padding: 0.4rem 0.4rem 0 0.4rem;
+    margin-bottom: 0.2667rem;
+}
+.coupon_bd{
+    font-size: 0.3467rem;
+    line-height: 0.48rem;
+    padding: 0 0.4rem 0.2667rem 0.4rem;
+}
+.coupon_ft{
+    position: relative;
+    text-align: right;
+    padding: 0.2rem 0.4rem;
+}
+.coupon_ft::after{
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 1px;
+    background: #eaeaea;
+    transform: scaleY(.5);
+}
+.coupon_title{
+    font-weight: bold;
+    font-size: 0.48rem;
+}
+.coupon_badge{
+    margin-left: 0.2667rem;
+    color: #fff;
+    border-radius: 0.2rem;
+    padding: 0.0667rem 0.1333rem;
+    background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #f8695e, #f8695e);
+
+}
+.coupon_expire{
+    color: #898996;
+    font-size: 0.2933rem;
+}
+.coupon_checkbox{
+    position: absolute;
+    top: 0.4rem;
+    right: 0.4rem;
+    width: 0.4rem;
+    height: 0.4rem;
+}

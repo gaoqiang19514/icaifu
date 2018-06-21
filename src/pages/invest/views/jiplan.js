@@ -1,5 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 import style from './style.scss'
 
@@ -53,7 +53,10 @@ const Item = ({ novice, novice_restrictions_desc, match, id, percent, timeLimit,
     }
 
     return (
-        <Link to={`${match.url}/${id}`}>
+        <Link to={{
+            pathname: `/invest/${id}`,
+            state: { type: 'jjh' }
+          }}>
             <div className={style.l_box}>
                 <div style={badgeStyle} className={style.l_box_hd}>
                     <label className="gradient" style={labelStyle}>{novice_restrictions_desc}</label>

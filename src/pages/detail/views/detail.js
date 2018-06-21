@@ -5,6 +5,7 @@ import calc_icon from './images/calc_icon.png';
 import service_icon from './images/service_icon.png';
 import arrow_icon from './images/arrow_icon.png';
 import line from './images/line.png'
+
 import styles from './style.scss';
 
 export default class extends Component {
@@ -15,6 +16,10 @@ export default class extends Component {
 
     render() {
         const { id } = this.props.match.params;
+        const { type } = this.props.location.state;
+
+        const ienjoyVisible = type === 'buy' ? { display: 'block' } : { display: 'none' };
+        const jiplanVisible = type === 'jjh' ? { display: 'block' } : { display: 'none' };
 
         return (
             <div>
@@ -81,8 +86,9 @@ export default class extends Component {
                         <div className={ styles.m_item }>预计04-24</div>
                     </div>
                 </div>
-
-                <div className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
+                
+                {/* i享才显示 */}
+                <div style={ ienjoyVisible } className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
                     <div>
                         <div className={ `${styles.l_flex7} ${styles.u_t5} ${styles.u_m1}` }>
                             <img className={ styles.m_calc } src={calc_icon} alt="计算器"/>
@@ -92,7 +98,8 @@ export default class extends Component {
                     </div>
                 </div>
 
-                <div className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
+                {/* 极计划才显示 */}
+                <div style={ jiplanVisible } className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
                     <div className={ `${styles.l_flex1} ${styles.u_t4}` }>
                         <div>参考收益</div>
                         <div className={ styles.u_c3 }>153.42 + 499 (元)</div>
@@ -134,9 +141,9 @@ export default class extends Component {
                         <div className={styles.m_op}>
                             <div className={styles.m_op__service}>
                                 <img className={styles.m_op__service_icon} src={service_icon} alt="客服图标"/>
-                                客服
+                                <span>客服</span>
                             </div>
-                            <Link className={styles.m_op__invest} to={`/buy/${id}`}>立即投资</Link>
+                            <Link className={styles.m_op__invest} to={`/${type}/${id}`}>立即投资</Link>
                         </div>
                     </div>
                 </div>

@@ -54,7 +54,12 @@ const Item = ({ novice, novice_restrictions_desc, match, id, percent, timeLimit,
     }
 
     return (
-        <Link to={`/jjh/${id}`}>
+        <Link to={{
+            pathname: `/invest/${id}`,
+            state: {
+                type: 'jjh'
+            }
+        }}>
             <div className={style.l_box}>
                 <div style={badgeStyle} className={style.l_box_hd}>
                     <label className="gradient" style={labelStyle}>{novice_restrictions_desc}</label>

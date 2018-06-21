@@ -1,0 +1,20 @@
+.l_flex{
+    display: flex;
+    align-items: center;
+}
+
+
+.icon_wrap{
+    margin-left: 0.5333rem;
+}
+.icon_wrap2{
+    margin-right: 0.5333rem;
+}
+.arrow_icon{
+    width: 0.24rem;
+    height: 0.4rem;
+    transition: transform .3s;
+}
+.arrow_icon_down{
+    transform: rotate(90deg);
+}

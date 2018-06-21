@@ -2,11 +2,12 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios';
 
+import { buildPublicSign } from '@/api/api.js';
+import { actions as loadingActions } from '@/common/loading';
+
 import JiPlan from './jiPlan.js'
 import IEnjoy from './ienjoy.js'
 import style from './style.scss'
-import { buildPublicSign } from '@/api/api.js'
-import { actions as loadingActions } from '@/common/loading'
 
 class List extends Component {
 
@@ -18,18 +19,13 @@ class List extends Component {
 			jiPlanList: [],
 			ienjoyList: []
 		}
-
-		this.loadProductList = this.loadProductList.bind(this);
 	}
 
 	componentWillMount() {
 		this.loadProductList();
 	}
 
-	componentWillUnmount() {
-	}
-
-	loadProductList() {
+	loadProductList = () => {
 		const keyStr = buildPublicSign();
 
         axios.get('/product/p2p_data_info?' + keyStr)
@@ -52,7 +48,7 @@ class List extends Component {
 	}
 
 	render() {
-		const {ready, jiPlanList, ienjoyList} = this.state
+		const {ready, jiPlanList, ienjoyList} = this.state;
    
 		return (
 			<div>
@@ -90,4 +86,4 @@ const mapDispatchToProps = (dispatch) => {
 	}
 }
 
-export default connect(null, mapDispatchToProps)(List)
+export default connect(null, mapDispatchToProps)(List);

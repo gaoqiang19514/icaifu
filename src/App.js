@@ -70,17 +70,19 @@ class App extends Component {
                                     <Route exact path="/" component={Home} />
                                     <Route path="/home" component={Home} />
                                     
-                                    <Auth path="/user" component={User} />
+                                    <Route path="/user" component={User} />
 
                                     <Route path="/other" component={Other} />
 
                                     <Route exact path="/invest" component={Invest} />
                                     <Route path="/invest/:id" component={Detail} />
                                     <Route path="/activity" component={Activity} />
+
+                                    {/* 购买页 */}
                                     <Route path="/buy/:id" component={Buy} />
                                     <Route path="/jjh/:id" component={Jjh} />
 
-                                    <Auth path="/voucher" component={Voucher} />
+                                    <Route path="/voucher" component={Voucher} />
                                     <Route path="/safety" component={Safety} />
 
                                     <Auth path="/withdraw" component={Withdraw} />

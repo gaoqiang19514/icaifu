@@ -1,97 +1,121 @@
-/*
-* @Author: gao
-* @Date:   2018-01-22 17:41:03
-* @Last Modified by:   gao
-* @Last Modified time: 2018-01-22 18:35:14
-*/
 import React, {Component} from 'react'
-import Swiper from "swiper"
-import "swiper/dist/css/swiper.css"
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-import style from './style.scss'
-import Item from './item.js'
+import service_icon from './images/service_icon.png';
+import checkbox_ok from './images/checkbox_icon_ok.png';
+import checkbox_no from './images/checkbox_icon_no.png';
+import circle_ok from './images/circle_check_icon_ok.png';
+import circle_no from './images/circle_check_icon_no.png';
+import arrow_icon from '@/common/images/arrow_icon.png';
 
-const styleFixed = {
-    position: 'fixed',
-    top: '52px',
-    bottom: '0',
-    left: '0',
-    right: '0',
-    overflow: 'auto'
-}
+import commonStyles from '@/common/css/styles.scss';
+import styles from './style.scss'
 
-export default class Voucher extends Component {
+
+const Coupon = () => (
+    <div className={ styles.coupon }>
+        <div className={ styles.coupon_aside }>
+            <div className={ styles.coupon_amount }>￥15000</div>
+            <div className={ styles.coupon_condition }>满20000元可用</div>
+        </div>
+        <div className={ styles.coupon_main }>
+            <div className={ styles.coupon_hd }>
+                <span className={ styles.coupon_title }>代金券</span>
+                <span className={ styles.coupon_badge }>今天过期</span>
+            </div>
+            <div className={ styles.coupon_bd }>
+                <div>投资期限=30天或60天</div>
+                <div>除极计划外其余产品可用</div>
+            </div>
+            <div className={ styles.coupon_ft }>
+                <span className={ styles.coupon_expire }>
+                有效期至 2018-12-31
+                </span>
+            </div>
+        </div>
+    </div>
+)
+
+export default class extends Component {
 
     constructor(props) {
-        super(props) 
+        super(props);
 
-        //  1 未使用 2 已使用 3 已过期
-        this.state = {
-            current: '1',
-            tabNavs: [
-                {id: 2, tabName: '未使用', value: '1'},
-                {id: 1, tabName: '已使用', value: '2'},
-                {id: 3, tabName: '已过期', value: '3'}
-            ],
-            couponList: [
-                {id: 1, title: '代金券', cash: 100, state: '3'},
-                {id: 2, title: '代金券', cash: 300, state: '3'},
-                {id: 3, title: '代金券', cash: 70, state: '2'},
-                {id: 4, title: '代金券', cash: 90, state: '1'},
-                {id: 5, title: '代金券', cash: 120, state: '2'},
-                {id: 6, title: '代金券', cash: 500, state: '3'},
-                {id: 7, title: '代金券', cash: 1000, state: '3'},
-                {id: 8, title: '代金券', cash: 190, state: '3'}
-            ]
-        }
-
-        this.switchView = this.switchView.bind(this)
-        this.filterCouponList = this.filterCouponList.bind(this)
     }
 
-    switchView(state) {
-        this.setState({
-            current: state
-        })
-    }
+    selectHandle = (index) => {
 
-    filterCouponList(state, list) {
-        return list.filter(function(item) {
-            return item.state === state
-        });
     }
 
     render() {
 
-        const { tabNavs, couponList, current } = this.state
-
-        const list = this.filterCouponList(current, couponList)
-
         return (
             <div>
-                <div className={style.nav}>
-                    <ul>
-                        {
-                            tabNavs.map(function(item, index) {
-                                let activeClass = current === item.value ? style.active : ''
-                                return (
-                                    <li key={item.id} className={activeClass} onClick={() => this.switchView(item.value)}>{item.tabName}</li>
-                                )
-                            }, this)
-                        }
-                    </ul>                        
-                </div>
-                <div style={styleFixed}>
-                    <div>
-                        {
-                            list.map(function(item, index) {
-                                return (
-                                    <Item key={item.id} />
-                                )
-                            })
-                        }
+                <Tabs defaultIndex={ 0 } onSelect={ this.selectHandle }>
+                    <div className={ styles.nav }>
+                        <TabList className={ styles.list } >
+                            <Tab className={ styles.tab } selectedClassName={ styles.selected }>代金券</Tab>
+                            <Tab className={ styles.tab } selectedClassName={ styles.selected }>加息券</Tab>
+                        </TabList>
                     </div>
-                </div>
+
+                    <TabPanel>
+                        <Tabs defaultIndex={ 0 } onSelect={ this.selectHandle }>
+                            <TabList className={ styles.list }>
+                                <Tab className={ styles.tabState } selectedClassName={ styles.selectedState }>未使用</Tab>
+                                <Tab className={ styles.tabState } selectedClassName={ styles.selectedState }>已使用</Tab>
+                                <Tab className={ styles.tabState } selectedClassName={ styles.selectedState }>已过期</Tab>
+                            </TabList>
+
+                            <div className={ styles.panel }>
+                                <TabPanel>
+                                    <Coupon />
+                                    <Coupon />
+                                    <Coupon />
+                                </TabPanel>
+                                <TabPanel>
+                                    <Coupon />
+                                    <Coupon />
+                                </TabPanel>
+                                <TabPanel>
+                                    <Coupon />
+                                    <Coupon />
+                                    <Coupon />
+                                    <Coupon />
+                                    <Coupon />
+                                </TabPanel>
+                            </div>
+
+                        </Tabs>
+                    </TabPanel>
+                    <TabPanel>
+                        <Tabs defaultIndex={ 0 } onSelect={ this.selectHandle }>
+                            <TabList className={ styles.list }>
+                                <Tab className={ styles.tabState } selectedClassName={ styles.selectedState }>未使用</Tab>
+                                <Tab className={ styles.tabState } selectedClassName={ styles.selectedState }>已使用</Tab>
+                                <Tab className={ styles.tabState } selectedClassName={ styles.selectedState }>已过期</Tab>
+                            </TabList>
+                            <div className={ styles.panel }>
+                                <TabPanel>
+                                    <Coupon />
+                                    <Coupon />
+                                    <Coupon />
+                                    <Coupon />
+                                    <Coupon />
+                                </TabPanel>
+                                <TabPanel>
+                                    <Coupon />
+                                    <Coupon />
+                                    <Coupon />
+                                </TabPanel>
+                                <TabPanel>
+                                    <Coupon />
+                                    <Coupon />
+                                </TabPanel>
+                            </div>
+                        </Tabs>
+                    </TabPanel>
+                </Tabs>
             </div>
         )
     }
