@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import uuid from 'uuid';
 
 import { buildBuyAuthSign } from '@/api/api.js';
 
@@ -10,7 +11,6 @@ import checkbox_no from './images/checkbox_icon_no.png';
 import circle_ok from './images/circle_check_icon_ok.png';
 import circle_no from './images/circle_check_icon_no.png';
 import styles from './style.scss';
-
 
 const Coupon = ({ id, checkState, onSelectCouponHandle }) => {
     let checkIcon = checkState ? circle_ok : circle_no;
@@ -60,13 +60,13 @@ export default class extends Component {
         this.state = {
             investAmount: '',
             agree: true,
-            visibleCouponLayer: false,
+            couponFlag: false,
             coupons: [
-                { id: 1, checked: true },
-                { id: 2, checked: false },
-                { id: 3, checked: false },
-                { id: 4, checked: false },
-                { id: 5, checked: false }
+                { id: uuid(), checked: true },
+                { id: uuid(), checked: false },
+                { id: uuid(), checked: false },
+                { id: uuid(), checked: false },
+                { id: uuid(), checked: false }
             ]
         };
     }
@@ -113,27 +113,21 @@ export default class extends Component {
 
     }
 
-    visibleCouponHandle = () => {
+    toggleCouponHandle = () => {
         this.setState({
-            visibleCouponLayer: true
+            couponFlag: !this.state.couponFlag
         });
     }
 
     selectCouponHandle = (id) => {
     }
 
-    hideCouponHandle = () => {
-        this.setState({
-            visibleCouponLayer: false
-        });
-    }
-
     render() {
-        const {investAmount, coupons, agree, visibleCouponLayer} = this.state;
+        const {investAmount, coupons, agree, couponFlag} = this.state;
 
         const agree_icon = agree ? checkbox_ok : checkbox_no;
 
-        const visibleCouponStyle = visibleCouponLayer ? { display: 'block' } : { display: 'none' };
+        const visibleCouponStyle = couponFlag ? { display: 'block' } : { display: 'none' };
 
         return (
             <div>
@@ -151,7 +145,7 @@ export default class extends Component {
                         }
                         <FixedButton>
                             <div className="layer__btn-wrap">
-                                <button onClick={ this.hideCouponHandle } className="button button--primary">确定</button>
+                                <button onClick={ this.toggleCouponHandle } className="button button--primary">确定</button>
                             </div>
                         </FixedButton>
                     </div>
@@ -181,7 +175,7 @@ export default class extends Component {
                 <div className={`${styles.l_box} ${styles.u_t1}`}>
                     <div className={styles.l_box_in}>
                         <span>优惠券</span>
-                        <div onClick={ this.visibleCouponHandle } className={ styles.l_flex }>
+                        <div onClick={ this.toggleCouponHandle } className={ styles.l_flex }>
                             <span>有优惠券未使用</span>
                             <img className={ styles.m_arrow } src={ arrow_icon } alt="箭头"/>
                         </div>

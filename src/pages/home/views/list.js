@@ -1,13 +1,37 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import axios from 'axios';
+import styled from 'styled-components';
 
 import { buildPublicSign } from '@/api/api.js';
 import { actions as loadingActions } from '@/common/loading';
 
 import JiPlan from './jiPlan.js'
 import IEnjoy from './ienjoy.js'
-import style from './style.scss'
+
+const Box = styled.div`
+    margin-bottom: 0.2667rem;
+    background: #fff;
+`;
+
+const BoxHead = styled.div`
+    position: relative;
+    padding: 0.2667rem 0.4rem;
+    &:after{
+        content: '';
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        width: 100%;
+        height: 1px;
+        background: #eaeaea;
+        transform: scaleY(.5);
+    }
+`;
+
+const BoxBody = styled.div`
+	padding: 0 0.4rem;
+`;
 
 class List extends Component {
 
@@ -52,23 +76,22 @@ class List extends Component {
    
 		return (
 			<div>
-				<div className={style.l_b}>
-					<div className={style.l_b_h}>
+				<Box>
+					<BoxHead>
 						<h2 className="label">极计划</h2>
-					</div>
-					<div className={style.l_b_b}>
+					</BoxHead>
+					<BoxBody>
 						<JiPlan ready={ ready } data={jiPlanList} match={this.props.match} />
-					</div>
-				</div>
-
-				<div className={style.l_b}>
-					<div className={style.l_b_h}>
+					</BoxBody>
+				</Box>
+				<Box>
+					<BoxHead>
 						<h2 className="label">i享系列</h2>
-					</div>
-					<div className={style.l_b_b}>
+					</BoxHead>
+					<BoxBody>
 						<IEnjoy ready={ ready } data={ienjoyList} match={this.props.match} />
-					</div>
-				</div>
+					</BoxBody>
+				</Box>
 			</div>
 		)
 	}

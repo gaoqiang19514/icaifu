@@ -1,77 +1,74 @@
 import React from 'react';
+import styled from 'styled-components';
 
-import style from './style.scss';
+const SubTitle = styled.div`
+    font-size: 0.3467rem;
+    font-weight: bold;
+    margin-bottom: 0.16rem;
+`;
 
-const titleStyle = {
-    fontSize: '0.4rem'
-}
+const Text = styled.div`
+    line-height: 0.4rem;
+    color: #a8acb3;
+    font-size: 0.2933rem;
+`;
 
-const itemTitleStyle = {
-    fontSize: '0.3467rem',
-    fontWeight: 'bold',
-    marginBottom: '0.16rem'
-}
+const Item = styled.a`
+    flex: 1;
+    text-align: center;
+`;
 
-const clearMargin = {
-    margin: 0
-}
+const Icon = styled.img`
+    margin: 0 auto 0.4rem auto;
+    width: 1.8133rem;
+    height: 1.8133rem;
+`;
 
-const textStyle = {
-    ...clearMargin,
-    lineHeight: '0.4rem',
-    color: '#a8acb3',
-    fontSize: '0.2933rem'
-}
+const Title = styled.h2`
+    font-size: 0.4rem;
+`;
 
-const itemStyle = {
-    flex: '1',
-    textAlign: 'center'
-}
+const Box = styled.div`
+    padding: 0.4rem;
+`;
 
-const iconStyle = {
-    margin: '0 auto 0.4rem auto',
-    width: '1.8133rem',
-    height: '1.8133rem'
-}
+const Box2 = styled.div`
+    margin-bottom: 0.2667rem;
+    background: #fff;
+`;
 
 export default () => (
-    <div className={style.l_section} style={{background: '#fff'}}>
-        <div className={style.l_section_hd}>
-            <h2 style={titleStyle}>为什么选择i财富</h2>
-        </div>
-        <div className={style.l_section_bd}>
+    <Box2>
+        <Box>
+            <Title>为什么选择i财富</Title>
+        </Box>
+        <Box>
             <div className="flex flex--between">
-                <a href="" style={itemStyle}>
-                    <div style={iconStyle}>
-                        <img src="http://iph.href.lu/136x136?fg=ccc&bg=eaeaea" alt=""/>
+                <Item href="">
+                    <Icon src="http://iph.href.lu/136x136?fg=ccc&bg=eaeaea" alt="" />
+                    <div>
+                        <SubTitle>安全保障</SubTitle>
+                        <Text>安全等保3级</Text>
+                        <Text>历史出借安全回款</Text>
                     </div>
-                    <dl style={{margin: 0}}>
-                        <dt style={itemTitleStyle}>安全保障</dt>
-                        <dd style={textStyle}>安全等保3级</dd>
-                        <dd style={textStyle}>历史出借安全回款</dd>
-                    </dl>
-                </a>
-                <a href="" style={itemStyle}>
-                    <div style={iconStyle}>
-                        <img src="http://iph.href.lu/136x136?fg=ccc&bg=eaeaea" alt=""/>
+                </Item>
+                <Item href="">
+                    <Icon src="http://iph.href.lu/136x136?fg=ccc&bg=eaeaea" alt="" />
+                    <div>
+                        <SubTitle>央企入股</SubTitle>
+                        <Text>央企战略入股</Text>
+                        <Text>恒信集团控股平台</Text>
                     </div>
-                    <dl style={{margin: 0}}>
-                        <dt style={itemTitleStyle}>央企入股</dt>
-                        <dd style={textStyle}>央企战略入股</dd>
-                        <dd style={textStyle}>恒信集团控股平台</dd>
-                    </dl>
-                </a>
-                <a href="" style={itemStyle}>
-                    <div style={iconStyle}>
-                        <img src="http://iph.href.lu/136x136?fg=ccc&bg=eaeaea" alt=""/>
+                </Item>
+                <Item href="">
+                    <Icon src="http://iph.href.lu/136x136?fg=ccc&bg=eaeaea" alt="" />
+                    <div>
+                        <SubTitle>银行存管</SubTitle>
+                        <Text>与上饶银行联手</Text>
+                        <Text>实现资金存管</Text>
                     </div>
-                    <dl style={{margin: 0}}>
-                        <dt style={itemTitleStyle}>银行存管</dt>
-                        <dd style={textStyle}>与上饶银行联手</dd>
-                        <dd style={textStyle}>实现资金存管</dd>
-                    </dl>
-                </a>
+                </Item>
             </div>
-        </div>
-    </div>
+        </Box>
+    </Box2>
 )

@@ -1,16 +1,26 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import styled from 'styled-components';
 import Swiper from "swiper"
 import "swiper/dist/css/swiper.css"
 
 import { buildPublicSign } from '@/api/api.js'
 import { view as Skeleton } from '@/common/skeleton';
-import styles from './style.scss';
+
+const Image = styled.img`
+    width: 10rem;
+    height: 4.48rem;
+`;
+
+const Banner = styled.div`
+    width: 10rem;
+    height: 4.48rem;    
+`;
 
 const Item = ({ activityUrl, intro, appPicUrl }) => (
     <div className="swiper-slide">
         <a href={ activityUrl }>
-            <img className={ styles.banner_item } alt={ intro } src={ appPicUrl } />
+            <Image alt={ intro } src={ appPicUrl } />
         </a>
     </div>        
 )
@@ -61,23 +71,23 @@ export default class extends Component {
         const { banners } = this.state;
 
 		return (
-                <div className="swiper-container">
-                    <div className={ `${styles.banner} swiper-wrapper` }>
-                        {
-                            banners.map((item, index) => {
-                                return (
-                                    <Item 
-                                        key={item.id}
-                                        activityUrl={item.appPicUrl}
-                                        intro={item.intro}
-                                        appPicUrl={item.appPicUrl}
-                                    />
-                                )
-                            })
-                        }
-                    </div>
-                    <div className={`swiper-pagination swiper-pagination swiper__pagination`}></div>
-                </div>
+            <div className="swiper-container">
+                <Banner className="swiper-wrapper">
+                    {
+                        banners.map((item, index) => {
+                            return (
+                                <Item 
+                                    key={item.id}
+                                    activityUrl={item.appPicUrl}
+                                    intro={item.intro}
+                                    appPicUrl={item.appPicUrl}
+                                />
+                            )
+                        })
+                    }
+                </Banner>
+                <div className={`swiper-pagination swiper-pagination swiper__pagination`}></div>
+            </div>
 		)
 	}
 }

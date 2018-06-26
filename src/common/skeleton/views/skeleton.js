@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Skeleton from 'react-loading-skeleton';
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import styles from './styles.scss';
 
@@ -77,25 +77,14 @@ export default class extends Component {
 
         if(this.state.ready){
             return (
-                <CSSTransitionGroup
-                    component="div"
-                    transitionName={{
-                        enter: `${styles['fade-enter']}`,
-                        enterActive: `${styles['fade-enter-active']}`,
-                        leave: `${styles['fade-leave']}`,
-                        leaveActive: `${styles['fade-leave-active']}`,
-                        appear: `${styles['fade-appear']}`,
-                        appearActive: `${styles['fade-appear-active']}`
-                    }}
-                    transitionAppear={true}
-                    transitionAppearTimeout={500}
-                    transitionEnterTimeout={500}
-                    transitionLeaveTimeout={300}
+                <CSSTransition
+                    classNames="fade"
+                    timeout={ 500 }
                 >
                 <div>
                     {this.props.children}
                 </div>
-                </CSSTransitionGroup>
+                </CSSTransition>
             );
         }
 

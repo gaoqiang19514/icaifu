@@ -1,25 +1,67 @@
 :global {
+
+
+    
     .fade-appear {
         opacity: 0.01;
     }
-    .fade-appear.fade-appear-active {
+    .fade-appear-active {
         opacity: 1;
         transition: opacity 500ms ease-in;
     }
+
+
     .fade-enter {
         opacity: 0.01;
     }
-    .fade-enter.fade-enter-active {
+    .fade-enter-active {
         opacity: 1;
-        transition: opacity 500ms ease-in;
+        transition: opacity 300ms ease-in;
     }
-    .fade-leave {
-        opacity: 1;
-    }
-    .fade-leave.fade-leave-active {
+
+
+
+    .fade-exit-active {
         opacity: 0.01;
         transition: opacity 300ms ease-in;
     }
+    .fade-exit-done{
+        opacity: 0.01;
+    }
+
+
+
+
+
+    .slide-appear {
+        transform: translateY(100%);
+    }
+    .slide-appear-active {
+        transform: translateY(0);
+        transition: transform 300ms;
+    }
+
+    .slide-enter {
+        transform: translateY(100%);
+    }
+    .slide-enter-active {
+        transform: translateY(0);
+        transition: transform 300ms;
+    }
+
+    .fade-exit{
+        transform: translateY(0);
+    }
+    .slide-exit-active {
+        transition: transform 300ms;
+        transform: translateY(100%);
+    }
+    .slide-exit-done{
+    }
+
+
+
+
     .layer {
         position: fixed;
         left: 0;
@@ -37,14 +79,14 @@
         overflow-y: auto;
         -webkit-overflow-scrolling: touch;
     }
-    .fixed__sibling{
+    .fixed__sibling {
         height: 1.3333rem;
     }
-    .layer__btn-wrap{
+    .layer__btn-wrap {
         position: fixed;
         left: 0;
         right: 0;
-        bottom: 0;  
+        bottom: 0;
         padding: 0.2667rem;
         background: #fff;
     }
@@ -64,11 +106,6 @@
         border-radius: 0.6667rem;
         height: 1.3333rem;
         box-shadow: 0rem 0.0267rem 0.1067rem 0rem rgba(249, 82, 83, 0.19);
-    	background-image: linear-gradient(90deg, 
-		#f94c50 0%, 
-		#f77366 100%), 
-	linear-gradient(
-		#f7645b, 
-		#f7645b);
+        background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #f7645b, #f7645b);
     }
 }

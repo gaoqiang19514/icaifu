@@ -12,6 +12,7 @@ export const login = (token, userId) => {
 
 export const logout = () => {
     localStorage.removeItem('token')
+    localStorage.removeItem('userid')
     return {
         type: LOGOUT_AUTH
     }

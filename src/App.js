@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Switch, Redirect } from 'react-router-dom'
-import CSSTransitionGroup from 'react-transition-group/CSSTransitionGroup';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import 'react-flexible';
 
 import style from './App.scss';
@@ -48,64 +48,59 @@ class App extends Component {
   	render() {
     	return (
 	      	<div className="App">
-                <Route component={
-                    ({location}) => {
-                        return (
-                            <CSSTransitionGroup
-                                component="div"
-                                transitionName={{
-                                    enter: `${style['fade-enter']}`,
-                                    enterActive: `${style['fade-enter-active']}`,
-                                    leave: `${style['fade-leave']}`,
-                                    leaveActive: `${style['fade-leave-active']}`,
-                                    appear: `${style['fade-appear']}`,
-                                    appearActive: `${style['fade-appear-active']}`
-                                }}
-                                transitionAppear={true}
-                                transitionAppearTimeout={500}
-                                transitionEnterTimeout={500}
-                                transitionLeaveTimeout={300}
-                            >
-                                <Switch key={location.pathname} >
-                                    <Route exact path="/" component={Home} />
-                                    <Route path="/home" component={Home} />
-                                    
-                                    <Route path="/user" component={User} />
 
-                                    <Route path="/other" component={Other} />
+                    <Route component={
+                        ({location}) => {
+                            return (
+                                <TransitionGroup>
+                                    <CSSTransition
+                                        key={location.pathname}
+                                        classNames="fade"
+                                        appear={ true }
+                                        timeout={ 300 }
+                                    >
+                                        <Switch key={location.pathname} >
+                                            <Route exact path="/" component={Home} />
+                                            <Route path="/home" component={Home} />
+                                            
+                                            <Auth path="/user" component={User} />
 
-                                    <Route exact path="/invest" component={Invest} />
-                                    <Route path="/invest/:id" component={Detail} />
-                                    <Route path="/activity" component={Activity} />
+                                            <Route path="/other" component={Other} />
 
-                                    {/* 购买页 */}
-                                    <Route path="/buy/:id" component={Buy} />
-                                    <Route path="/jjh/:id" component={Jjh} />
+                                            <Route exact path="/invest" component={Invest} />
+                                            <Route path="/invest/:id" component={Detail} />
+                                            <Route path="/activity" component={Activity} />
 
-                                    <Route path="/voucher" component={Voucher} />
-                                    <Route path="/safety" component={Safety} />
+                                            {/* 购买页 */}
+                                            <Route path="/buy/:id" component={Buy} />
+                                            <Route path="/jjh/:id" component={Jjh} />
 
-                                    <Auth path="/withdraw" component={Withdraw} />
-                                    <Auth path="/recharge" component={Recharge} />
-                                    <Auth path="/exchangeRecord" component={ExchangeRecord} />
-                                    <Auth path="/investRecord" component={InvestRecord} />
+                                            <Route path="/voucher" component={Voucher} />
+                                            <Route path="/safety" component={Safety} />
 
-                                    <Route path="/login" component={Login} />
-                                    <Route path="/register" component={Register} />
-                                    <Route path="/forgetPassword" component={ForgetPassword} />
+                                            <Auth path="/withdraw" component={Withdraw} />
+                                            <Auth path="/recharge" component={Recharge} />
+                                            <Auth path="/exchangeRecord" component={ExchangeRecord} />
+                                            <Auth path="/investRecord" component={InvestRecord} />
 
-                                    
-                                    <Auth path="/setting" component={ Setting } />
-                                    <Auth path="/userinfo" component={ UserInfo } />
-                                    
-                                    <Route path='/404' component={PageNotFound} />
-                                    <Redirect from='*' to='/404' />
+                                            <Route path="/login" component={Login} />
+                                            <Route path="/register" component={Register} />
+                                            <Route path="/forgetPassword" component={ForgetPassword} />
 
-                                </Switch>
-                            </CSSTransitionGroup>
-                        )
-                    }
-                } />
+                                            
+                                            <Auth path="/setting" component={ Setting } />
+                                            <Auth path="/userinfo" component={ UserInfo } />
+                                            
+                                            <Route path='/404' component={PageNotFound} />
+                                            <Redirect from='*' to='/404' />
+
+                                        </Switch>
+                                    </CSSTransition>
+                                </TransitionGroup>
+
+                            )
+                        }
+                    } />
 
                 <Loading />
 	      	</div>

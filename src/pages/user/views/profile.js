@@ -24,33 +24,6 @@ class Profile extends Component {
             total_assets: '- -',
             regular_receive_profit: '- -'
         };
-
-
-        swal({
-            title: "提示",
-            text: "请尽快开通存管账户",
-            buttons: {
-                cancel: {
-                  text: "Cancel",
-                  value: null,
-                  visible: true,
-                  className: "",
-                  closeModal: false,
-                },
-                confirm: {
-                  text: "OK",
-                  value: true,
-                  visible: true,
-                  className: "",
-                  closeModal: true
-                }
-              }
-          })
-          .then(willDelete => {
-              if(!willDelete){
-                setTimeout(() => swal('ok'), 2000)
-              }
-          });
     }
 
     componentDidMount() {
