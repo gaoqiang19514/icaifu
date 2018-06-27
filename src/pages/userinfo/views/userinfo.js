@@ -245,7 +245,7 @@ export default class extends Component {
                     </Item>
                     <Item>
                         <span>收货地址</span>
-                        <StyledLink to=''>
+                        <StyledLink to='/address'>
                             <span>未设置</span>
                             <Arrow src={ arrow_icon } alt="箭头" />
                         </StyledLink>

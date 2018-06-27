@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import uuid from 'uuid';
+import ReactLoading from 'react-loading';
+import BScroll from 'better-scroll';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { buildBuyAuthSign } from '@/api/api.js';
+import { AnimateFullLayer } from '@/common/animateLayer';
 
 import service_icon from './images/service_icon.png';
 import arrow_icon from './images/arrow_icon.png';
@@ -10,44 +14,112 @@ import checkbox_ok from './images/checkbox_icon_ok.png';
 import checkbox_no from './images/checkbox_icon_no.png';
 import circle_ok from './images/circle_check_icon_ok.png';
 import circle_no from './images/circle_check_icon_no.png';
+
 import styles from './style.scss';
+import './layer.css';
 
-const Coupon = ({ id, checkState, onSelectCouponHandle }) => {
-    let checkIcon = checkState ? circle_ok : circle_no;
+class Coupon extends Component {
 
-    return (
-        <div className={ styles.coupon }>
-            <div className={ styles.coupon_aside }>
-                <div className={ styles.coupon_amount }>￥15000</div>
-                <div className={ styles.coupon_condition }>满20000元可用</div>
-            </div>
-            <div className={ styles.coupon_main }>
-                <div className={ styles.coupon_hd }>
-                    <span onClick={ () => onSelectCouponHandle(id) } className={ styles.coupon_checkbox }>
-                        <img src={ checkIcon } alt="勾选"/>
-                    </span>
-                    <span className={ styles.coupon_title }>代金券</span>
-                    <span className={ styles.coupon_badge }>今天过期</span>
+    constructor(props) {
+        super(props);
+        this.state = {
+            loadFlag: false,
+            coupons: []
+        };
+    }
+
+    // 发起请求
+    componentWillMount() {
+        setTimeout(() => {
+            this.setState({
+                loadFlag: true,
+                coupons: [
+                    { id: uuid(), checked: true },
+                    { id: uuid(), checked: false },
+                    { id: uuid(), checked: false },
+                    { id: uuid(), checked: false },
+                    { id: uuid(), checked: false },
+                    { id: uuid(), checked: false },
+                    { id: uuid(), checked: false },
+                    { id: uuid(), checked: false },
+                    { id: uuid(), checked: false },
+                    { id: uuid(), checked: false }
+                ]
+            });
+        }, 1000);
+    }
+
+    // DOM装载完成
+    componentDidMount() {
+        const scroll = new BScroll('.full-layer__content');
+    }
+
+    render() {
+        const { id, checkState, onSelectCouponHandle } = this.props;
+        const { loadFlag, coupons } = this.state;
+        let checkIcon = checkState ? circle_ok : circle_no;
+
+        if(!loadFlag) {
+            return (
+                <div className="full-layer__loading">
+                    <ReactLoading type="spin" style={ { width: '0.6667rem', height: '0.6667rem' } } />
                 </div>
-                <div className={ styles.coupon_bd }>
-                    <div>投资期限=30天或60天</div>
-                    <div>除极计划外其余产品可用</div>
-                </div>
-                <div className={ styles.coupon_ft }>
-                    <span className={ styles.coupon_expire }>
-                    有效期至 2018-12-31
-                    </span>
-                </div>
-            </div>
-        </div>
-    )
+            )
+        }
+
+        return(
+            <div className="coupon-list">
+            <TransitionGroup>
+                {
+                    coupons.map((item) => {
+                        return(
+                            <CSSTransition
+                                key={ item.id }
+                                classNames="fadeUp"
+                                appear={ true }
+                                timeout={ 500 }
+                            >
+                                <div className={ styles.coupon }>
+                                    <div className={ styles.coupon_aside }>
+                                        <div className={ styles.coupon_amount }>￥15000</div>
+                                        <div className={ styles.coupon_condition }>满20000元可用</div>
+                                    </div>
+                                    <div className={ styles.coupon_main }>
+                                        <div className={ styles.coupon_hd }>
+                                            <span onClick={ () => onSelectCouponHandle(id) } className={ styles.coupon_checkbox }>
+                                                <img src={ checkIcon } alt="勾选"/>
+                                            </span>
+                                            <span className={ styles.coupon_title }>代金券</span>
+                                            <span className={ styles.coupon_badge }>今天过期</span>
+                                        </div>
+                                        <div className={ styles.coupon_bd }>
+                                            <div>投资期限=30天或60天</div>
+                                            <div>除极计划外其余产品可用</div>
+                                        </div>
+                                        <div className={ styles.coupon_ft }>
+                                            <span className={ styles.coupon_expire }>
+                                            有效期至 2018-12-31
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </CSSTransition>
+                        )
+                    })
+                }
+            </TransitionGroup>
+            </div> 
+        )
+    }
 }
 
-const FixedButton = ({ children }) => {
+const ButtonFixed = ({ children }) => {
     return (
         <div>
-            <div style={{ height: '1.3333rem' }}></div>
-            { children }
+            <div className="full-layer__fixed-sibling"></div>
+            <div className="full-layer__fixed-bottom">
+                { children }
+            </div> 
         </div>
     )
 }
@@ -60,14 +132,7 @@ export default class extends Component {
         this.state = {
             investAmount: '',
             agree: true,
-            couponFlag: false,
-            coupons: [
-                { id: uuid(), checked: true },
-                { id: uuid(), checked: false },
-                { id: uuid(), checked: false },
-                { id: uuid(), checked: false },
-                { id: uuid(), checked: false }
-            ]
+            couponFlag: false
         };
     }
 
@@ -127,29 +192,15 @@ export default class extends Component {
 
         const agree_icon = agree ? checkbox_ok : checkbox_no;
 
-        const visibleCouponStyle = couponFlag ? { display: 'block' } : { display: 'none' };
-
         return (
             <div>
 
-                <div style={ visibleCouponStyle } className="layer">
-                    <div className="layer__wrap">
-                        {
-                            coupons.map((item, index) => {
-                                return <Coupon 
-                                        key={ item.id } 
-                                        id={ item.id }
-                                        checkState={ item.checked }
-                                        onSelectCouponHandle={ this.selectCouponHandle } />
-                            })
-                        }
-                        <FixedButton>
-                            <div className="layer__btn-wrap">
-                                <button onClick={ this.toggleCouponHandle } className="button button--primary">确定</button>
-                            </div>
-                        </FixedButton>
-                    </div>
-                </div>
+                <AnimateFullLayer flag={ couponFlag }>
+                    <Coupon />
+                    <ButtonFixed>
+                        <button className="button" onClick={ this.toggleCouponHandle }>确定</button>
+                    </ButtonFixed>
+                </AnimateFullLayer>
 
                 <div className={`${styles.l_box} ${styles.u_t1}`}>
                     <div className={`${styles.l_box_in} ${styles.u_c_g} ${styles.u_m_b} ${styles.u_t2}`}>

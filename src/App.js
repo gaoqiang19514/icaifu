@@ -29,9 +29,10 @@ import {view as ForgetPassword } from './pages/forgetPassword'
 
 import { view as UserInfo } from './pages/userinfo';
 import { view as Setting } from './pages/setting';
+import { view as Address } from './pages/address';
+import { view as AddAddress } from './pages/addAddress';
 
 import {view as Auth} from './common/auth/';
-
 
 const pageNotFound = {
     fontWeight: 'bold',
@@ -56,7 +57,7 @@ class App extends Component {
                                     <CSSTransition
                                         key={location.pathname}
                                         classNames="fade"
-                                        appear={ true }
+                                        appear={ false }
                                         timeout={ 300 }
                                     >
                                         <Switch key={location.pathname} >
@@ -90,6 +91,9 @@ class App extends Component {
                                             
                                             <Auth path="/setting" component={ Setting } />
                                             <Auth path="/userinfo" component={ UserInfo } />
+
+                                            <Route exact path="/address" component={Address} />
+                                            <Route path="/address/add" component={AddAddress} />
                                             
                                             <Route path='/404' component={PageNotFound} />
                                             <Redirect from='*' to='/404' />

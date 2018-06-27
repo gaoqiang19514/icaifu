@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import axios from 'axios';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { buildPublicSign } from '@/api/api.js'
 import Menu from '@/common/menu/'
@@ -155,18 +156,26 @@ export default class extends Component {
             <div>
                 <div className={style.list} style={ boxStyle }>
                     <Skeleton type="activity" count={ 4 } ready={ready}>
+                        <TransitionGroup>
                         {
                             list.map((item, index) => (
-                                <Item 
-                                    key={item.id}
-                                    name={item.name} 
-                                    imgSrc={item.appPicUrl}
-                                    url={item.activityUrl}
-                                    startDate={item.startDate}
-                                    endDate={item.endDate }
-                                />
+                                <CSSTransition
+                                    key={ item.id }
+                                    classNames="fadeUp"
+                                    timeout={ 500 }
+                                    appear={ true }
+                                >
+                                    <Item 
+                                        name={item.name} 
+                                        imgSrc={item.appPicUrl}
+                                        url={item.activityUrl}
+                                        startDate={item.startDate}
+                                        endDate={item.endDate }
+                                    />
+                                </CSSTransition>
                             ))
                         }
+                        </TransitionGroup>
                     </Skeleton>
                 </div>
 
