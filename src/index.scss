@@ -1,6 +1,8 @@
 $linkColor: #08c;
 $btnColor: #e35855;
 $borderColor: #eaeaea;
+
+
 *,
 *:after,
 *:before {
@@ -24,8 +26,6 @@ img{
     max-width: 100%;
 }
 
-
-
 h1,
 h2,
 h3,
@@ -36,24 +36,6 @@ h6 {
 }
 
 :global {
-
-    .swiper__pagination {
-        span{
-            border-radius: 0;
-            width: 20px;
-            height: 4px;
-        }
-    }
-
-
-    .fixed-bottom{
-        position: fixed;
-        bottom: 0;
-        left: 0;
-        right: 0;
-    }
-
-
     .label {
         color: #fff;
         display: inline-block;
@@ -64,52 +46,7 @@ h6 {
         background-image: linear-gradient(90deg, #fb7850 0%, #ff5b33 100%), linear-gradient( #ff5b33, #ff5b33);
         box-shadow: 0rem 0.04rem 0.1067rem 0rem rgba(255, 91, 51, 0.75);
     }
-
     .gradient {
         background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #ff6364, #ff6364);
     }
-
-    .flex{
-        display: flex;
-        &--between{
-            justify-content: space-between;
-        }
-    }
-    .u-tc{
-        text-align: center;
-    }
-    .u-border:after{
-        content: '';
-        position: absolute;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 1px;
-        background: #eaeaea;
-        transform: scaleY(.5);
-    }
 }
-
-.btn {
-    border: 0;
-    width: 100%;
-    outline: none;
-    display: block;
-    text-decoration: none;
-}
-
-.btn--primary {
-    color: #f8695e;
-    font-size: 0.4267rem;
-    height: 1.3333rem;
-    line-height: 1.3333rem;
-    background: #fff;
-    border-radius: 0.6667rem;
-    box-shadow: 0rem 0.0267rem 0.1067rem 0rem rgba(249, 82, 83, 0.75);
-}
-
-.login-wrap {
-    width: 83%;
-    margin: auto;
-}
-

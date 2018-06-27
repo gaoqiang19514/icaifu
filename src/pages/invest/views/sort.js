@@ -1,31 +1,29 @@
-import React, {Component} from 'react';
+import React from 'react';
+import styled from 'styled-components';
 
-import style from './style.scss'
+// Layout
 
-const heightStyle = {
-    height: '1.1733rem',
-    lineHeight: '1.1733rem'
-}
+const LayoutBox = styled.div`
+    display: flex;
+    justify-content: space-between;
+`;
 
-const flexBoxStyle = {
-    display: 'flex',
-    justifyContent: 'space-between'
-};
 
-const flexItemStyle = {
-    ...heightStyle,
-    flex: '1',
-    textAlign: 'center',
-    color: '#9299a4',
-    fontSize: '0.3733rem'
-};
+// Style
 
-export default () => {
-    return (
-        <div style={flexBoxStyle}>
-            <div style={flexItemStyle}>默认</div>
-            <div style={flexItemStyle}>收益率</div>
-            <div style={flexItemStyle}>期限</div>
-        </div>
-    )
-}
+const StyleItem = styled.div`
+    color: #9299a4;
+    font-size: 0.3467rem;
+    text-align: center;
+    flex: 1;
+    height: 1.1733rem;
+    line-height: 1.1733rem;
+`;
+
+export default () => (
+    <LayoutBox>
+        <StyleItem>默认</StyleItem>
+        <StyleItem>收益率</StyleItem>
+        <StyleItem>期限</StyleItem>
+    </LayoutBox>
+)

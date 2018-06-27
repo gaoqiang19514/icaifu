@@ -4,21 +4,7 @@ import styled from 'styled-components';
 
 import { view as Skeleton } from '@/common/skeleton';
 
-const LayoutCell_1 = styled.div`
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: 50%;
-`;
-const LayoutCell_2 = styled.div`
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: 35%;
-`;
-const LayoutCell_3 = styled.div`
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: 15%;
-`;
+// Layout
 
 const LayoutWrap = styled.div`
     a:last-child > div:after{
@@ -50,16 +36,30 @@ const LayoutBoxBody = styled.div`
     justify-content: space-between;
 `;
 
-const StyleTitle = styled.h2`
-    font-size: 0.3467rem;
-	color: #1a1b1c;
+const LayoutCellFirst = styled.div`
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 50%;
 `;
 
-const LayoutValue = styled.div`
-    display: flex;
-    align-items: flex-end;
-    height: .8rem;
-    margin-bottom: 0.2667rem;
+const LayoutCellSecond = styled.div`
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 35%;
+`;
+
+const LayoutCellThird = styled.div`
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 15%;
+`;
+
+
+// Style
+
+const StyleTitle = styled.h2`
+    font-size: 0.3467rem;
+    font-weight: bold;
 `;
 
 const StyleText = styled.div`
@@ -74,6 +74,13 @@ const StyleSecondText = styled.strong`
     font-size: 0.64rem;
 `;
 
+const LayoutValue = styled.div`
+    display: flex;
+    align-items: flex-end;
+    height: .8rem;
+    margin-bottom: 0.2667rem;
+`;
+
 const StylePercent = styled.div`
     height: 3px;
     background: #eceff8;
@@ -84,73 +91,62 @@ const StylePercentBar = styled.div`
     background: #ff5151;
 `;
 
-const StyleLable = styled.label`
-    color: #fff;
-    padding: 0.0667rem 0.2rem;
-    display: inline-block;
-    font-size: 0.2667rem;
-    border-radius: 0.4rem;
+const StylePlus = styled.span`
+    font-size: 0.3467rem;
+    padding: 0 0.1333rem;
 `;
 
-const Item = ({ novice, novice_restrictions_desc, match, id, percent, timeLimit, borrowingRate, gift, full }) => {
-    if(gift){
-        gift = `+${gift}元`
-    }
-    let badgeStyle = {display: 'none'};
-    if(novice){
-        badgeStyle = {display: 'block'};
-    }
-
+const Item = ({ id, title, rate, time_limit, gift, total, percent }) => {
     return (
         <Link to={{ pathname: `/invest/${id}`, state: { type: 'jjh' } }}>
             <LayoutBox>
+
                 <LayoutBoxHead>
-                    <StyleLable className="gradient" style={ badgeStyle }>{novice_restrictions_desc}</StyleLable>
+                    <StyleTitle>{ title }</StyleTitle>
                 </LayoutBoxHead>
+
                 <LayoutBoxBody>
-                    <LayoutCell_1>
+                    <LayoutCellFirst>
                         <LayoutValue>
-                            <StyleSecondText>{borrowingRate}%</StyleSecondText>
-                            <StyleSubText>{gift}</StyleSubText>
+                            <StyleSecondText>{ rate }%</StyleSecondText>
+                            <StylePlus>+</StylePlus>
+                            <StyleSubText>{ gift }</StyleSubText>
                         </LayoutValue>
                         <StyleText>预期年化利率</StyleText>
-                    </LayoutCell_1>
-                    <LayoutCell_2>
+                    </LayoutCellFirst>
+                    <LayoutCellSecond>
                         <LayoutValue>
-                            <StyleSubText>期限{timeLimit}天</StyleSubText>
+                            <StyleSubText>期限{ time_limit }天</StyleSubText>
                         </LayoutValue>
-                        <StyleText>投资金额{full}元</StyleText>
-                    </LayoutCell_2>
-                    <LayoutCell_3>
-                        <LayoutValue>
-                            {percent}%
-                        </LayoutValue>
+                        <StyleText>投资金额{ total }元</StyleText>
+                    </LayoutCellSecond>
+                    <LayoutCellThird>
+                        <LayoutValue>{ percent }%</LayoutValue>
                         <StylePercent>
-                            <StylePercentBar style={{width: `${percent}%`}}></StylePercentBar>
+                            <StylePercentBar style={ {width: `${ percent }%`} }></StylePercentBar>
                         </StylePercent>
-                    </LayoutCell_3>
+                    </LayoutCellThird>
                 </LayoutBoxBody>
+                
             </LayoutBox>
         </Link>
     )
 }
 
-export default ({ data, match, ready }) => (
+export default ({ data, ready }) => (
     <LayoutWrap>
         <Skeleton count={ 3 } ready={ ready }>
             {
                 data.map((item, index) => (
                     <Item 
-                        id={ item.pro_id } 
-                        novice={item.novice}
-                        novice_restrictions_desc={ item.novice_restrictions_desc }
-                        match={ match } 
-                        timeLimit={ item.time_limit }
-                        borrowingRate={ item.borrowing_rate }
+                        key={ item.id }
+                        id={ item.id } 
+                        title={ item.title }
+                        time_limit={ item.time_limit }
+                        rate={ item.rate }
                         gift={ item.gift }
-                        full={ item.full }
+                        total={ item.total }
                         percent={ item.percent }
-                        key={ item.pro_id }
                     />
                 ))
             }

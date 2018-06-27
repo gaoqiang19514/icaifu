@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import Skeleton from 'react-loading-skeleton';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import styles from './styles.scss';
-
 const Item = () => {
 	return (
 		<div style={{padding: '0.4rem 0 0.5333rem 0', background: '#fff'}}>
@@ -78,12 +76,14 @@ export default class extends Component {
         if(this.state.ready){
             return (
                 <CSSTransition
+                    in={ this.state.ready }
                     classNames="fade"
+                    appear={ true }
                     timeout={ 500 }
                 >
-                <div>
-                    {this.props.children}
-                </div>
+                    <div>
+                        { this.props.children }
+                    </div>
                 </CSSTransition>
             );
         }

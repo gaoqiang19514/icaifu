@@ -1,26 +1,24 @@
 import React, { Component } from 'react'
 import axios from 'axios';
 import styled from 'styled-components';
-import Swiper from "swiper"
-import "swiper/dist/css/swiper.css"
+import Swiper from "swiper";
+import "swiper/dist/css/swiper.css";
 
-import { buildPublicSign } from '@/api/api.js'
-import { view as Skeleton } from '@/common/skeleton';
+const CancelToken = axios.CancelToken;
+let source = null;
 
 const Image = styled.img`
-    width: 10rem;
-    height: 4.48rem;
+    height: 4rem;
 `;
 
 const Banner = styled.div`
-    width: 10rem;
-    height: 4.48rem;    
+    height: 4rem;    
 `;
 
-const Item = ({ activityUrl, intro, appPicUrl }) => (
+const Item = ({ link_url, pic_url }) => (
     <div className="swiper-slide">
-        <a href={ activityUrl }>
-            <Image alt={ intro } src={ appPicUrl } />
+        <a href={ link_url }>
+            <Image src={ pic_url } />
         </a>
     </div>        
 )
@@ -29,58 +27,44 @@ export default class extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            banners: []
-        }
+        this.state = { list: [] };
     }
 
     componentWillMount(){
-        this.loadFlag = true;
-        this.loadBanners();
-    }
-
-    componentWillUnmount() {
-        this.loadFlag = false;
-    }
-
-    loadBanners() {
-        const keyStr = buildPublicSign();
-
-        axios.get('/product/activity_list?' + keyStr)
+        source = CancelToken.source();
+        axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=banners', {
+            cancelToken: source.token
+        })
         .then((response) => {
-            if(response.status !== 200 || !response.data.item || !response.data.item.length){
-                return;
-            }
-
-            if(!this.loadFlag){return}
             this.setState({
-                banners: response.data.item
+                list: response.data.list
             }, () => {
                 new Swiper('.swiper-container', {
-                    effect : 'fade',
+                    effect: 'fade',
                     pagination: '.swiper-pagination',
-                    paginationClickable :true
+                    paginationClickable: true
                 })
-            })
+            });
         })
         .catch((error) => {
         });
     }
 
-	render() {
-        const { banners } = this.state;
+    componentWillUnmount() {
+        source.cancel('Operation canceled');
+    }
 
+	render() {
 		return (
             <div className="swiper-container">
                 <Banner className="swiper-wrapper">
                     {
-                        banners.map((item, index) => {
+                        this.state.list.map((item, index) => {
                             return (
                                 <Item 
-                                    key={item.id}
-                                    activityUrl={item.appPicUrl}
-                                    intro={item.intro}
-                                    appPicUrl={item.appPicUrl}
+                                    key={ item.id }
+                                    link_url={ item.link_url }
+                                    pic_url={ item.pic_url }
                                 />
                             )
                         })
