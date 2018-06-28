@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import axios from 'axios';
 import ReactLoading from 'react-loading';
 import styled from 'styled-components';
+import InfiniteScroll from 'react-infinite-scroller';
 
 import Sort from './sort.js';
 import JiPlan from './jiplan.js';
@@ -49,15 +50,6 @@ const StyleLine = styled.div`
 	transform: scaleY(.5);
 `;
 
-const StyleReactLoading = styled(ReactLoading)`
-    margin: auto;
-    width: 30px;
-    height: 30px;
-    margin-bottom: 20px;
-`;
-
-let page = 1;
-let flag = true;
 
 export default class extends Component {
 
@@ -65,84 +57,32 @@ export default class extends Component {
 		super(props);
 
 		this.state = {
-			_loading: false,
 			jiplanReady: false,
-			ienjoyReady: false,
-			ienjoyList: [],
 			jiPlanList: []
 		}
 	}
 
 	componentWillMount() {
-		this.loadIenjoy();
-        this.loadJiPlanList();
+        // this.loadJiPlanList();
     }
-    
-    componentDidMount() {
-		window.addEventListener('scroll', this.scrollCheck);
-    }
-    
-	componentWillUnmount  = () => {
-		window.removeEventListener('scroll', this.scrollCheck);
-    }
-    
-	scrollCheck = () => {
-        if(!flag){return;}
 
-        let scrollTop = document.documentElement.scrollTop || window.pageYOffset || document.body.scrollTop;
-		if(window.innerHeight >= document.body.scrollHeight - scrollTop){
-			this.loadIenjoy();
-		}
+	loadJiPlanList = () => {
+		// axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_jiplan')
+        // .then((response) => {
+		// 	this.setState({
+		// 		jiplanReady: true,
+		// 		jiPlanList: response.data.list
+		// 	})
+        // })
+        // .catch((error) => {
+		// })
+		// .finally(() => {
+		// });
 	}
-
-	loadIenjoy() {
-        flag = false;
-        this.setState({
-            _loading: true
-        });
-        axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_ienjoy')
-        .then((response) => {
-				let arr = [];
-                arr = this.state.ienjoyList.concat(response.data.list);
-                page++;
-				this.setState({
-					ienjoyReady: true,
-					ienjoyList: arr
-				});
-        })
-        .catch((error) => {
-		})
-		.finally(() => {
-            flag = true;
-            this.setState({
-                _loading: false
-            });
-		});	
-	}
-
-	loadJiPlanList() {
-		axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_jiplan')
-        .then((response) => {
-			this.setState({
-				jiplanReady: true,
-				jiPlanList: response.data.list
-			})
-        })
-        .catch((error) => {
-		})
-		.finally(() => {
-		});
-    }
     
 	render = () => {
-
-        const { jiplanReady, ienjoyReady, jiPlanList, ienjoyList, _loading } = this.state;
-
-        let  loadingStyle  = {display: 'none'};
-        if(_loading){
-             loadingStyle  = {display: 'block'};
-        }
-
+		const { jiplanReady, jiPlanList } = this.state;
+		
 		return (
 			<div>
 
@@ -180,15 +120,11 @@ export default class extends Component {
 						<StyleLine />
 
 						<LayoutBoxBody>
-							<Skeleton count={4} ready={ienjoyReady}>
-								<Ienjoy data={ ienjoyList } match={ this.props.match } />
-							</Skeleton>
+							<Ienjoy />
 						</LayoutBoxBody>
 
 					</StyleBox>
 				</LayoutBox>
-
-                <StyleReactLoading style={ loadingStyle } type="spin" />
 
 				<Menu />
 			</div>		

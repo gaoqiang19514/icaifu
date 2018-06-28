@@ -81,9 +81,7 @@ export default class extends Component {
                     appear={ true }
                     timeout={ 500 }
                 >
-                    <div>
-                        { this.props.children }
-                    </div>
+                    { this.props.children }
                 </CSSTransition>
             );
         }

@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import axios from 'axios';
 import uuid from 'uuid';
+import InfiniteScroll from 'react-infinite-scroller';
+import ReactLoading from 'react-loading';
 
+const CancelToken = axios.CancelToken;
+let source = null;
 
 // Layout
 
@@ -133,21 +138,75 @@ const Item = ({ id, title, rate, time_limit, gift, total, percent }) => {
     )
 }
 
-export default ({ data }) => (
-    <LayoutWrap>
-        {
-            data.map((item) => (
-                <Item 
-                    id={ item.id } 
-                    key={ uuid() }
-                    title={ item.title }
-                    time_limit={ item.time_limit }
-                    rate={ item.rate }
-                    gift={ item.gift }
-                    total={ item.total }
-                    percent={ item.percent }
-                />
-            ))
+const StyleReactLoading = styled(ReactLoading)`
+    margin: auto;
+`;
+
+export default class extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            hasMoreItems: true,
+			list: []
         }
-    </LayoutWrap>  
-)
+    }
+
+    componentWillUnmount() {
+        source.cancel('Operation canceled');
+    }
+    
+	loadNextPage = (page) => {
+        console.log(page);
+        source = CancelToken.source();
+        axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_ienjoy', {
+            responseType: "json",
+            cancelToken: source.token
+        })
+        .then((response) => {
+			setTimeout(() => {
+                this.setState({
+                    list: [
+                        ...this.state.list,
+                        ...response.data.list
+                    ]
+                });
+            }, 1000);
+        })
+        .catch((error) => {
+		})
+		.finally(() => {
+		});	
+    }
+    
+    render() {
+        const { list, hasMoreItems } = this.state;
+
+        return(
+            <LayoutWrap>
+                <InfiniteScroll
+                    pageStart={ 0 }
+                    loadMore={ this.loadNextPage }
+                    hasMore={ hasMoreItems }
+                    loader={ <StyleReactLoading key={ 0 } height={ 30 } width={ 30 } type="spin" color="#444" /> }
+                >
+                    {
+                        list.map((item) => (
+                            <Item 
+                                id={ item.id } 
+                                key={ item.id }
+                                title={ item.title }
+                                time_limit={ item.time_limit }
+                                rate={ item.rate }
+                                gift={ item.gift }
+                                total={ item.total }
+                                percent={ item.percent }
+                            />
+                        ))
+                    }
+                </InfiniteScroll>
+            </LayoutWrap> 
+        )
+    }
+}
