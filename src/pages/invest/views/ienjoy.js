@@ -59,6 +59,9 @@ const LayoutCellThird = styled.div`
     flex-basis: 15%;
 `;
 
+const LayoutLoadingWrap = styled.div`
+    padding: 0.4rem 0;
+`;
 
 // Style
 
@@ -101,6 +104,10 @@ const StylePlus = styled.span`
     padding: 0 0.1333rem;
 `;
 
+const StyleReactLoading = styled(ReactLoading)`
+    margin: auto;
+`;
+
 const Item = ({ id, title, rate, time_limit, gift, total, percent }) => {
     return(
         <Link to={{ pathname: `/invest/${id}`, state: { type: 'buy' } }}>
@@ -138,10 +145,6 @@ const Item = ({ id, title, rate, time_limit, gift, total, percent }) => {
     )
 }
 
-const StyleReactLoading = styled(ReactLoading)`
-    margin: auto;
-`;
-
 export default class extends Component {
 
     constructor(props) {
@@ -158,21 +161,17 @@ export default class extends Component {
     }
     
 	loadNextPage = (page) => {
-        console.log(page);
         source = CancelToken.source();
         axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_ienjoy', {
-            responseType: "json",
             cancelToken: source.token
         })
         .then((response) => {
-			setTimeout(() => {
-                this.setState({
-                    list: [
-                        ...this.state.list,
-                        ...response.data.list
-                    ]
-                });
-            }, 1000);
+            this.setState({
+                list: [
+                    ...this.state.list,
+                    ...response.data.list
+                ]
+            });
         })
         .catch((error) => {
 		})
@@ -189,7 +188,7 @@ export default class extends Component {
                     pageStart={ 0 }
                     loadMore={ this.loadNextPage }
                     hasMore={ hasMoreItems }
-                    loader={ <StyleReactLoading key={ 0 } height={ 30 } width={ 30 } type="spin" color="#444" /> }
+                    loader={ <LayoutLoadingWrap key={ 0 }><StyleReactLoading height={ 30 } width={ 30 } type="spin" color="#444" /></LayoutLoadingWrap> }
                 >
                     {
                         list.map((item) => (

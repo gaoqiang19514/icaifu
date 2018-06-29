@@ -1,15 +1,10 @@
 import React, {Component} from 'react';
-import {connect} from 'react-redux';
-import axios from 'axios';
-import ReactLoading from 'react-loading';
 import styled from 'styled-components';
-import InfiniteScroll from 'react-infinite-scroller';
 
 import Sort from './sort.js';
 import JiPlan from './jiplan.js';
 import Ienjoy from './ienjoy.js';
 import Menu from '@/common/menu/';
-import { view as Skeleton } from '@/common/skeleton';
 
 
 // Layout
@@ -50,84 +45,40 @@ const StyleLine = styled.div`
 	transform: scaleY(.5);
 `;
 
+export default () => {
+	return (
+		<div>
+			<LayoutBox>
+				<StyleBox>
+					<Sort />
+				</StyleBox>
+			</LayoutBox>
 
-export default class extends Component {
+			<LayoutBox>
+				<StyleBox>
+					<LayoutBoxHead>
+						<StyleLabel>极计划</StyleLabel>
+					</LayoutBoxHead>
+					<StyleLine />
+					<LayoutBoxBody>
+						<JiPlan />
+					</LayoutBoxBody>
+				</StyleBox>
+			</LayoutBox>
 
-	constructor(props) {
-		super(props);
+			<LayoutBox>
+				<StyleBox>
+					<LayoutBoxHead>
+						<StyleLabel>i享系列</StyleLabel>
+					</LayoutBoxHead>
+					<StyleLine />
+					<LayoutBoxBody>
+						<Ienjoy />
+					</LayoutBoxBody>
+				</StyleBox>
+			</LayoutBox>
 
-		this.state = {
-			jiplanReady: false,
-			jiPlanList: []
-		}
-	}
-
-	componentWillMount() {
-        // this.loadJiPlanList();
-    }
-
-	loadJiPlanList = () => {
-		// axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_jiplan')
-        // .then((response) => {
-		// 	this.setState({
-		// 		jiplanReady: true,
-		// 		jiPlanList: response.data.list
-		// 	})
-        // })
-        // .catch((error) => {
-		// })
-		// .finally(() => {
-		// });
-	}
-    
-	render = () => {
-		const { jiplanReady, jiPlanList } = this.state;
-		
-		return (
-			<div>
-
-				<LayoutBox>
-					<StyleBox>
-						<Sort />
-					</StyleBox>
-				</LayoutBox>
-
-				<LayoutBox>
-					<StyleBox>
-
-						<LayoutBoxHead>
-							<StyleLabel>极计划</StyleLabel>
-						</LayoutBoxHead>
-
-						<StyleLine />
-
-						<LayoutBoxBody>
-							<Skeleton count={3} ready={jiplanReady}>
-								<JiPlan data={ jiPlanList } match={ this.props.match } />
-							</Skeleton>
-						</LayoutBoxBody>
-
-					</StyleBox>
-				</LayoutBox>
-
-				<LayoutBox>
-					<StyleBox>
-
-						<LayoutBoxHead>
-							<StyleLabel>i享系列</StyleLabel>
-						</LayoutBoxHead>
-
-						<StyleLine />
-
-						<LayoutBoxBody>
-							<Ienjoy />
-						</LayoutBoxBody>
-
-					</StyleBox>
-				</LayoutBox>
-
-				<Menu />
-			</div>		
-		)
-	}
+			<Menu />
+		</div>		
+	)
 }

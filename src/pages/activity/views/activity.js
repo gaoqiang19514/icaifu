@@ -9,15 +9,20 @@ import InfiniteScroll from 'react-infinite-scroller';
 import MenuComponent from '@/common/menu/';
 import { view as Skeleton } from '@/common/skeleton';
 
+
+
 const CancelToken = axios.CancelToken;
 let source = null;
+const instance = axios.create();
+
 
 // 添加响应拦截器
-axios.interceptors.response.use(function (response) {
+instance.interceptors.response.use(function (response) {
     response.data.list = response.data.list.filter((item) => {
         item.id = uuid();
         return item;
     });
+
     // 对响应数据做点什么
     return response;
   }, function (error) {
@@ -99,34 +104,22 @@ export default class extends Component {
         }
     }
 
-    componentWillMount() {
-    }
-
     componentWillUnmount() {
         source.cancel('Operation canceled');
     }
 
     loadNextPage = (page) => {
         source = CancelToken.source();
-        axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=activity_list', {
-            responseType: "json",
+        instance.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=activity_list', {
             cancelToken: source.token
         })
         .then((response) => {
-            setTimeout(() => {
-                if(page < 3){
-                    this.setState({
-                        list: [
-                            ...this.state.list,
-                            ...response.data.list
-                        ]
-                    });
-                }else{
-                    this.setState({
-                        hasMoreItems: false
-                    });
-                }
-            }, 1000);
+            this.setState({
+                list: [
+                    ...this.state.list,
+                    ...response.data.list
+                ]
+            });
         })
         .catch(() => {
         })

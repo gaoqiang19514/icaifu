@@ -8,14 +8,12 @@ import styles from './style.scss';
 import bellIcon from './images/bell_icon.png';
 import gearIcon from './images/gear_icon.png';
 
-import {buildAuthSign} from '@/api/api';
-import {actions as authActions} from '@/common/auth/';
-import {toggleView} from '../actions';
+import { actions as authActions } from '@/common/auth/';
 
 class Profile extends Component {
 
     constructor(props) {
-        super(props)
+        super(props);
 
         this.state = {
             cash_use: '- -',
@@ -26,34 +24,18 @@ class Profile extends Component {
         };
     }
 
-    componentDidMount() {
-        const access_token = localStorage.getItem('token');
-        const userid       = localStorage.getItem('userid');
-        const keyStr       = buildAuthSign('15014095291', access_token, userid);
-
-        axios.get('/my/user_assets?' + keyStr)
+    componentWillMount() {
+        axios.get('/my/user_assets')
         .then((response) => {
-            if(response.status === 200){
-                if(response.data.retnum === 0){
-                    return this.props.onLogout();
-                }
-                this.setState({
-                    cash_use: response.data.item.cash_use,
-                    p2p_assets: response.data.item.p2p_assets,
-                    cash_frozen: response.data.item.cash_frozen,
-                    total_assets: response.data.item.total_assets,
-                    regular_receive_profit: response.data.item.regular_receive_profit
-                })
-			}
         })
         .catch((error) => {
 		})
 		.finally(() => {
-		});	
+		});
     }
     
     render() {
-        const {p2p_assets, cash_frozen, total_assets, regular_receive_profit, cash_use} = this.state;
+        const { p2p_assets, cash_frozen, total_assets, regular_receive_profit, cash_use } = this.state;
 
         return (
             <div className={styles.l_hd}>
@@ -112,13 +94,10 @@ class Profile extends Component {
 
 const mapDisaptchToProps = (disaptch) => {
     return {
-        onToggle: () => {
-            disaptch(toggleView())
-        },
         onLogout: () => {
-            disaptch(authActions.logout())
+            disaptch(authActions.logout());
         }
     }
 }
 
-export default connect(null, mapDisaptchToProps)(Profile)
+export default connect(null, mapDisaptchToProps)(Profile);

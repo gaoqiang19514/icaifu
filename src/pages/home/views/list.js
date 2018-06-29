@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import Jiplan from './jiPlan.js';
 import Ienjoy from './ienjoy.js';
 
-const CancelToken = axios.CancelToken;
-let source = null;
 
 // Layout
 
@@ -47,39 +45,27 @@ export default class extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			ready: false,
 			jiplan: [],
 			ienjoy: []
 		}
 	}
 
 	componentWillMount() {
-		source = CancelToken.source();
-		axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=home_product_list', {
-			cancelToken: source.token
-		})
-        .then((response) => {
+		axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=home_product_list')
+		.then((response) => {
 			this.setState({
 				ienjoy: response.data.list.ienjoy,
 				jiplan: response.data.list.jiplan
-			}, () => {
-				this.setState({
-					ready: true
-				});
 			});
-        })
-        .catch((error) => {
-		})	
+		})
+		.catch((error) => {
+		})
 		.finally(() => {
-		});	
+		});
 	}
 
-	componentWillUnmount() {
-        source.cancel('Operation canceled');
-    }
-
 	render() {
-		const { ready, jiplan, ienjoy } = this.state;
+		const { jiplan, ienjoy } = this.state;
    
 		return (
 			<div>
@@ -90,9 +76,7 @@ export default class extends Component {
 					</LayoutBoxHead>
 					<StyleLine />
 					<LayoutBoxBody>
-
-						<Jiplan ready={ ready } data={ jiplan } />
-
+						<Jiplan list={ jiplan } />
 					</LayoutBoxBody>
 				</LayoutBox>
 
@@ -102,9 +86,7 @@ export default class extends Component {
 					</LayoutBoxHead>
 					<StyleLine />
 					<LayoutBoxBody>
-
-						<Ienjoy ready={ ready } data={ ienjoy } />
-						
+						<Ienjoy list={ ienjoy } />
 					</LayoutBoxBody>
 				</LayoutBox>
 

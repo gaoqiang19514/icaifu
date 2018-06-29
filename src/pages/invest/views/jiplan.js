@@ -1,6 +1,14 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+import uuid from 'uuid';
+import InfiniteScroll from 'react-infinite-scroller';
+import ReactLoading from 'react-loading';
 import styled from 'styled-components';
+
+const CancelToken = axios.CancelToken;
+let source = null;
+
 
 // Layout
 
@@ -52,6 +60,10 @@ const LayoutCellThird = styled.div`
     flex-basis: 15%;
 `;
 
+const LayoutLoadingWrap = styled.div`
+    padding: 0.4rem 0;
+`;
+
 
 // Style
 
@@ -94,6 +106,10 @@ const StylePlus = styled.span`
     padding: 0 0.1333rem;
 `;
 
+const StyleReactLoading = styled(ReactLoading)`
+    margin: auto;
+`;
+
 const Item = ({ id, title, rate, time_limit, gift, total, percent }) => {
     return (
         <Link to={{ pathname: `/invest/${id}`, state: { type: 'jjh' } }}>
@@ -131,21 +147,66 @@ const Item = ({ id, title, rate, time_limit, gift, total, percent }) => {
     )
 }
 
-export default ({ data }) => (
-    <LayoutWrap>
-        {
-            data.map((item, index) => (
-                <Item 
-                    id={ item.id } 
-                    key={ item.id }
-                    title={ item.title }
-                    time_limit={ item.time_limit }
-                    rate={ item.rate }
-                    gift={ item.gift }
-                    total={ item.total }
-                    percent={ item.percent }
-                />
-            ))
-        }
-    </LayoutWrap>        
-)
+export default class extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            hasMoreItems: true,
+            list: []
+        };
+    }
+    componentWillUnmount() {
+        source.cancel('Operation canceled');
+    }
+    
+	loadNextPage = (page) => {
+        source = CancelToken.source();
+		axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_jiplan', {
+            cancelToken: source.token
+        })
+        .then((response) => {
+            this.setState({
+                hasMoreItems: false,
+                list: [
+                    ...this.state.list,
+                    ...response.data.list
+                ]
+            });
+        })
+        .catch((error) => {
+		})
+		.finally(() => {
+		});
+	}
+
+    render() {
+        const { list, hasMoreItems } = this.state;
+
+        return(
+            <LayoutWrap>
+                <InfiniteScroll
+                    pageStart={ 0 }
+                    loadMore={ this.loadNextPage }
+                    hasMore={ hasMoreItems }
+                    loader={ <LayoutLoadingWrap key={ 0 }><StyleReactLoading height={ 30 } width={ 30 } type="spin" color="#444" /></LayoutLoadingWrap> }
+                >
+                    {
+                        list.map((item) => (
+                            <Item 
+                                id={ item.id } 
+                                key={ item.id }
+                                title={ item.title }
+                                time_limit={ item.time_limit }
+                                rate={ item.rate }
+                                gift={ item.gift }
+                                total={ item.total }
+                                percent={ item.percent }
+                            />
+                        ))
+                    }
+                </InfiniteScroll>
+            </LayoutWrap> 
+        )
+    }
+}
