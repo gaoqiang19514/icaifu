@@ -1,6 +1,5 @@
 import React from 'react';
 
-import Logout from './logout.js';
 import Navigator from './navigator.js';
 import Profile from './profile.js';
 import Menu from '@/common/menu/';
@@ -10,7 +9,6 @@ export default (props) => {
 		<div>
 			<Profile />
 			<Navigator />
-			<Logout />
 	        <Menu />
 		</div>
 	)

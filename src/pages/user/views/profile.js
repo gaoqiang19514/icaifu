@@ -25,13 +25,13 @@ class Profile extends Component {
     }
 
     componentWillMount() {
-        axios.get('/my/user_assets')
-        .then((response) => {
-        })
-        .catch((error) => {
-		})
-		.finally(() => {
-		});
+        // axios.get('/my/user_assets')
+        // .then((response) => {
+        // })
+        // .catch((error) => {
+		// })
+		// .finally(() => {
+		// });
     }
     
     render() {

@@ -1,121 +1,149 @@
 import React, {Component} from 'react'
+import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import styled from 'styled-components';
+import uuid from 'uuid';
 
-import service_icon from './images/service_icon.png';
-import checkbox_ok from './images/checkbox_icon_ok.png';
-import checkbox_no from './images/checkbox_icon_no.png';
-import circle_ok from './images/circle_check_icon_ok.png';
-import circle_no from './images/circle_check_icon_no.png';
-import arrow_icon from '@/common/images/arrow_icon.png';
+const LayoutPanel = styled.div`
+    padding: 0.4rem;
+`;
 
-import commonStyles from '@/common/css/styles.scss';
-import styles from './style.scss'
+const LayoutItem = styled.div`
+    padding: 30px;
+    background: #fff;
+    margin-bottom: 0.4rem;
+    font-size: 0.4rem;
+    font-weight: bold;
+`;
 
+const StyleList = styled.div`
+    position: relative;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    list-style: none;
+    background: #fff;
+    &::after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 1px;
+        background: #eaeaea;
+        transform: scaleY(.5);
+    }
+`;
 
-const Coupon = () => (
-    <div className={ styles.coupon }>
-        <div className={ styles.coupon_aside }>
-            <div className={ styles.coupon_amount }>￥15000</div>
-            <div className={ styles.coupon_condition }>满20000元可用</div>
-        </div>
-        <div className={ styles.coupon_main }>
-            <div className={ styles.coupon_hd }>
-                <span className={ styles.coupon_title }>代金券</span>
-                <span className={ styles.coupon_badge }>今天过期</span>
-            </div>
-            <div className={ styles.coupon_bd }>
-                <div>投资期限=30天或60天</div>
-                <div>除极计划外其余产品可用</div>
-            </div>
-            <div className={ styles.coupon_ft }>
-                <span className={ styles.coupon_expire }>
-                有效期至 2018-12-31
-                </span>
-            </div>
-        </div>
-    </div>
-)
+const StyleItem = styled.div`
+    flex: 1;
+    text-align: center;
+    font-size: 0.4267rem;
+    height: 1.3333rem;
+    line-height: 1.3333rem;
+    &.selected{
+        color: #ff4949;
+    }
+`;
+
+const Coupon = ({ title }) => {
+    return(
+        <LayoutItem>
+            { title }
+        </LayoutItem>
+    )
+}
+
+// cash interestRates
+const typeSchema = {
+    cash: 1,
+    interestRates: 2
+};
+
+// 未使用 unused 1 已使用 used 2 已过期 expired 3
+const statusSchema = {
+    unused: 1,
+    used: 2,
+    expired: 3
+};
+
+let type   = 'cash';
+let status = 'unused';
 
 export default class extends Component {
-
     constructor(props) {
         super(props);
-
+        this.state = { 
+            type: 'cash',
+            status: 'unused',
+            list: []
+         };
     }
 
-    selectHandle = (index) => {
-
+    componentWillMount() {
+        this.getCouponList();
     }
 
+    selectTypeHandle = (e) => {
+        let type = e.target.getAttribute('data-type');
+        this.setState({
+            status: 'unused',
+            type: type
+        }, () => {
+            this.getCouponList();
+        });
+    }
+
+    selectStatusHandle = (e) => {
+        let status = e.target.getAttribute('data-status');
+        this.setState({
+            status: status
+        }, () => {
+            this.getCouponList();
+        });
+    }
+
+    getCouponList = () => {
+        // 在这里发起请求 然后更新state.list
+        let len = Math.random() * 20 + 1;
+        let list = [];
+        for(let i = 0; i < len; i++){
+            let id = uuid();
+            list.push({
+                id: id,
+                title: id
+            });
+        }
+        this.setState({
+            list: list
+        });
+    }
+    
     render() {
+        const { type, status, list } = this.state;
 
         return (
             <div>
-                <Tabs defaultIndex={ 0 } onSelect={ this.selectHandle }>
-                    <div className={ styles.nav }>
-                        <TabList className={ styles.list } >
-                            <Tab className={ styles.tab } selectedClassName={ styles.selected }>代金券</Tab>
-                            <Tab className={ styles.tab } selectedClassName={ styles.selected }>加息券</Tab>
-                        </TabList>
-                    </div>
 
-                    <TabPanel>
-                        <Tabs defaultIndex={ 0 } onSelect={ this.selectHandle }>
-                            <TabList className={ styles.list }>
-                                <Tab className={ styles.tabState } selectedClassName={ styles.selectedState }>未使用</Tab>
-                                <Tab className={ styles.tabState } selectedClassName={ styles.selectedState }>已使用</Tab>
-                                <Tab className={ styles.tabState } selectedClassName={ styles.selectedState }>已过期</Tab>
-                            </TabList>
+                <StyleList>
+                    <StyleItem className={ type === "cash" ? "selected" : "" } onClick={ this.selectTypeHandle } data-type="cash">代金券</StyleItem>
+                    <StyleItem className={ type === "interestRates" ? "selected" : "" } onClick={ this.selectTypeHandle } data-type="interestRates">加息券</StyleItem>
+                </StyleList>
 
-                            <div className={ styles.panel }>
-                                <TabPanel>
-                                    <Coupon />
-                                    <Coupon />
-                                    <Coupon />
-                                </TabPanel>
-                                <TabPanel>
-                                    <Coupon />
-                                    <Coupon />
-                                </TabPanel>
-                                <TabPanel>
-                                    <Coupon />
-                                    <Coupon />
-                                    <Coupon />
-                                    <Coupon />
-                                    <Coupon />
-                                </TabPanel>
-                            </div>
+                <StyleList>
+                    <StyleItem className={ status === "unused" ? "selected" : "" } onClick={ this.selectStatusHandle } data-status="unused">未使用</StyleItem>
+                    <StyleItem className={ status === "used" ? "selected" : "" } onClick={ this.selectStatusHandle } data-status="used">已使用</StyleItem>
+                    <StyleItem className={ status === "expired" ? "selected" : "" } onClick={ this.selectStatusHandle } data-status="expired">已过期</StyleItem>
+                </StyleList>
 
-                        </Tabs>
-                    </TabPanel>
-                    <TabPanel>
-                        <Tabs defaultIndex={ 0 } onSelect={ this.selectHandle }>
-                            <TabList className={ styles.list }>
-                                <Tab className={ styles.tabState } selectedClassName={ styles.selectedState }>未使用</Tab>
-                                <Tab className={ styles.tabState } selectedClassName={ styles.selectedState }>已使用</Tab>
-                                <Tab className={ styles.tabState } selectedClassName={ styles.selectedState }>已过期</Tab>
-                            </TabList>
-                            <div className={ styles.panel }>
-                                <TabPanel>
-                                    <Coupon />
-                                    <Coupon />
-                                    <Coupon />
-                                    <Coupon />
-                                    <Coupon />
-                                </TabPanel>
-                                <TabPanel>
-                                    <Coupon />
-                                    <Coupon />
-                                    <Coupon />
-                                </TabPanel>
-                                <TabPanel>
-                                    <Coupon />
-                                    <Coupon />
-                                </TabPanel>
-                            </div>
-                        </Tabs>
-                    </TabPanel>
-                </Tabs>
+                <LayoutPanel>
+                    {
+                        list.map((item) => (
+                            <Coupon key={ item.id } title={ item.title } />
+                        ))
+                    }
+                </LayoutPanel>
+
             </div>
         )
     }

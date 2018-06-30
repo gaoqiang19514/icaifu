@@ -13,7 +13,6 @@ import logo from './images/logo.png';
 
 import PswdLogin from './pswdLogin.js';
 import MsgLogin from './msgLogin.js';
-require('es6-promise').polyfill();
 
 class Login extends Component {
 
@@ -24,7 +23,7 @@ class Login extends Component {
         };
     }
 
-    componentDidMount() {
+    componentWillMount() {
         document.body.className = 'login';
     }
 
@@ -33,27 +32,26 @@ class Login extends Component {
     }
 
     pswdLoginHandle = (username, password) => {
-        const keyStr = buildLoginSign(username, password);
         this.props.onShowLoading();
 
-        setTimeout(() => {
-            axios.get('/my/login?' + keyStr)
-            .then((response) => {
-                if(response.status === 200){
-                    const {access_token, usr_id} = response.data;
-                    this.props.onLogin(access_token, usr_id);
-                }
-            })
-            .catch((error) => {
-            })
-            .finally(() => {
-                this.props.onHideLoading();
-            });	
-        }, 2000);
+        axios.post('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=login', {
+            firstName: 'Fred',
+            lastName: 'Flintstone'
+        })
+        .then((response) => {
+            const { token } = response.data;
+            if(response.data.status === 'success' &&  token){
+                this.props.onLogin(token);
+            }
+        })
+        .catch(function (error) {
+        })
+        .finally(() => {
+            this.props.onHideLoading();
+        });	
     }
 
     msgLoginHandle = (username, msgcode) => {
-        console.log('msgLoginHandle', username, msgcode);
     }
 
     selectHandle = (index, lastIndex, e) => {
@@ -107,8 +105,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onLogin: (token, userid) => {
-            dispatch(authActions.login(token, userid))
+        onLogin: (token) => {
+            dispatch(authActions.login(token))
         },
         onShowLoading: () => {
 			dispatch(loadingActions.showLoading())
@@ -119,4 +117,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login)
+export default connect(mapStateToProps, mapDispatchToProps)(Login);

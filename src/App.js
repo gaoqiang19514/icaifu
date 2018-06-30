@@ -32,6 +32,8 @@ import { view as Setting } from './pages/setting';
 import { view as Address } from './pages/address';
 import { view as AddAddress } from './pages/addAddress';
 
+import { view as Cash } from './pages/cash';
+
 import {view as Auth} from './common/auth/';
 
 const pageNotFound = {
@@ -94,6 +96,7 @@ class App extends Component {
 
                                             <Route exact path="/address" component={Address} />
                                             <Route path="/address/add" component={AddAddress} />
+                                            <Route path="/cash" component={ Cash } />
                                             
                                             <Route path='/404' component={PageNotFound} />
                                             <Redirect from='*' to='/404' />

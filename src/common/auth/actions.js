@@ -1,9 +1,7 @@
 import {LOGIN_AUTH, LOGOUT_AUTH, ISLOGIN, ISLOGOUT} from './actionTypes.js';
 
-export const login = (token, userId) => {
-    localStorage.setItem('token', token)
-    localStorage.setItem('userid', userId);
-
+export const login = (token) => {
+    localStorage.setItem('token', token);
     return {
         token: token,
         type: LOGIN_AUTH
@@ -11,8 +9,7 @@ export const login = (token, userId) => {
 }
 
 export const logout = () => {
-    localStorage.removeItem('token')
-    localStorage.removeItem('userid')
+    localStorage.removeItem('token');
     return {
         type: LOGOUT_AUTH
     }

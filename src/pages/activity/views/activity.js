@@ -137,6 +137,7 @@ export default class extends Component {
         return (
             <div>
                 <LayoutWrap>
+
                     <InfiniteScroll
                         pageStart={ 0 }
                         loadMore={ this.handleLoadMore }

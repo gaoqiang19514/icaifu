@@ -6,6 +6,7 @@ import icon_doc from './images/doc_icon.png';
 import icon_record from './images/record_icon.png';
 import icon_calendar from './images/calendar_icon.png';
 
+// Layout
 
 const LayoutBox = styled.div`
     margin-bottom: 0.2667rem;
@@ -16,12 +17,17 @@ const LayoutBoxCell = styled.div`
     flex-wrap: wrap;
 `;
 
+// Style
 
 const StyleBoxWrap = styled.div`
     background: #fff;
 `;
 
 const StyleTitle = styled.div`
+    font-size: 0.4267rem;
+`;
+
+const StyleBoldTitle = styled.div`
     font-weight: bold;
     font-size: 0.4267rem;
 `;
@@ -120,16 +126,16 @@ export default () => {
             <StyleBoxWrap>
                 <LayoutBox>
                     <LayoutBoxCell>
-                        <StyledLink to="/voucher">
-                            <StyleTitle>推荐</StyleTitle>
+                        <StyledLink to="/recommend">
+                            <StyleBoldTitle>推荐</StyleBoldTitle>
                             <StyleSubTitle>我的推荐</StyleSubTitle>
                         </StyledLink>
                         <StyledLink to="/voucher">
-                            <StyleTitle>优惠券</StyleTitle>
+                            <StyleBoldTitle>优惠券</StyleBoldTitle>
                             <StyleSubTitle>代金券 加息券</StyleSubTitle>
                         </StyledLink>
-                        <StyledLink to="/voucher">
-                            <StyleTitle>现金奖励</StyleTitle>
+                        <StyledLink to="/cash">
+                            <StyleBoldTitle>现金奖励</StyleBoldTitle>
                             <StyleSubTitle>我的现金奖励</StyleSubTitle>
                         </StyledLink>
                     </LayoutBoxCell>
