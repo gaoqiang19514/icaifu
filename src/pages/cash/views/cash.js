@@ -1,29 +1,7 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
-
-const LayoutWrap = styled.div`
-    padding-top: 1.3333rem;
-`;
-
-const LayoutFixed = styled.div`
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-`;
-
-const LayoutFlexBox = styled.div`
-    display: flex;
-`;
-
-const LayoutItem = styled.div`
-    height: 2.2667rem;
-    background: #fff;
-    margin: 0.4rem;
-    box-shadow: 0 1px 2px 0 rgba(0,0,0,0.05);
-    border-radius: 4px;
-`;
+import { LayoutFixedTop, LayoutFixedSibling, LayoutFlexBox, StyleBg, StylePlaceHolder } from '@/common/commonStyled';
 
 const StyleNavItem = styled.div`
     flex-grow: 1;
@@ -31,36 +9,57 @@ const StyleNavItem = styled.div`
     height: 1.3333rem;
     line-height: 1.3333rem;
     color: #9299a4;
-    font-size: 0.3733rem;
+    font-size: 0.3467rem;
     background: #fff;
+
+    &.selected{
+        color: #ff4949;
+    }
 `;
 
+const Types = {
+    ACTIVATE: 'activate',
+    GETED: 'geted',
+    EXPIRED: 'expired'
+};
 
 export default class extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            type: Types.ACTIVATE
+        };
+    }
 
     render() {
+        const { type } = this.state;
+        const { ACTIVATE, GETED, EXPIRED } = Types;
+
         return(
             <div>
 
-                <LayoutFixed>
-                    <LayoutFlexBox>
-                        <StyleNavItem>待激活</StyleNavItem>
-                        <StyleNavItem>已领取</StyleNavItem>
-                        <StyleNavItem>已过期</StyleNavItem>
-                    </LayoutFlexBox>
-                </LayoutFixed>
+                <div>
+                    <LayoutFixedSibling/>
+                    <LayoutFixedTop>
+                        <StyleBg>
+                            <LayoutFlexBox>
+                                <StyleNavItem className={ type === ACTIVATE ? "selected" : ""}>待激活</StyleNavItem>
+                                <StyleNavItem className={ type === GETED ? "selected" : ""}>已领取</StyleNavItem>
+                                <StyleNavItem className={ type === EXPIRED ? "selected" : ""}>已过期</StyleNavItem>
+                            </LayoutFlexBox>
+                        </StyleBg>
+                    </LayoutFixedTop>
+                </div>
 
-                <LayoutWrap>
-                    <LayoutItem />
-                    <LayoutItem />
-                    <LayoutItem />
-                    <LayoutItem />
-                    <LayoutItem />
-                    <LayoutItem />
-                    <LayoutItem />
-                    <LayoutItem />
-                    <LayoutItem />
-                </LayoutWrap>
+                <div>
+                    <StylePlaceHolder/>
+                    <StylePlaceHolder/>
+                    <StylePlaceHolder/>
+                    <StylePlaceHolder/>
+                    <StylePlaceHolder/>
+                    <StylePlaceHolder/>
+                </div>
+
             </div>
         )
     }
