@@ -1,0 +1,23 @@
+.react-tabs__tab-list{
+    padding: 0;
+    margin: 0;
+    list-style: none;
+
+    display: flex;
+    font-size: 0.3467rem;
+    background: #fff;
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+.react-tabs__tab{
+    flex: 1;
+    text-align: center;
+
+    height: 1.3333rem;
+    line-height: 1.3333rem;
+}
+.react-tabs__tab:focus{
+    outline: none;
+}
+.react-tabs__tab--selected{
+    color: #ff4949;
+}

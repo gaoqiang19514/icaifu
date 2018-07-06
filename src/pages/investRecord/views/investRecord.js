@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import uuid from 'uuid';
 
 import { actions as loadingActions } from '@/common/loading';
 import { LayoutFixedTop, LayoutFixedSibling, LayoutFlexBox, StyleBg, StylePlaceHolder } from '@/common/commonStyled';
@@ -11,7 +13,7 @@ import { LayoutFixedTop, LayoutFixedSibling, LayoutFlexBox, StyleBg, StylePlaceH
 
 // Style
 
-const StyleTypeItem = styled.div`
+const StyleTypeItem = styled(Tab)`
 	width: 25%;
 	height: 1.3333rem;
 	line-height: 1.3333rem;
@@ -33,71 +35,84 @@ const Types = {
 };
 
 class InvestRecord extends Component {
-	constructor(props) {
-		super(props);
-		this.state = { type: Types.ALL };
-	}
-
-	selectedTypeHandle = (e) => {
-		let type = e.target.getAttribute('data-type');
-
-		if(type === this.state.type){
-			return;
+	state = {
+		index: 0,
+		list: {
+			all: [
+				{ id: uuid(), text: uuid() }
+			],
+			bid: [
+				{ id: uuid(), text: uuid() },
+				{ id: uuid(), text: uuid() }
+			],
+			payment: [
+				{ id: uuid(), text: uuid() },
+				{ id: uuid(), text: uuid() },
+				{ id: uuid(), text: uuid() }
+			],
+			redeemed: [
+				{ id: uuid(), text: uuid() },
+				{ id: uuid(), text: uuid() }
+			]
 		}
-
-		this.setState({
-			type: type
-		}, this.getListOfTypeHandle);
 	}
-	
-	getListOfTypeHandle = () => {
-		const { type } = this.state;
+
+	selectedTypeHandle = (index, lastIndex, e) => {
 	}
 
 	render() {
-		const { type } = this.state;
+		const { index, list } = this.state;
 		const { selectedTypeHandle } = this;
 		const { ALL, BID, PAYMENT, REDEEMED } = Types;
+		const { all, bid, payment, redeemed } = list;
 
 		return (
-			<div>
-
-				<div>
+			<Tabs onSelect={ this.selectedTypeHandle }>
+			
+				<TabList>
 					<LayoutFixedSibling/>
 					<LayoutFixedTop>
 						<StyleBg>
 							<LayoutFlexBox>
-								<StyleTypeItem 
-									className={ type === ALL ? "selected" : "" } 
-									onClick={ selectedTypeHandle } 
-									data-type={ ALL }>全部</StyleTypeItem>
-								<StyleTypeItem 
-									className={ type === BID ? "selected" : "" } 
-									onClick={ selectedTypeHandle } 
-									data-type={ BID }>招标中</StyleTypeItem>
-								<StyleTypeItem 
-									className={ type === PAYMENT ? "selected" : "" } 
-									onClick={ selectedTypeHandle } 
-									data-type={ PAYMENT }>还款中</StyleTypeItem>
-								<StyleTypeItem 
-									className={ type === REDEEMED ? "selected" : "" } 
-									onClick={ selectedTypeHandle } 
-									data-type={ REDEEMED }>已赎回</StyleTypeItem>
+								<StyleTypeItem>全部</StyleTypeItem>
+								<StyleTypeItem>招标中</StyleTypeItem>
+								<StyleTypeItem>还款中</StyleTypeItem>
+								<StyleTypeItem>已赎回</StyleTypeItem>
 							</LayoutFlexBox>
 						</StyleBg>
 					</LayoutFixedTop>
-				</div>
+				</TabList>
 
-				<div>
-					<StylePlaceHolder/>
-					<StylePlaceHolder/>
-					<StylePlaceHolder/>
-					<StylePlaceHolder/>
-					<StylePlaceHolder/>
-					<StylePlaceHolder/>
-				</div>
+				<TabPanel>
+					{ 
+						all.map((item) => {
+							return <StylePlaceHolder key={ item.id }>{ item.text }</StylePlaceHolder>
+						}) 
+					}
+				</TabPanel>
+				<TabPanel>
+					{ 
+						bid.map((item) => {
+							return <StylePlaceHolder key={ item.id }>{ item.text }</StylePlaceHolder>
+						}) 
+					}
+				</TabPanel>
+				<TabPanel>
+					{ 
+						payment.map((item) => {
+							return <StylePlaceHolder key={ item.id }>{ item.text }</StylePlaceHolder>
+						}) 
+					}
+				</TabPanel>
+				<TabPanel>
+					{ 
+						redeemed.map((item) => {
+							return <StylePlaceHolder key={ item.id }>{ item.text }</StylePlaceHolder>
+						}) 
+					}
+				</TabPanel>
 
-			</div>
+			</Tabs>
 		)
 	}
 }

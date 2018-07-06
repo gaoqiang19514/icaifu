@@ -80,24 +80,6 @@ class ExchangeRecord extends Component {
         };
     }
 
-    componentWillMount() {
-        this.props.onShowLoading();
-
-        axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=exchange_record')
-        .then((response) => {
-            if(response.status === 200){
-                this.setState({
-                    list: response.data.result
-                });
-            }
-        })
-        .catch((error) => {
-        })
-        .finally(() => {
-            this.props.onHideLoading();
-        });
-    }
-
     componentDidMount() {
         const scroll = new BScroll('.wrapper', {
             scrollX: true
