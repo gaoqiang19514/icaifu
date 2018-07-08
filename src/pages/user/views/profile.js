@@ -49,7 +49,7 @@ class Profile extends Component {
                         <Link className={styles.m_e_e__icon} to="/setting">
                             <img src={gearIcon} alt="设置"/>
                         </Link>
-                        <Link className={styles.m_e_e__icon} to="/staionletter">
+                        <Link className={styles.m_e_e__icon} to="/stationLetter">
                             <img src={bellIcon} alt="站内信"/>
                         </Link>
                     </div>

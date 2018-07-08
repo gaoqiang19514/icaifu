@@ -4,6 +4,19 @@ import styled from 'styled-components';
 import {connect} from 'react-redux';
 import axios from 'axios';
 
+import { 
+    LayoutFixedBottom, 
+    LayoutFixedSibling, 
+    LayoutFlexBox, 
+    LayoutBoxBet,
+    StyleBg, 
+    StylePlaceHolder, 
+    LayoutTittleBox, 
+    LayoutPrimaryBox, 
+    StylePrimaryButton,
+    LayoutBoxWrap
+} from '@/common/commonStyled';
+
 import AnimateLayer from '@/common/animateLayer'
 
 import arrow_icon from './images/arrow_icon.png';
@@ -14,17 +27,15 @@ import wechat_icon from './images/wechat_icon.png'
 
 import styles from './styles.scss';
 
-const List = styled.div`
-    margin-bottom: 0.5333rem;
-`;
-
 const Item = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    position: relative;
+
     font-size: 0.3733rem;
     padding: 0.5333rem;
-    position: relative;
     background: #fff;
     &::after{
         content: '';
@@ -63,6 +74,7 @@ const Alink = styled.a`
     align-items: center;
     color: #898996;
 `;
+
 const Button = styled.div`
     display: flex;
     align-items: center;
@@ -97,8 +109,6 @@ const StyleFullButton = styled.button`
 
 const Title = styled.h1`
     font-size: 0.64rem;
-    background: #fff;
-    padding: 0.7333rem 0.5333rem 0.7333rem 0.5333rem;
 `;
 
 const StyleTitle = styled.h3`
@@ -150,14 +160,9 @@ const LayoutBoxBody = styled.div`
 `;
 
 export default class extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            profileFlag: false,
-            wechatFlag: false
-        }
+    state = {
+        profileFlag: false,
+        wechatFlag: false
     }
 
     changeProfileHandle = () => {
@@ -177,10 +182,12 @@ export default class extends Component {
 
         return(
             <div>
+                
+                <LayoutTittleBox>
+                    <Title>个人信息</Title>
+                </LayoutTittleBox>
 
-                <Title>个人信息</Title>
-
-                <List>
+                <LayoutBoxWrap>
                     <Item>
                         <span>头像</span>
                         <Button onClick={ this.changeProfileHandle } >
@@ -209,9 +216,9 @@ export default class extends Component {
                             <Arrow src={ arrow_icon } alt="箭头" />
                         </Button>
                     </Item>
-                </List>
+                </LayoutBoxWrap>
 
-                <List>
+                <LayoutBoxWrap>
                     <Item>
                         <span>汇付存管</span>
                         <Alink href=''>
@@ -233,9 +240,9 @@ export default class extends Component {
                             <Arrow src={ arrow_icon } alt="箭头" />
                         </StyledLink>
                     </Item>
-                </List>
+                </LayoutBoxWrap>
 
-                <List>
+                <LayoutBoxWrap>
                     <Item>
                         <span>风险等级评测</span>
                         <StyledLink to=''>
@@ -250,7 +257,42 @@ export default class extends Component {
                             <Arrow src={ arrow_icon } alt="箭头" />
                         </StyledLink>
                     </Item>
-                </List>
+                </LayoutBoxWrap>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                 
                 {/* 修改头像 */}
                 <AnimateLayer flag={ profileFlag }>
