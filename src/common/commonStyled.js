@@ -12,6 +12,11 @@ export const LayoutBoxBet = styled.div`
     justify-content: space-between;
 `;
 
+export const LayoutBoxVerticalCenter = styled.div`
+    display: flex;
+    align-items: center;
+`;
+
 export const LayoutFixedTop = styled.div`
 	position: fixed;
 	top: 0;
@@ -79,4 +84,10 @@ export const StylePrimaryButton = styled.button`
     background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #f7645b, #f7645b);
     border-radius: 0.6667rem;
     box-shadow: 0rem 0.0267rem 0.1067rem 0rem rgba(249,82,83,0.75);
+`;
+
+export const Input = styled.input`
+    border: 0;
+    outline: 0;
+    padding: 0;
 `;

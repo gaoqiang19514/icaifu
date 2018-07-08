@@ -1,44 +1,92 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import styled from 'styled-components';
+import 'boxicons';
 
-import style from './style.scss'
+import { LayoutBoxVerticalCenter, LayoutPrimaryBox, LayoutFlexBox, Input, StyleBg, StylePrimaryButton } from '@/common/commonStyled';
+
+const StyleBankName = styled.div`
+    font-size: 0.4267rem;
+    margin-bottom: 0.2rem;
+`;
+
+const StyleBankLimit = styled.div`
+    font-size: 0.3467rem;
+    color: #888;
+`;
+
+const StyleTips = styled.div`
+    color: #888;
+`;
+
+const StyleIconBox = styled.div`
+    margin-right: 0.4rem;
+`;
+
+const StyleInput = Input.extend`
+    font-size: 0.6667rem;
+    width: 100%;
+`;
+
+const StyleLabel = styled.label`
+    font-size: 0.6667rem;
+    margin-right: 0.3rem;
+`;
 
 class Recharge extends Component {
-
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            money: ''
-        }
-
-        this.onSubmitHandle = this.onSubmitHandle.bind(this)
-        this.onChangeHandle = this.onChangeHandle.bind(this)
+    state = {
+        money: ''
     }
 
-    onSubmitHandle(e) {
-        console.log(this.state.money)
+    submitHandle = (e) => {
+        this.setState({ money: '' });
     }
 
-    onChangeHandle(e) {
-        this.setState({
-            money: e.target.value
-        })
+    inputChangeHandle = (e) => {
+        this.setState({ money: e.target.value });
     }
     
     render() {
-
-        const { money, bankLimit } = this.state
+        const { money } = this.state;
+        const { inputChangeHandle, submitHandle } = this;
 
         return (
-            <div className={style.recharge}>
-                <div className={style.box}>充值不收取手续费，充值金额必须为整数</div>
-                <div><input onChange={this.onChangeHandle} className={style.input} type="text" value={money} placeholder="请输入充值金额" /></div>
-                <div className={style.box}>
-                    <button onClick={this.onSubmitHandle} className="btn">确定</button>
-                </div>
+            <div>
+                
+                <StyleBg>
+                    <LayoutPrimaryBox>
+                        <StyleTips>充值不收取手续费，充值金额必须为整数</StyleTips>
+                    </LayoutPrimaryBox>
+                </StyleBg>
+
+                <StyleBg>
+                    <LayoutPrimaryBox>
+                        <LayoutBoxVerticalCenter>
+                            <StyleLabel>￥</StyleLabel>
+                            <StyleInput onChange={ inputChangeHandle } type="text" value={ money } placeholder="请输入充值金额" />
+                        </LayoutBoxVerticalCenter>
+                    </LayoutPrimaryBox>
+                </StyleBg>
+
+                <StyleBg>
+                    <LayoutPrimaryBox>
+                        <LayoutBoxVerticalCenter>
+                            <StyleIconBox>
+                                <box-icon name='credit-card' color="#f94c50" style={ { width: "1.3333rem", height: "1.3333rem" } }></box-icon>
+                            </StyleIconBox>
+                            <div>
+                                <StyleBankName>工商银行</StyleBankName>
+                                <StyleBankLimit>单笔限额10万，单日限额20万</StyleBankLimit>
+                            </div>
+                        </LayoutBoxVerticalCenter>
+                    </LayoutPrimaryBox>
+                </StyleBg>
+
+                <LayoutPrimaryBox>
+                    <StylePrimaryButton onClick={ submitHandle }>确定</StylePrimaryButton>
+                </LayoutPrimaryBox>
             </div>
         )
     }
 }
 
-export default Recharge
+export default Recharge;
