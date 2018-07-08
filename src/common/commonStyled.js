@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ReactLoading from 'react-loading';
 
 // Layout
 
@@ -37,4 +38,8 @@ export const StylePlaceHolder = styled.div`
 	margin: 0.4rem;
 	padding: 70px;
 	background: #fff;
+`;
+
+export const StyleReactLoading = styled(ReactLoading)`
+    margin: 0.4rem auto;
 `;

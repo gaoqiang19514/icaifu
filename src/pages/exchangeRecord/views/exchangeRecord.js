@@ -3,9 +3,31 @@ import { connect } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 import BScroll from 'better-scroll';
+import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import uuid from 'uuid';
+import ReactLoading from 'react-loading';
+import InfiniteScroll from 'react-infinite-scroller';
 
 import { actions as loadingActions } from '@/common/loading';
 import { LayoutFixedTop, LayoutFixedSibling, LayoutFlexBox, StyleBg, StylePlaceHolder } from '@/common/commonStyled';
+
+const CancelToken = axios.CancelToken;
+let source = null;
+const instance = axios.create();
+
+// 添加响应拦截器
+instance.interceptors.response.use(function (response) {
+    response.data.list = response.data.list.filter((item) => {
+        item.id = uuid();
+        return item;
+	});
+
+	// 对响应数据做点什么
+	return response;
+}, function (error) {
+	// 对响应错误做点什么
+	return Promise.reject(error);
+});
 
 // Layout
 
@@ -14,7 +36,7 @@ const LayoutScroller = styled.div`
     display: flex;
 `;
 
-const LayoutNavItem = styled.div`
+const LayoutNavItem = styled(Tab)`
     flex: 1;
     color: #898996;
     font-size: 0.3467rem;
@@ -26,41 +48,71 @@ const LayoutNavItem = styled.div`
     }
 `;
 
-// Style
-
-const StyleItem = styled.div`
-    background: #fff;
-    margin: 0.4rem;
-    padding: 0.4rem;
+const StyleReactLoading = styled(ReactLoading)`
+    margin: 0.4rem auto;
 `;
 
-const Title = styled.h2`
-    font-size: 0.4rem;
-    margin-bottom: 0.2rem;
-`;
+class List extends Component {
+	state = {
+		list: [],
+		hasMoreItems: true
+	}
+	
+	componentWillUnmount() {
+        source.cancel('Operation canceled');
+	}
+	
+	loadNextPage = (page) => {
+        source = CancelToken.source();
+        instance.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=exchange_record', {
+            cancelToken: source.token
+        })
+        .then((response) => {
+			if(response.data.list){
+				this.setState({
+					list: [
+						...this.state.list,
+						...response.data.list
+					]
+				});
+			}else{
+				this.setState({
+					hasMoreItems: false
+				});
+			}
+        })
+        .catch(() => {
+        })
+        .finally(() => {
+        });
+    }
 
-const SubTitle = styled.h3`
-    color: #898996;
-    font-weight: normal;
-    font-size: 0.3733rem;
-    line-height: 1.7;
-    margin-bottom: 0.2rem;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-`;
+	loadMoreHandle = (page) => {
+		this.loadNextPage(page);
+	}
 
-const Date = styled.div`
-    color: #898996;
-    text-align: right;
-    font-size: 0.3733rem;
-`;
+	render() {
+		const { hasMoreItems, list } = this.state;
+		const { type } = this.props;
 
-const Guid = styled.div`
-    color: #898996;
-    margin-bottom: 0.2rem;
-    font-size: 0.3733rem;
-`;
+		return(
+			<InfiniteScroll
+				pageStart={ 0 }
+				loadMore={ this.loadMoreHandle }
+				hasMore={ hasMoreItems }
+				loader={  <StyleReactLoading key={ 0 } height={ 30 } width={ 30 } type="spin" color="#444" /> }
+			>
+				<div>
+					{ 
+						list.map((item) => {
+							return <StylePlaceHolder key={ item.id }>{ item.text }</StylePlaceHolder>
+						}) 
+					}
+				</div>
+			</InfiniteScroll>
+		)
+	}
+}
 
 const Types = {
     ALL: 'all',
@@ -82,7 +134,8 @@ class ExchangeRecord extends Component {
 
     componentDidMount() {
         const scroll = new BScroll('.wrapper', {
-            scrollX: true
+            scrollX: true,
+            click: true
         });
     }
 
@@ -91,35 +144,46 @@ class ExchangeRecord extends Component {
         const { ALL, RECHARGE, WITHDRAW, BUY, PAYMENT } = Types;
 
         return (
-            <div>
+            <Tabs>
 
-                <div>
+                <TabList>
                     <LayoutFixedSibling/>
                     <LayoutFixedTop>
                         <StyleBg>
                             <LayoutFlexBox className="wrapper">
                                 <LayoutScroller>
-                                    <LayoutNavItem className={ type === ALL ? "selected" : "" }>全部</LayoutNavItem>
-                                    <LayoutNavItem className={ type === RECHARGE ? "selected" : "" }>充值</LayoutNavItem>
-                                    <LayoutNavItem className={ type === WITHDRAW ? "selected" : "" }>提现</LayoutNavItem>
-                                    <LayoutNavItem className={ type === BUY ? "selected" : "" }>购买</LayoutNavItem>
-                                    <LayoutNavItem className={ type === PAYMENT ? "selected" : "" }>回款</LayoutNavItem>
+                                    <LayoutNavItem>全部</LayoutNavItem>
+                                    <LayoutNavItem>充值</LayoutNavItem>
+                                    <LayoutNavItem>提现</LayoutNavItem>
+                                    <LayoutNavItem>购买</LayoutNavItem>
+                                    <LayoutNavItem>回款</LayoutNavItem>
                                 </LayoutScroller>
                             </LayoutFlexBox>
                         </StyleBg>
                     </LayoutFixedTop>
-                </div>
+                </TabList>
            
-                <div>
-                    <StylePlaceHolder/>
-                    <StylePlaceHolder/>
-                    <StylePlaceHolder/>
-                    <StylePlaceHolder/>
-                    <StylePlaceHolder/>
-                    <StylePlaceHolder/>
-                </div>
+				<TabPanel>
+					<List type={ ALL }/>
+				</TabPanel>
 
-            </div>
+				<TabPanel>
+					<List type={ RECHARGE }/>
+				</TabPanel>
+
+				<TabPanel>
+					<List type={ WITHDRAW }/>
+				</TabPanel>
+
+				<TabPanel>
+					<List type={ BUY }/>
+				</TabPanel>
+
+                <TabPanel>
+					<List type={ PAYMENT }/>
+				</TabPanel>
+
+            </Tabs>
         )
     }
 }

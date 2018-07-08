@@ -7,7 +7,7 @@ import ReactLoading from 'react-loading';
 import uuid from 'uuid';
 
 import './style.css';
-import { LayoutFixedTop, LayoutFixedSiblingDouble, LayoutFlexBox, StyleBg, StylePlaceHolder } from '@/common/commonStyled';
+import { LayoutFixedTop, LayoutFixedSiblingDouble, LayoutFlexBox, StyleBg, StylePlaceHolder, StyleReactLoading } from '@/common/commonStyled';
 
 const CancelToken = axios.CancelToken;
 let source = null;
@@ -47,7 +47,7 @@ const StyleList = styled.div`
 const StyleItem = styled.div`
     flex: 1;
     text-align: center;
-    font-size: 0.4267rem;
+    font-size: 0.3467rem;
     height: 1.3333rem;
     line-height: 1.3333rem;
     &.selected{
@@ -55,47 +55,49 @@ const StyleItem = styled.div`
     }
 `;
 
-const Types = {
-    CASH: 'cash',
-    INTEREST_RATES: 'interest_rates'
-};
-
-const Status = {
-    UNUSED: 'unused',
-    USED: 'used',
-    EXPIRED: 'expired'
-};
-
-const StyleReactLoading = styled(ReactLoading)`
-    margin: auto;
-`;
-
-
 class Coupon extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            hasMoreItems: true,
-            list: []
-        };
+    state = {
+        hasMoreItems: true,
+        list: [],
+        type: this.props.type,
+        status: this.props.status
     }
-
+    
     componentWillUnmount() {
         source.cancel('Operation canceled');
     }
 
+    componentWillReceiveProps(nextProps) {
+        const { props } = this;
+        if(nextProps.type !== props.type || nextProps.status !== props.status){
+            this.setState({
+                type: nextProps.type,
+                status: nextProps.status,
+                list: []
+            });
+        }
+    }
+
     loadNextPage = (page) => {
+        const { type, status } = this.state;
+
         source = CancelToken.source();
         instance.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=activity_list', {
             cancelToken: source.token
         })
         .then((response) => {
-            this.setState({
-                list: [
-                    ...this.state.list,
-                    ...response.data.list
-                ]
-            });
+            if(response.data.list){
+                this.setState({
+                    list: [
+                        ...this.state.list,
+                        ...response.data.list
+                    ]
+                });
+            }else{
+                this.setState({
+                    hasMoreItems: false
+                });
+            }
         })
         .catch(() => {
         })
@@ -108,13 +110,11 @@ class Coupon extends Component {
     }
 
     render() {
-        const { type, status } = this.props;
         const { hasMoreItems, list } = this.state;
-        
+
         return(
             <div>
                 <InfiniteScroll
-                    threshold={ 0 } 
                     pageStart={ 0 }
                     loadMore={ this.handleLoadMore }
                     hasMore={ hasMoreItems }
@@ -133,43 +133,62 @@ class Coupon extends Component {
     }
 }
 
-const Page = ({ type }) => (
-    <Tabs>
-        <TabList>
-            <Tab>未使用</Tab>
-            <Tab>已使用</Tab>
-            <Tab>已过期</Tab>
-        </TabList>
+const Types = {
+    CASH: 'cash',
+    INTEREST_RATES: 'interest_rates'
+};
 
-        <TabPanel>
-            <Coupon type={ type } status={ Status.UNUSED }/>
-        </TabPanel>
-        <TabPanel>
-            <Coupon type={ type } status={ Status.USED }/>
-        </TabPanel>
-        <TabPanel>
-            <Coupon type={ type } status={ Status.EXPIRED }/>
-        </TabPanel>
-    </Tabs>
-)
+const Statuses = {
+    UNUSED: 'unused',
+    USED: 'used',
+    EXPIRED: 'expired'
+};
 
 export default class extends Component {
-    
-    render() {
-        return (
-            <Tabs>
-                <TabList>
-                    <Tab>代金券</Tab>
-                    <Tab>加息券</Tab>
-                </TabList>
+    state = {
+        type: Types.CASH,
+        status: Statuses.UNUSED
+    }
 
-                <TabPanel>
-                    <Page type={ Types.CASH }/>
-                </TabPanel>
-                <TabPanel>
-                    <Page type={ Types.INTEREST_RATES }/>
-                </TabPanel>
-            </Tabs>
+    switchTypeHandle = (e) => {
+        const type = e.target.getAttribute('data-type');
+        this.setState({
+            type: type
+        });
+    }
+
+    switchStatusHandle = (e) => {
+        const status = e.target.getAttribute('data-status');
+        this.setState({
+            status: status
+        });    
+    }
+
+    render() {
+        const { type, status } = this.state;
+        const { switchTypeHandle, switchStatusHandle } = this;
+        
+        return (
+            <div>
+                
+                <div>
+                    <LayoutFixedSiblingDouble/>
+                    <LayoutFixedTop>
+                        <StyleList>
+                            <StyleItem className={ type === Types.CASH ? "selected" : "" } data-type={ Types.CASH } onClick={ switchTypeHandle }>代金券</StyleItem>
+                            <StyleItem className={ type === Types.INTEREST_RATES ? "selected" : "" } data-type={ Types.INTEREST_RATES } onClick={ switchTypeHandle }>加息券</StyleItem>
+                        </StyleList>
+                        <StyleList>
+                            <StyleItem className={ status === Statuses.UNUSED ? "selected" : "" } data-status={ Statuses.UNUSED } onClick={ switchStatusHandle }>未使用</StyleItem>
+                            <StyleItem className={ status === Statuses.USED ? "selected" : "" } data-status={ Statuses.USED } onClick={ switchStatusHandle }>已使用</StyleItem>
+                            <StyleItem className={ status === Statuses.EXPIRED ? "selected" : "" } data-status={ Statuses.EXPIRED } onClick={ switchStatusHandle }>已过期</StyleItem>
+                        </StyleList>
+                    </LayoutFixedTop>
+                </div>
+
+                <Coupon type={ type } status={ status }/>
+
+            </div>
         )
     }
 }
