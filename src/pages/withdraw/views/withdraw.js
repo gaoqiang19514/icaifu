@@ -1,84 +1,89 @@
 import React, { Component } from 'react';
-import {connect} from 'react-redux';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
+import 'boxicons';
 
-import {actions as loadingActions} from '@/common/loading';
+import { LayoutBoxWrap, LayoutPrimaryBox, LayoutBoxBet, StyleBg, StylePrimaryButton, LayoutBoxVerticalCenter, Input } from '@/common/commonStyled';
+import { actions as loadingActions } from '@/common/loading';
 
-
-const LayoutWrap = styled.div`
-
+const StyleIconBox = styled.div`
+    margin-right: 0.4rem;
 `;
 
-const LayoutBox = styled.div`
-	padding: 0.4rem;
+const StyleLabel = styled.label`
+    font-size: 0.6667rem;
+    margin-right: 0.3rem;
 `;
 
-const LayoutBoxBg = LayoutBox.extend`
-	background: #fff;
-	margin-bottom: 0.2667rem;
-	display: flex;
-	justify-content: space-between;
-`;
-
-const Button = styled.button`
-    font-weight: bold;
-    letter-spacing: .1em;
-    color: #fff;
-    padding: 0;
-    font-size: 0.4267rem;
-    cursor: pointer;
-    border: 0;
-    outline: none;
-    height: 1.3333rem;
-    border-radius: 0.6667rem;
+const StyleInput = Input.extend`
+    font-size: 0.6667rem;
     width: 100%;
-	background-image: linear-gradient(90deg, 
-		#f94c50 0%, 
-		#f77366 100%), 
-	linear-gradient(
-		#f7645b, 
-		#f7645b);
-    box-shadow: 0rem 0.0267rem 0.1067rem 0rem rgba(249, 82, 83, 0.75);
+`;
+
+const StyleBankName = styled.div`
+    font-size: 0.4267rem;
+    margin-bottom: 0.2rem;
+`;
+
+const StyleBankLimit = styled.div`
+    font-size: 0.3467rem;
+    color: #888;
 `;
 
 class Withdraw extends Component {
 
-	constructor(props) {
-		super(props);
-	}
-
 	render() {
 		return (
-			<LayoutWrap>
+			<div>
+				
+				<LayoutBoxWrap>
+					<StyleBg>
+						<LayoutPrimaryBox>
+							<LayoutBoxVerticalCenter>
+								<StyleIconBox>
+									<box-icon name='credit-card' color="#f94c50" style={ { width: "1.3333rem", height: "1.3333rem" } }></box-icon>
+								</StyleIconBox>
+								<div>
+									<StyleBankName>建设银行（尾号7008）</StyleBankName>
+                                	<StyleBankLimit>单笔限额10万，单日限额20万</StyleBankLimit>
+								</div>
+							</LayoutBoxVerticalCenter>
+						</LayoutPrimaryBox>
+					</StyleBg>
+				</LayoutBoxWrap>
 
-				<LayoutBoxBg>
-					<img src="" alt=""/>
-					<div>
-						<div>建设银行（尾号7008）</div>
-						<div>单笔10000 日限额5000000</div>
-					</div>
-				</LayoutBoxBg>
+				<LayoutBoxWrap>
+					<StyleBg>
+						<LayoutPrimaryBox>
+							<LayoutBoxBet>
+								<div>账户余额</div>
+								<div>100.00元</div>
+							</LayoutBoxBet>
+						</LayoutPrimaryBox>
+					</StyleBg>
+				</LayoutBoxWrap>
 
-				<LayoutBoxBg>
-					<span>账户余额</span>
-					<span>100.00元</span>
-				</LayoutBoxBg>
+				<LayoutBoxWrap>
+					<StyleBg>
+						<LayoutPrimaryBox>
+							<LayoutBoxVerticalCenter>
+								<StyleLabel>￥</StyleLabel>
+								<StyleInput type="text" placeholder="请输入提现金额"/>
+							</LayoutBoxVerticalCenter>
+						</LayoutPrimaryBox>
+					</StyleBg>
+				</LayoutBoxWrap>
 
-				<LayoutBoxBg>
-					<span>￥</span>
-					<input type="text"/>
-				</LayoutBoxBg>
-
-				<LayoutBoxBg>
+				<LayoutPrimaryBox>
 					充值不收取手续费，充值金额必须为整数
-				</LayoutBoxBg>
+				</LayoutPrimaryBox>
 
-				<LayoutBox>
-					<Button>充值</Button>
-				</LayoutBox>
+				<LayoutPrimaryBox>
+					<StylePrimaryButton>确定</StylePrimaryButton>
+				</LayoutPrimaryBox>
 
-			</LayoutWrap>
+			</div>
 		)
 	}
 }

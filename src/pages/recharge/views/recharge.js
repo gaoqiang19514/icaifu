@@ -58,6 +58,10 @@ class Recharge extends Component {
                     </LayoutPrimaryBox>
                 </StyleBg>
 
+                <LayoutPrimaryBox>
+                    <StyleTips>充值不收取手续费，充值金额必须为整数</StyleTips>
+                </LayoutPrimaryBox>
+
                 <StyleBg>
                     <LayoutPrimaryBox>
                         <LayoutBoxVerticalCenter>
@@ -66,6 +70,10 @@ class Recharge extends Component {
                         </LayoutBoxVerticalCenter>
                     </LayoutPrimaryBox>
                 </StyleBg>
+
+                <LayoutPrimaryBox>
+                    <StyleTips>充值不收取手续费，充值金额必须为整数</StyleTips>
+                </LayoutPrimaryBox>
 
                 <StyleBg>
                     <LayoutPrimaryBox>
