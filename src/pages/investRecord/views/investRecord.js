@@ -52,6 +52,7 @@ const StyleReactLoading = styled(ReactLoading)`
 
 class List extends Component {
 	state = {
+		initFlag: true,
 		list: [],
 		hasMoreItems: true
 	}
@@ -66,7 +67,7 @@ class List extends Component {
             cancelToken: source.token
         })
         .then((response) => {
-			if(response.data.list){
+			if(response.data.list.length){
 				this.setState({
 					list: [
 						...this.state.list,
@@ -82,6 +83,9 @@ class List extends Component {
         .catch(() => {
         })
         .finally(() => {
+			if(this.state.initFlag){
+				this.setState({initFlag: false});
+			}
         });
     }
 
@@ -91,22 +95,27 @@ class List extends Component {
 
 	render() {
 		const { hasMoreItems, list } = this.state;
-		const { type } = this.props;
+
+		const LoadingPlaceHolder = () => {
+			if(this.state.initFlag){
+				return <div>Skeleton</div>;
+			}else{
+				return <StyleReactLoading height={ 30 } width={ 30 } type="spin" color="#444" />;
+			}
+		}
 
 		return(
 			<InfiniteScroll
 				pageStart={ 0 }
 				loadMore={ this.loadMoreHandle }
 				hasMore={ hasMoreItems }
-				loader={  <StyleReactLoading key={ 0 } height={ 30 } width={ 30 } type="spin" color="#444" /> }
+				loader={ <LoadingPlaceHolder key={ 0 }/> }
 			>
-				<div>
-					{ 
-						list.map((item) => {
-							return <StylePlaceHolder key={ item.id }>{ item.text }</StylePlaceHolder>
-						}) 
-					}
-				</div>
+				{ 
+					list.map((item) => {
+						return <StylePlaceHolder key={ item.id }>{ item.text }</StylePlaceHolder>
+					}) 
+				}
 			</InfiniteScroll>
 		)
 	}
