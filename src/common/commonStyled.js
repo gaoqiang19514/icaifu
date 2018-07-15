@@ -17,6 +17,11 @@ export const LayoutBoxVerticalCenter = styled.div`
     align-items: center;
 `;
 
+export const LayoutBoxVerticalEnd = styled.div`
+    display: flex;
+    align-items: flex-end;
+`;
+
 export const LayoutFixedTop = styled.div`
 	position: fixed;
 	top: 0;
@@ -47,8 +52,20 @@ export const LayoutPrimaryBox = styled.div`
     padding: 0.4rem;
 `;
 
+export const LayoutSecondBox = styled.div`
+    padding: 0 0.4rem;
+`;
+
+export const LayoutThirdBox = styled.div`
+    padding: 0.4rem 0;
+`;
+
 export const LayoutBoxWrap = styled.div`
     margin-bottom: 0.2667rem;
+`;
+
+export const LayoutBoxWrapSec = styled.div`
+    margin-bottom: .4rem;
 `;
 
 // Style

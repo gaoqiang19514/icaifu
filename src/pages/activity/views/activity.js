@@ -8,16 +8,12 @@ import InfiniteScroll from 'react-infinite-scroller';
 
 import MenuComponent from '@/common/menu/';
 import { view as Skeleton } from '@/common/skeleton';
+import { LayoutPrimaryBox, StyleReactLoading, LayoutBoxWrap } from '@/common/commonStyled';
 
-
-
-const CancelToken = axios.CancelToken;
-let source = null;
-const instance = axios.create();
-
+const axiosInstance = axios.create();
 
 // 添加响应拦截器
-instance.interceptors.response.use(function (response) {
+axiosInstance.interceptors.response.use(function (response) {
     response.data.list = response.data.list.filter((item) => {
         item.id = uuid();
         return item;
@@ -31,27 +27,19 @@ instance.interceptors.response.use(function (response) {
 });
 
 
-// Layout
-
-const LayoutWrap = styled.div`
-    padding: 0.4rem;
-`;
-
-const LayoutBox = styled.div`
-    margin-bottom: 0.2667rem;
-`;
-
-const LayoutItemBox = styled.div`
-    margin-bottom: 0.4rem;
-`;
-
-
 // Style
 
-const StyleItem = styled.div`
+const StyleLink = styled.a`
+    display: block;
     padding: 0.2667rem;
-    background: #fff;
+    margin-bottom: .4rem;
     border-radius: 3px;
+    background: #fff;
+`;
+
+const StyleImage = styled.img`
+    width: 8.6667rem;
+    height: 3.4667rem;
 `;
 
 const StyleTtitle = styled.h2`
@@ -63,112 +51,106 @@ const StyleDesc = styled.div`
     color: #898996;
 `;
 
-const StyleImage = styled.img`
-    width: 8.6667rem;
-    height: 3.4667rem;
-`;
-
 const StyleDate = styled.div`
     font-size: 12px;
     color: #898996;
 `;
 
-const StyleReactLoading = styled(ReactLoading)`
-    margin: auto;
-`;
 
 const Item = ({ title, desc, pic_url, link_url, date_start, date_end }) => (
-    <StyleItem>
-        <a href={ link_url }>
-            <LayoutBox>
-                <StyleImage src={ pic_url } alt={ title } />
-            </LayoutBox>
-            <LayoutBox>
-                <StyleTtitle>{ title }</StyleTtitle>
-            </LayoutBox>
-            <LayoutBox>
-                <StyleDesc>{ desc }</StyleDesc>
-            </LayoutBox>
-            <StyleDate>活动时间：{ date_start } 至 { date_end }</StyleDate>
-        </a>
-    </StyleItem>
+    <StyleLink href={ link_url }>
+        <LayoutBoxWrap>
+            <StyleImage src={ pic_url } alt={ title } />
+        </LayoutBoxWrap>
+        <LayoutBoxWrap>
+            <StyleTtitle>{ title }</StyleTtitle>
+        </LayoutBoxWrap>
+        <LayoutBoxWrap>
+            <StyleDesc>{ desc }</StyleDesc>
+        </LayoutBoxWrap>
+        <StyleDate>活动时间：{ date_start } 至 { date_end }</StyleDate>
+    </StyleLink>
 );
 
 export default class extends Component {
-
-    constructor(props) {
-        super(props);
-        this.state = {
-            hasMoreItems: true,
-            list: []
-        }
+    state = {
+        initSkeletonFlag: true,
+        hasMoreItems: true,
+        list: [],
+        ready: false
     }
 
-    componentWillUnmount() {
-        source.cancel('Operation canceled');
-    }
-
-    loadNextPage = (page) => {
-        source = CancelToken.source();
-        instance.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=activity_list', {
-            cancelToken: source.token
-        })
-        .then((response) => {
-            this.setState({
-                list: [
-                    ...this.state.list,
-                    ...response.data.list
-                ]
-            });
-        })
-        .catch(() => {
-        })
-        .finally(() => {
-        });
+    componentWillMount() {
+        setTimeout(() => {
+            this.setState({ ready: true });
+        }, 2000);
     }
 
     handleLoadMore = (page) => {
-        this.loadNextPage(page);
-    }
+        setTimeout(() => {
+            axiosInstance.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=activity_list')
+            .then((response) => {
+                this.setState({
+                    list: [
+                        ...this.state.list,
+                        ...response.data.list
+                    ]
+                });
+            })
+            .catch(() => {
+            })
+            .finally(() => {
+                if(this.state.initSkeletonFlag){
+                    this.setState({initSkeletonFlag: false});
+                }
+            });
+        }, 1000);
 
+    }
+    
     render() {
-        const { list } = this.state;
+        const { list, hasMoreItems, initSkeletonFlag } = this.state;
+
+        const LoadingPlaceHolder = () => {
+            if(initSkeletonFlag){
+                return <Skeleton type="activity" count={ 3 } ready={ this.state.ready }/>;
+            }else{
+                return <StyleReactLoading height={ 30 } width={ 30 } type="spin" color="#444" />;
+            }
+        }
 
         return (
             <div>
-                <LayoutWrap>
-
+                <LayoutPrimaryBox>
                     <InfiniteScroll
                         pageStart={ 0 }
                         loadMore={ this.handleLoadMore }
-                        hasMore={ this.state.hasMoreItems }
-                        loader={ <StyleReactLoading key={ 0 } height={ 30 } width={ 30 } type="spin" color="#444" /> }
+                        hasMore={ hasMoreItems }
+                        loader={ <LoadingPlaceHolder key={ 0 }/> }
                     >
                         <TransitionGroup>
                             {
-                                list.map((item, index) => (
+                                list.map((item) => (
                                     <CSSTransition
                                         key={ item.id }
                                         appear={ true }
                                         classNames="fadeUp"
                                         timeout={ 500 }
                                     >
-                                        <LayoutItemBox>
-                                            <Item 
-                                                title={ item.title } 
-                                                desc={ item.desc }
-                                                pic_url={ item.pic_url }
-                                                link_url={ item.link_url }
-                                                date_start={ item.date_start }
-                                                date_end={ item.date_end }
-                                            />
-                                        </LayoutItemBox>
+                                        <Item 
+                                            title={ item.title } 
+                                            desc={ item.desc }
+                                            pic_url={ item.pic_url }
+                                            link_url={ item.link_url }
+                                            date_start={ item.date_start }
+                                            date_end={ item.date_end }
+                                        />
                                     </CSSTransition>
                                 ))
                             }
                         </TransitionGroup>
                     </InfiniteScroll>
-                </LayoutWrap>
+                </LayoutPrimaryBox>
 
                 <MenuComponent />
             </div>

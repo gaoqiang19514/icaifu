@@ -6,11 +6,9 @@ import InfiniteScroll from 'react-infinite-scroller';
 import ReactLoading from 'react-loading';
 import styled from 'styled-components';
 
-const CancelToken = axios.CancelToken;
-let source = null;
+import { LayoutPrimaryBox, LayoutSecondBox, LayoutBoxBet, LayoutBoxVerticalEnd, LayoutBoxWrap, StyleBg, StyleReactLoading, LayoutBoxWrapSec } from '@/common/commonStyled';
 
-
-// Layout
+import { view as Skeleton } from '@/common/skeleton';
 
 const LayoutWrap = styled.div`
     a:last-child > div:after{
@@ -32,16 +30,6 @@ const LayoutBox = styled.div`
     }
 `;
 
-const LayoutBoxHead = styled.div`
-    margin-bottom: 0.4rem;
-`;
-
-const LayoutBoxBody = styled.div`
-    font-size: 0.2933rem;
-    display: flex;
-    justify-content: space-between;
-`;
-
 const LayoutCellFirst = styled.div`
     flex-grow: 0;
     flex-shrink: 1;
@@ -60,12 +48,16 @@ const LayoutCellThird = styled.div`
     flex-basis: 15%;
 `;
 
-const LayoutLoadingWrap = styled.div`
-    padding: 0.4rem 0;
-`;
-
 
 // Style
+const StyleValue = LayoutBoxVerticalEnd.extend`
+    height: .8rem;
+    margin-bottom: 0.2667rem;
+`;
+
+const StyleBoxBody = styled.div`
+    font-size: 0.2933rem;
+`;
 
 const StyleTitle = styled.h2`
     font-size: 0.3467rem;
@@ -84,13 +76,6 @@ const StyleSecondText = styled.strong`
     font-size: 0.64rem;
 `;
 
-const LayoutValue = styled.div`
-    display: flex;
-    align-items: flex-end;
-    height: .8rem;
-    margin-bottom: 0.2667rem;
-`;
-
 const StylePercent = styled.div`
     height: 3px;
     background: #eceff8;
@@ -106,41 +91,39 @@ const StylePlus = styled.span`
     padding: 0 0.1333rem;
 `;
 
-const StyleReactLoading = styled(ReactLoading)`
-    margin: auto;
-`;
-
 const Item = ({ id, title, rate, time_limit, gift, total, percent }) => {
     return (
         <Link to={{ pathname: `/invest/${id}`, state: { type: 'jjh' } }}>
             <LayoutBox>
 
-                <LayoutBoxHead>
+                <LayoutBoxWrapSec>
                     <StyleTitle>{ title }</StyleTitle>
-                </LayoutBoxHead>
+                </LayoutBoxWrapSec>
 
-                <LayoutBoxBody>
-                    <LayoutCellFirst>
-                        <LayoutValue>
-                            <StyleSecondText>{ rate }%</StyleSecondText>
-                            <StylePlus>+</StylePlus>
-                            <StyleSubText>{ gift }</StyleSubText>
-                        </LayoutValue>
-                        <StyleText>预期年化利率</StyleText>
-                    </LayoutCellFirst>
-                    <LayoutCellSecond>
-                        <LayoutValue>
-                            <StyleSubText>期限{ time_limit }天</StyleSubText>
-                        </LayoutValue>
-                        <StyleText>投资金额{ total }元</StyleText>
-                    </LayoutCellSecond>
-                    <LayoutCellThird>
-                        <LayoutValue>{ percent }%</LayoutValue>
-                        <StylePercent>
-                            <StylePercentBar style={ {width: `${ percent }%`} }></StylePercentBar>
-                        </StylePercent>
-                    </LayoutCellThird>
-                </LayoutBoxBody>
+                <StyleBoxBody>
+                    <LayoutBoxBet>
+                        <LayoutCellFirst>
+                            <StyleValue>
+                                <StyleSecondText>{ rate }%</StyleSecondText>
+                                <StylePlus>+</StylePlus>
+                                <StyleSubText>{ gift }</StyleSubText>
+                            </StyleValue>
+                            <StyleText>预期年化利率</StyleText>
+                        </LayoutCellFirst>
+                        <LayoutCellSecond>
+                            <StyleValue>
+                                <StyleSubText>期限{ time_limit }天</StyleSubText>
+                            </StyleValue>
+                            <StyleText>投资金额{ total }元</StyleText>
+                        </LayoutCellSecond>
+                        <LayoutCellThird>
+                            <StyleValue>{ percent }%</StyleValue>
+                            <StylePercent>
+                                <StylePercentBar style={ {width: `${ percent }%`} }></StylePercentBar>
+                            </StylePercent>
+                        </LayoutCellThird>
+                    </LayoutBoxBet>
+                </StyleBoxBody>
                 
             </LayoutBox>
         </Link>
@@ -148,26 +131,16 @@ const Item = ({ id, title, rate, time_limit, gift, total, percent }) => {
 }
 
 export default class extends Component {
+    state = {
+        ready: false,
+        list: []
+    }
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            hasMoreItems: true,
-            list: []
-        };
-    }
-    componentWillUnmount() {
-        source.cancel('Operation canceled');
-    }
-    
-	loadNextPage = (page) => {
-        source = CancelToken.source();
-		axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_jiplan', {
-            cancelToken: source.token
-        })
+    componentDidMount() {
+		axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_jiplan')
         .then((response) => {
             this.setState({
-                hasMoreItems: false,
+                ready: true,
                 list: [
                     ...this.state.list,
                     ...response.data.list
@@ -178,19 +151,14 @@ export default class extends Component {
 		})
 		.finally(() => {
 		});
-	}
+    }
 
     render() {
-        const { list, hasMoreItems } = this.state;
+        const { ready, list } = this.state;
 
         return(
-            <LayoutWrap>
-                <InfiniteScroll
-                    pageStart={ 0 }
-                    loadMore={ this.loadNextPage }
-                    hasMore={ hasMoreItems }
-                    loader={ <LayoutLoadingWrap key={ 0 }><StyleReactLoading height={ 30 } width={ 30 } type="spin" color="#444" /></LayoutLoadingWrap> }
-                >
+            <Skeleton type="product" count={ 3 } ready={ ready }>
+                <LayoutWrap>
                     {
                         list.map((item) => (
                             <Item 
@@ -205,8 +173,8 @@ export default class extends Component {
                             />
                         ))
                     }
-                </InfiniteScroll>
-            </LayoutWrap> 
+                </LayoutWrap>
+            </Skeleton>
         )
     }
 }

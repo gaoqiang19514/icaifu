@@ -1,32 +1,11 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
 
-import Sort from './sort.js';
 import JiPlan from './jiplan.js';
 import Ienjoy from './ienjoy.js';
 import Menu from '@/common/menu/';
 
-
-// Layout
-
-const LayoutBox = styled.div`
-	margin-bottom: 0.2667rem;
-`;
-
-const LayoutBoxHead = styled.div`
-    padding: 0.4rem;
-`;
-
-const LayoutBoxBody = styled.div`
-	padding: 0 0.4rem;
-`;
-
-
-// Style
-
-const StyleBox = styled.div`
-	background: #fff;
-`;
+import { LayoutPrimaryBox, LayoutSecondBox, LayoutBoxBet, LayoutBoxWrap, StyleBg } from '@/common/commonStyled';
 
 const StyleLabel = styled.label`
 	color: #fff;
@@ -45,38 +24,58 @@ const StyleLine = styled.div`
 	transform: scaleY(.5);
 `;
 
+const StyleItem = styled.div`
+    color: #9299a4;
+    font-size: 0.3467rem;
+    text-align: center;
+    flex: 1;
+    height: 1.1733rem;
+    line-height: 1.1733rem;
+`;
+
+
 export default () => {
 	return (
 		<div>
-			<LayoutBox>
-				<StyleBox>
-					<Sort />
-				</StyleBox>
-			</LayoutBox>
+			<LayoutBoxWrap>
 
-			<LayoutBox>
-				<StyleBox>
-					<LayoutBoxHead>
+				<StyleBg>
+					<LayoutBoxBet>
+						<StyleItem>默认</StyleItem>
+						<StyleItem>收益率</StyleItem>
+						<StyleItem>期限</StyleItem>
+					</LayoutBoxBet>
+				</StyleBg>
+
+			</LayoutBoxWrap>
+
+			<LayoutBoxWrap>
+
+				<StyleBg>
+					<LayoutPrimaryBox>
 						<StyleLabel>极计划</StyleLabel>
-					</LayoutBoxHead>
+					</LayoutPrimaryBox>
 					<StyleLine />
-					<LayoutBoxBody>
+					<LayoutSecondBox>
 						<JiPlan />
-					</LayoutBoxBody>
-				</StyleBox>
-			</LayoutBox>
+					</LayoutSecondBox>
+				</StyleBg>
 
-			<LayoutBox>
-				<StyleBox>
-					<LayoutBoxHead>
+			</LayoutBoxWrap>
+
+			<LayoutBoxWrap>
+
+				<StyleBg>
+					<LayoutPrimaryBox>
 						<StyleLabel>i享系列</StyleLabel>
-					</LayoutBoxHead>
+					</LayoutPrimaryBox>
 					<StyleLine />
-					<LayoutBoxBody>
+					<LayoutSecondBox>
 						<Ienjoy />
-					</LayoutBoxBody>
-				</StyleBox>
-			</LayoutBox>
+					</LayoutSecondBox>
+				</StyleBg>
+				
+			</LayoutBoxWrap>
 
 			<Menu />
 		</div>		
