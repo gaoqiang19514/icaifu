@@ -8,6 +8,8 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { buildBuyAuthSign } from '@/api/api.js';
 import { AnimateFullLayer } from '@/common/animateLayer';
 
+import { LayoutFixedBottom, LayoutFixedSibling } from '@/common/commonStyled';
+
 import service_icon from './images/service_icon.png';
 import arrow_icon from './images/arrow_icon.png';
 import checkbox_ok from './images/checkbox_icon_ok.png';
@@ -262,8 +264,8 @@ export default class extends Component {
                 </div>
 
                 <div>
-                    <div className={styles.m_fixed_fill}></div>
-                    <div className="fixed-bottom">
+                    <LayoutFixedSibling/>
+                    <LayoutFixedBottom>
                         <div className={styles.m_op}>
                             <div className={styles.m_op__service}>
                                 <img className={styles.m_op__service_icon} src={service_icon} alt="客服图标"/>
@@ -271,7 +273,7 @@ export default class extends Component {
                             </div>
                             <button onClick={ this.submitHandle } className={styles.m_op__invest} to="/">余额不足，请充值14251元</button>
                         </div>
-                    </div>
+                    </LayoutFixedBottom>
                 </div>
 
             </div>

@@ -6,7 +6,7 @@ import InfiniteScroll from 'react-infinite-scroller';
 import ReactLoading from 'react-loading';
 import styled from 'styled-components';
 
-import { LayoutPrimaryBox, LayoutSecondBox, LayoutBoxBet, LayoutBoxVerticalEnd, LayoutBoxWrap, StyleBg, StyleReactLoading, LayoutBoxWrapSec } from '@/common/commonStyled';
+import { LayoutPrimaryBox, LayoutSecondBox, LayoutBoxBet, LayoutBoxVerticalEnd, LayoutCellFirst, LayoutCellSecond, LayoutCellThird, LayoutBoxWrap, StyleBg, StyleReactLoading, LayoutBoxWrapSec } from '@/common/commonStyled';
 
 import { view as Skeleton } from '@/common/skeleton';
 
@@ -28,24 +28,6 @@ const LayoutBox = styled.div`
         background: #eaeaea;
         transform: scaleY(.5);  
     }
-`;
-
-const LayoutCellFirst = styled.div`
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: 50%;
-`;
-
-const LayoutCellSecond = styled.div`
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: 35%;
-`;
-
-const LayoutCellThird = styled.div`
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: 15%;
 `;
 
 

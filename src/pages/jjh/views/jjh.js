@@ -7,6 +7,8 @@ import checkbox_ok from './images/checkbox_icon_ok.png';
 import checkbox_no from './images/checkbox_icon_no.png';
 import styles from './style.scss';
 
+import { LayoutFixedBottom, LayoutFixedSibling } from '@/common/commonStyled';
+
 export default class extends Component {
 
     constructor(props) {
@@ -79,8 +81,8 @@ export default class extends Component {
                 </div>
                 
                 <div>
-                    <div className={styles.m_fixed_fill}></div>
-                    <div className="fixed-bottom">
+                    <LayoutFixedSibling/>
+                    <LayoutFixedBottom>
                         <div className={styles.m_op}>
                             <div className={styles.m_op__service}>
                                 <img className={styles.m_op__service_icon} src={service_icon} alt="客服图标"/>
@@ -88,7 +90,7 @@ export default class extends Component {
                             </div>
                             <Link className={styles.m_op__invest} to="/">余额不足，请充值14251元</Link>
                         </div>
-                    </div>
+                    </LayoutFixedBottom>
                 </div>
 
             </div>

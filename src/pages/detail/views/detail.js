@@ -7,6 +7,7 @@ import arrow_icon from './images/arrow_icon.png';
 import line from './images/line.png'
 
 import styles from './style.scss';
+import { LayoutFixedBottom, LayoutFixedSibling } from '@/common/commonStyled';
 
 export default class extends Component {
 
@@ -136,16 +137,16 @@ export default class extends Component {
                 </div>
 
                 <div>
-                    <div className={styles.m_fixed_fill}></div>
-                    <div className="fixed-bottom">
-                        <div className={styles.m_op}>
+                    <LayoutFixedSibling/>
+                    <LayoutFixedBottom>
+                    <div className={styles.m_op}>
                             <div className={styles.m_op__service}>
                                 <img className={styles.m_op__service_icon} src={service_icon} alt="客服图标"/>
                                 <span>客服</span>
                             </div>
                             <Link className={styles.m_op__invest} to={`/${type}/${id}`}>立即投资</Link>
                         </div>
-                    </div>
+                    </LayoutFixedBottom>
                 </div>
                 
             </div>

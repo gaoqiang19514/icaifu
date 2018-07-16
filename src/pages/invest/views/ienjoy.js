@@ -6,7 +6,7 @@ import uuid from 'uuid';
 import InfiniteScroll from 'react-infinite-scroller';
 import ReactLoading from 'react-loading';
 
-import { LayoutPrimaryBox, LayoutSecondBox, LayoutBoxBet, LayoutBoxVerticalEnd, LayoutBoxWrap, StyleBg, StyleReactLoading, LayoutBoxWrapSec } from '@/common/commonStyled';
+import { LayoutPrimaryBox, LayoutSecondBox, LayoutBoxBet, LayoutCellFirst, LayoutCellSecond, LayoutCellThird, LayoutBoxVerticalEnd, LayoutBoxWrap, StyleBg, StyleReactLoading, LayoutBoxWrapSec } from '@/common/commonStyled';
 import { view as Skeleton } from '@/common/skeleton';
 // Layout
 
@@ -30,35 +30,12 @@ const LayoutBox = styled.div`
     }
 `;
 
-const LayoutBoxHead = styled.div`
-    margin-bottom: 0.4rem;
-`;
-
-const LayoutBoxBody = styled.div`
-    font-size: 0.2933rem;
-    display: flex;
-    justify-content: space-between;
-`;
-
-const LayoutCellFirst = styled.div`
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: 50%;
-`;
-
-const LayoutCellSecond = styled.div`
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: 35%;
-`;
-
-const LayoutCellThird = styled.div`
-    flex-grow: 0;
-    flex-shrink: 1;
-    flex-basis: 15%;
-`;
 
 // Style
+
+const StyleBoxBody = styled.div`
+    font-size: 0.2933rem;
+`;
 
 const StyleTitle = styled.h2`
     font-size: 0.3467rem;
@@ -105,32 +82,34 @@ const Item = ({ id, title, rate, time_limit, gift, total, percent }) => {
         <Link to={{ pathname: `/invest/${id}`, state: { type: 'buy' } }}>
             <LayoutBox>
 
-                <LayoutBoxHead>
+                <LayoutBoxWrapSec>
                     <StyleTitle>{ title }</StyleTitle>
-                </LayoutBoxHead>
+                </LayoutBoxWrapSec>
 
-                <LayoutBoxBody>
-                    <LayoutCellFirst>
-                        <LayoutValue>
-                            <StyleSecondText>{ rate }%</StyleSecondText>
-                            <StylePlus>+</StylePlus>
-                            <StyleSubText>{ gift }</StyleSubText>
-                        </LayoutValue>
-                        <StyleText>预期年化利率</StyleText>
-                    </LayoutCellFirst>
-                    <LayoutCellSecond>
-                        <LayoutValue>
-                            <StyleSubText>期限{ time_limit }天</StyleSubText>
-                        </LayoutValue>
-                        <StyleText>投资金额{ total }元</StyleText>
-                    </LayoutCellSecond>
-                    <LayoutCellThird>
-                        <LayoutValue>{ percent }%</LayoutValue>
-                        <StylePercent>
-                            <StylePercentBar style={ {width: `${ percent }%`} }></StylePercentBar>
-                        </StylePercent>
-                    </LayoutCellThird>
-                </LayoutBoxBody>
+                <StyleBoxBody>
+                    <LayoutBoxBet>
+                        <LayoutCellFirst>
+                            <LayoutValue>
+                                <StyleSecondText>{ rate }%</StyleSecondText>
+                                <StylePlus>+</StylePlus>
+                                <StyleSubText>{ gift }</StyleSubText>
+                            </LayoutValue>
+                            <StyleText>预期年化利率</StyleText>
+                        </LayoutCellFirst>
+                        <LayoutCellSecond>
+                            <LayoutValue>
+                                <StyleSubText>期限{ time_limit }天</StyleSubText>
+                            </LayoutValue>
+                            <StyleText>投资金额{ total }元</StyleText>
+                        </LayoutCellSecond>
+                        <LayoutCellThird>
+                            <LayoutValue>{ percent }%</LayoutValue>
+                            <StylePercent>
+                                <StylePercentBar style={ {width: `${ percent }%`} }></StylePercentBar>
+                            </StylePercent>
+                        </LayoutCellThird>
+                    </LayoutBoxBet>
+                </StyleBoxBody>
                 
             </LayoutBox>
         </Link>

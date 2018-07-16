@@ -15,7 +15,7 @@ import { view as ScrollToTop } from '@/common/scrollToTop';
 ReactDOM.render(
 	<BrowserRouter>
         <ScrollToTop>
-            <Provider store={store}>
+            <Provider store={ store }>
                 <App />
             </Provider>
         </ScrollToTop>

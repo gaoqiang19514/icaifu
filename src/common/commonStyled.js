@@ -68,6 +68,24 @@ export const LayoutBoxWrapSec = styled.div`
     margin-bottom: .4rem;
 `;
 
+export const LayoutCellFirst = styled.div`
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 50%;
+`;
+
+export const LayoutCellSecond = styled.div`
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 35%;
+`;
+
+export const LayoutCellThird = styled.div`
+    flex-grow: 0;
+    flex-shrink: 1;
+    flex-basis: 15%;
+`;
+
 // Style
 
 export const StyleBg = styled.div`
