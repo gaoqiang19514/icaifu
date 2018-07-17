@@ -52,7 +52,6 @@ class App extends Component {
   	render() {
     	return (
 	      	<div className="App">
-
                     <Route component={
                         ({location}) => {
                             return (

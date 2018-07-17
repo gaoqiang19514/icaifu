@@ -5,6 +5,7 @@
   "dependencies": {
     "alloytouch": "^0.2.5",
     "amfe-flexible": "^2.2.1",
+    "antd-mobile": "^2.2.2",
     "axios": "^0.17.1",
     "better-scroll": "^1.12.4",
     "blueimp-md5": "^2.10.0",
@@ -37,12 +38,14 @@
     "swiper": "^3.4.2"
   },
   "devDependencies": {
+    "babel-plugin-import": "^1.8.0",
     "babel-polyfill": "^6.26.0",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "jsonwebtoken": "^8.1.1",
     "node-sass": "^4.7.2",
     "proxyquire": "^1.8.0",
+    "react-app-rewired": "^1.5.2",
     "react-router-dom": "^4.2.2",
     "rewire": "^3.0.2",
     "sass-loader": "^6.0.6"

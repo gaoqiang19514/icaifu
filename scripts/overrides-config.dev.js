@@ -1,9 +1,12 @@
 const baseConfig = require('./overrides-config.base');
+const { injectBabelPlugin } = require('react-app-rewired');
 
 module.exports = function(config) {
 
     let alias = config.resolve.alias;
     alias["@"] = baseConfig.rootPath;
+
+    config = injectBabelPlugin(['import', { libraryName: 'antd-mobile', style: 'css' }], config);
 
     // Use your ESLint
     /*let eslintLoader = config.module.rules[0];
