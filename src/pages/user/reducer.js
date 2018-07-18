@@ -1,13 +1,21 @@
-import {TOGGLE_VIEW} from './actionTypes'
+import { TOGGLE_VIEW } from './actionTypes';
 
-let flag = localStorage.getItem('view_num')
+const STORAGE_SIGN = 'icaifu_storage_toggle_view';
 
-export default (state = flag, action) => {
+const initialState = {
+    viewFlag: !!localStorage.getItem(STORAGE_SIGN)
+};
+
+export default (state = initialState, action) => {
     switch(action.type){
         case TOGGLE_VIEW:
-            localStorage.setItem('view_num', state)
-            return !state
+            localStorage.setItem(STORAGE_SIGN, state.viewFlag);
+            return {
+                viewFlag: !state.viewFlag
+            };
         default:
-            return state
+            return {
+                ...state
+            };
     }
 }

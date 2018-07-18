@@ -1,41 +1,38 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link  } from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
-import swal from 'sweetalert';
+import { Modal } from 'antd-mobile';
 
 import styles from './style.scss';
 import bellIcon from './images/bell_icon.png';
 import gearIcon from './images/gear_icon.png';
 
 import { actions as authActions } from '@/common/auth/';
+import { toggleView } from '../actions';
+const alert = Modal.alert;
 
 class Profile extends Component {
+    state = {
+        cash_use: '- -',
+        p2p_assets: '- -',
+        cash_frozen: '- -',
+        total_assets: '- -',
+        regular_receive_profit: '- -'
+    };
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            cash_use: '- -',
-            p2p_assets: '- -',
-            cash_frozen: '- -',
-            total_assets: '- -',
-            regular_receive_profit: '- -'
-        };
-    }
-
-    componentWillMount() {
-        // axios.get('/my/user_assets')
-        // .then((response) => {
-        // })
-        // .catch((error) => {
-		// })
-		// .finally(() => {
-		// });
+    recharge = () => {
+        alert('Delete', 'Are you sure???', [
+            { text: 'Cancel', onPress: () => console.log('cancel'), style: 'default' },
+            { text: 'OK', onPress: () => {
+                this.props.history.push('/recharge')
+            } },
+        ]);
     }
     
     render() {
         const { p2p_assets, cash_frozen, total_assets, regular_receive_profit, cash_use } = this.state;
+        const { viewFlag, onToggleView } = this.props;
 
         return (
             <div className={styles.l_hd}>
@@ -82,7 +79,7 @@ class Profile extends Component {
                         </div>
                     </div>
                     <div>
-                        <Link className={styles.m_b} to="/recharge">充值</Link>
+                        <button className={styles.m_b} onClick={ this.recharge } >充值</button>
                         <Link className={styles.m_b} to="/withdraw">提现</Link>
                     </div>
                 </div>
@@ -92,12 +89,21 @@ class Profile extends Component {
     }
 }
 
+const mapStateToProps = (state) => {
+    return {
+        viewFlag: state.user.viewFlag
+    }
+}
+
 const mapDisaptchToProps = (disaptch) => {
     return {
         onLogout: () => {
             disaptch(authActions.logout());
+        },
+        onToggleView: () => {
+            disaptch(toggleView());
         }
     }
 }
 
-export default connect(null, mapDisaptchToProps)(Profile);
+export default connect(mapStateToProps, mapDisaptchToProps)(Profile);
