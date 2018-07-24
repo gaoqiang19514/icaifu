@@ -1,5 +1,13 @@
+import { combineReducers } from 'redux';
+
 import view from './views/home.js';
 import * as actions from './actions';
-import reducer from './reducer';
+import { bannerReducer, productReducer } from './reducer';
+
+const reducer = combineReducers({
+	banner: bannerReducer,
+	product: productReducer
+});
+
 
 export { view, reducer, actions };

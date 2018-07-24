@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 import styled from 'styled-components';
 
+import { fetchProductAsync } from '../actions';
+
 import Jiplan from './jiPlan.js';
 import Ienjoy from './ienjoy.js';
-
 
 // Layout
 
@@ -40,32 +42,17 @@ const StyleLine = styled.div`
     transform: scaleY(.5);
 `;
 
-export default class extends Component {
-
-	constructor(props) {
-		super(props);
-		this.state = {
-			jiplan: [],
-			ienjoy: []
-		}
-	}
-
+class List extends Component {
 	componentWillMount() {
-		axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=home_product_list')
-		.then((response) => {
-			this.setState({
-				ienjoy: response.data.list.ienjoy,
-				jiplan: response.data.list.jiplan
-			});
-		})
-		.catch((error) => {
-		})
-		.finally(() => {
-		});
+		this.props.onFetchProductAsync();
 	}
 
 	render() {
-		const { jiplan, ienjoy } = this.state;
+		const { status, jiplan, ienjoy } = this.props;
+
+		if(status !== 'success'){
+			return null;
+		}
    
 		return (
 			<div>
@@ -94,3 +81,21 @@ export default class extends Component {
 		)
 	}
 }
+
+const mapStateToProps = (state) => {
+	return {
+		status: state.home.product.status,
+		ienjoy: state.home.product.list.ienjoy,
+		jiplan: state.home.product.list.jiplan
+	};
+};
+
+const mapDispatchToProps = (dispatch) => {
+	return {
+		onFetchProductAsync: () => {
+			dispatch(fetchProductAsync());
+		}
+	};
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(List);

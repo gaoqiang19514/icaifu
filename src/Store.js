@@ -5,12 +5,14 @@ import { reducer as authReducer } from './common/auth';
 import { reducer as loadingReducer } from './common/loading';
 import { reducer as userReducer } from './pages/user';
 import { reducer as homeReducer } from './pages/home';
+import { reducer as exchangeRecord } from './pages/exchangeRecord';
 
 const reducer = combineReducers({
 	auth: authReducer,
 	user: userReducer,
 	loading: loadingReducer,
-	home: homeReducer
+	home: homeReducer,
+	record: exchangeRecord
 });
 
 const middlewares = [thunkMiddleware];

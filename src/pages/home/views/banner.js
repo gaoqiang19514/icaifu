@@ -1,67 +1,48 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import axios from 'axios';
 import styled from 'styled-components';
 import Swiper from "swiper";
 import "swiper/dist/css/swiper.css";
 
 import { fetchListAsync } from '../actions';
 
-const Image = styled.img`
-    height: 4rem;
-`;
-
-const Banner = styled.div`
-    height: 4rem;    
-`;
-
-const Item = ({ link_url, pic_url }) => (
-    <div className="swiper-slide">
-        <a href={ link_url }>
-            <Image src={ pic_url } />
-        </a>
-    </div>        
-)
-
-class Home extends Component {
-
-    constructor(props) {
-        super(props)
-        this.state = { list: [] };
-    }
+class Banner extends Component {
+    state = { list: [] };
 
     componentDidMount(){
         this.props.onFetchListAsync();
     }
 
     render() {
-        if(this.props.status === 'loading'){
+        const { status, list } = this.props;
+
+        if(status === 'loading'){
             // 亦可返回skeleton
             return <div>loading...</div>;
         }
 
-        if(this.props.status === 'failure'){
+        if(status === 'failure'){
             // 亦可返回skeleton
             return <div>加载失败</div>;
         }
 
-        if(this.props.status === 'success'){
+        if(status === 'success'){
             return (
                 <div className="swiper-container">
-                    <Banner className="swiper-wrapper">
+                    <div className="swiper-wrapper">
                         {
-                            this.props.list.map((item, index) => {
+                            list.map((item) => {
                                 return (
-                                    <Item 
-                                        key={ item.id }
-                                        link_url={ item.link_url }
-                                        pic_url={ item.pic_url }
-                                    />
+                                    <div key={ item.id } className="swiper-slide">
+                                        <a href={ item.link_url }>
+                                            <img src={ item.pic_url } />
+                                        </a>
+                                    </div>
                                 )
                             })
                         }
-                    </Banner>
-                    <div className={`swiper-pagination swiper-pagination swiper__pagination`}></div>
+                    </div>
+                    <div className="swiper-pagination"></div>
                 </div>
             )
         }
@@ -70,8 +51,8 @@ class Home extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        status: state.home.status,
-    	list: state.home.banners
+        status: state.home.banner.status,
+    	list: state.home.banner.banners
     }
 };
 
@@ -89,4 +70,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(Banner);
