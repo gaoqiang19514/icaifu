@@ -2,26 +2,30 @@ import { FETCH_STARTED, FETCH_SUCCESS, FETCH_FAILURE, CHANGE_CATE } from './acti
 
 const getData = (state = {
     status: 'loading',
-    list: []
+    isInfiniteLoading: false,
+    items: []
 }, action) => {
     switch(action.type){
         case FETCH_STARTED:
             return {
                 ...state,
+                isInfiniteLoading: true,
                 status: 'loading'
             };
         case FETCH_SUCCESS:
             return {
                 ...state,
                 status: 'success',
-                list: [
-                    ...state.list,
+                isInfiniteLoading: false,
+                items: [
+                    ...state.items,
                     ...action.list
                 ]
             };          
         case FETCH_FAILURE:
             return {
                 ...state,
+                isInfiniteLoading: false,
                 status: 'failure',
                 error: action.error
             };     
@@ -43,6 +47,7 @@ export const list = (state = {}, action) => {
             return state;
     }
 }
+
 
 const initialSelectedCateState = 'all';
 export const cate = (state = initialSelectedCateState, action) => {

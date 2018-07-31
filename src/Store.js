@@ -22,7 +22,8 @@ if(process.env.NODE_ENV !== 'production'){
 }
 
 const storeEnhancers = compose(
-    applyMiddleware(...middlewares)
+	applyMiddleware(...middlewares),
+	window.devToolsExtension ? window.devToolsExtension() : f => f
 );
 
 export default createStore(reducer, storeEnhancers);
