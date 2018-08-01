@@ -1,4 +1,4 @@
-import { FETCH_STARTED, FETCH_SUCCESS, FETCH_FAILURE, CHANGE_CATE } from './actionTypes';
+import { FETCH_STARTED, FETCH_SUCCESS, FETCH_FAILURE, CHANGE_CATE, DISSMISS_FETCH } from './actionTypes';
 
 const getData = (state = {
     status: 'loading',
@@ -28,7 +28,12 @@ const getData = (state = {
                 isInfiniteLoading: false,
                 status: 'failure',
                 error: action.error
-            };     
+            };
+        case DISSMISS_FETCH:
+            return {
+                ...state,
+                isInfiniteLoading: false
+            }
         default:
             return state;
         }
@@ -39,6 +44,7 @@ export const list = (state = {}, action) => {
         case FETCH_STARTED:
         case FETCH_SUCCESS:
         case FETCH_FAILURE:
+        case DISSMISS_FETCH:
             return {
                 ...state,
                 [action.cate]: getData(state[action.cate], action)

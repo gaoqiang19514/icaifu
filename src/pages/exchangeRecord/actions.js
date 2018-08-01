@@ -1,5 +1,5 @@
-import { randomBoolen, createDataList } from '@/util';
-import { FETCH_STARTED, FETCH_SUCCESS, FETCH_FAILURE, CHANGE_CATE } from './actionTypes';
+import { randomBoolen, createDataList, getScrollTop } from '@/util';
+import { FETCH_STARTED, FETCH_SUCCESS, FETCH_FAILURE, CHANGE_CATE, DISSMISS_FETCH } from './actionTypes';
 
 export const fetchStarted = (cate) => {
     return {
@@ -43,3 +43,11 @@ export const changeCate = (cate) => {
         cate: cate
     };
 };
+
+export const superChangeCate = (cate) => {
+    return (dispatch, getState) => {
+        getScrollTop()
+        dispatch(changeCate(cate))
+        window.scrollTo(0, 0)
+    }
+}

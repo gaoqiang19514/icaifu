@@ -7,7 +7,6 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import uuid from 'uuid';
 import ReactLoading from 'react-loading';
 import InfiniteScroll from 'react-infinite-scroller';
-import Infinite from 'react-infinite'
 
 import { actions as loadingActions } from '@/common/loading';
 import { fetchAsync } from '../actions';
@@ -15,6 +14,7 @@ import { view as Skeleton } from '@/common/skeleton';
 import { LayoutFixedTop, LayoutFixedSibling, LayoutFlexBox, StyleBg, StylePlaceHolder, StyleReactLoading } from '@/common/commonStyled';
 
 import SelectedCate from './selectedCate';
+import { randomBoolen, createDataList, getScrollTop } from '@/util';
 
 const Cates = {
     ALL: 'all',
@@ -24,46 +24,63 @@ const Cates = {
     PAYMENT: 'payment' 
 };
 
+const getData = (cate, state = { items: [] }) => {
+    return {
+        items: [...state.items, ...createDataList(state.items.length)]
+    }
+}
+
+class RecordItem extends Component {
+    render() {
+        return (
+            <InfiniteScroll
+                pageStart={ 0 }
+                loadMore={ this.props.loadFunc }
+                hasMore={ true }
+                loader={ <div className="loader" key={ 0 }>Loading ...</div> }
+            >
+                {
+                    this.props.items.map((item) => {
+                        return <div style={ { padding: '50px' } } key={ item.id }>{ item.index }</div>
+                    })
+                }
+            </InfiniteScroll>
+        )
+    }
+}
+
+let nextReqId = 0
+
 class ExchangeRecord extends Component {
+    state = {}
 
-    // 当props发生变化时执行，初始化render时不执行
-    componentWillReceiveProps(nextProps) {
-        if(nextProps.cate !== this.props.cate){
-            
-            console.log(nextProps.cate)
+    loadFunc = (page) => {
+        const { cate } = this.props
+        let seqId = ++nextReqId
+        const dispatchIfValid = (callback) => {
+            if(nextReqId === seqId){
+                callback()
+            }
         }
-    }
-
-    handleInfiniteLoad = () => {
-        this.props.onFetchAsync(0, this.props.cate)
-    }
-
-    elementInfiniteLoad = () => {
-        return <div>
-            Loading...
-        </div>
+        
+        setTimeout(() => {
+            dispatchIfValid(() => {
+                this.setState({
+                    [cate]: getData(cate, this.state[cate])
+                }, () => {
+                    console.log(this.state)
+                })
+            })
+        }, 1000)
     }
 
     render() {
-        const { items, isInfiniteLoading } = this.props.list
+        const { items } = this.state[this.props.cate] || { items: [] }
         return (
             <div>
                 <SelectedCate/>
                 
-                <div>
-                    <Infinite 
-                        onInfiniteLoad={ this.handleInfiniteLoad }
-                        infiniteLoadBeginEdgeOffset={ 250 }
-                        loadingSpinnerDelegate={ this.elementInfiniteLoad() }
-                        isInfiniteLoading={ isInfiniteLoading } 
-                        elementHeight={ 113 } useWindowAsScrollContainer>
-                        {
-                            items.map((item) => {
-                                return <div style={ { padding: '50px' } } key={ item.id }>{ item.text }</div>
-                            })
-                        }
-                    </Infinite>
-                </div>
+                <RecordItem items={ items } loadFunc={ this.loadFunc }/>
             </div>
         )
     }

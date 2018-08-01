@@ -3,3 +3,5 @@ export const FETCH_SUCCESS = 'FETCH_SUCCESS';
 export const FETCH_FAILURE = 'FETCH_FAILURE';
 
 export const CHANGE_CATE   = 'CHANGE_CATE';
+
+export const DISSMISS_FETCH   = 'DISSMISS_FETCH';

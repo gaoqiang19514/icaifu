@@ -4,7 +4,13 @@ export const randomBoolen = () => {
     return Math.round(Math.random());
 }
 
-export const createDataList = () => {
+export const getScrollTop = () => {
+    return document.documentElement.scrollTop 
+        || window.pageYOffset 
+        || document.body.scrollTop;
+}
+
+export const createDataList = (index = uuid()) => {
     let i = 0
     let len = 10
     const list = []
@@ -12,7 +18,8 @@ export const createDataList = () => {
     for(; i < len; i++){
         list.push({
             id: uuid(),
-            text: uuid()
+            text: uuid(),
+            index: index + i
         })
     }
 

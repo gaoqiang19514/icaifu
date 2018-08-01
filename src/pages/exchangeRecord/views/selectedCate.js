@@ -3,7 +3,8 @@ import BScroll from 'better-scroll';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
 
-import { changeCate } from '../actions';
+import { getScrollTop } from '@/util'
+import { superChangeCate } from '../actions';
 import { LayoutFixedTop, LayoutFixedSibling, LayoutFlexBox, StyleBg, StylePlaceHolder, StyleReactLoading } from '@/common/commonStyled';
 
 const LayoutScroller = styled.div`
@@ -77,7 +78,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         onChangeCate: (cate) => {
-            dispatch(changeCate(cate));
+            dispatch(superChangeCate(cate));
         }
     };
 };
