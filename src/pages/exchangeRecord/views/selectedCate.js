@@ -42,7 +42,7 @@ class SelectedCate extends Component {
 
     changeCateHandle = (e) => {
         const cate = e.target.getAttribute('data-cate');
-        this.props.onChangeCate(cate);
+        this.props.onChangeCate(this.props.cate, cate);
     }
 
     render() {
@@ -71,14 +71,14 @@ class SelectedCate extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        cate: state.record.cate
+        cate: state.record.cate.type
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onChangeCate: (cate) => {
-            dispatch(superChangeCate(cate));
+        onChangeCate: (prevCate, nextCate) => {
+            dispatch(superChangeCate(prevCate, nextCate));
         }
     };
 };

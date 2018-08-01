@@ -55,11 +55,27 @@ export const list = (state = {}, action) => {
 }
 
 
-const initialSelectedCateState = 'all';
+const scroll = (state = { 'all': 0 }, action) => {
+    return {
+        ...state,
+        [action.scroll.prevCate]: action.scroll.scrollTop
+    }
+}
+
+const initialSelectedCateState = {
+    type: 'all',
+    scroll: {
+        'all': 0
+    }
+};
 export const cate = (state = initialSelectedCateState, action) => {
     switch(action.type){
         case CHANGE_CATE:
-            return action.cate;
+            const result = scroll(state.scroll, action)
+            return {
+                type: action.cate,
+                scroll: result
+            };
         default:
             return state;
     }

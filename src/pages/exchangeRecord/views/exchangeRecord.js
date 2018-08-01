@@ -68,7 +68,7 @@ class ExchangeRecord extends Component {
                 this.setState({
                     [cate]: getData(cate, this.state[cate])
                 }, () => {
-                    console.log(this.state)
+                    // console.log(this.state)
                 })
             })
         }, 1000)
@@ -87,13 +87,13 @@ class ExchangeRecord extends Component {
 }
 
 const mapStateToProps = (state) => {
-    const list = state.record.list[state.record.cate] || {
+    const list = state.record.list[state.record.cate.type] || {
         status: 'loading',
         items: [],
         isInfiniteLoading: false
     }
     return {
-        cate: state.record.cate,
+        cate: state.record.cate.type,
         list: list,
         isInfiniteLoading: list.isInfiniteLoading
     };

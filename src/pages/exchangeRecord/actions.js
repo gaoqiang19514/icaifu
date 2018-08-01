@@ -37,17 +37,20 @@ export const fetchAsync = (page, cate) => {
     };
 };
 
-export const changeCate = (cate) => {
+export const changeCate = (cate, scroll) => {
     return {
         type: CHANGE_CATE,
-        cate: cate
+        cate: cate,
+        scroll: scroll
     };
 };
 
-export const superChangeCate = (cate) => {
+export const superChangeCate = (prevCate, nextCate) => {
     return (dispatch, getState) => {
-        getScrollTop()
-        dispatch(changeCate(cate))
+        dispatch(changeCate(nextCate, {
+            prevCate: prevCate,
+            scrollTop: getScrollTop()
+        }))
         window.scrollTo(0, 0)
     }
 }
