@@ -1,4 +1,4 @@
-import { randomBoolen, createDataList, getScrollTop } from '@/util';
+import { randomBoolen, createDataList, getScrollTop, setScrollTop } from '@/util';
 import { FETCH_STARTED, FETCH_SUCCESS, FETCH_FAILURE, CHANGE_CATE, DISSMISS_FETCH } from './actionTypes';
 
 export const fetchStarted = (cate) => {
@@ -52,5 +52,10 @@ export const superChangeCate = (prevCate, nextCate) => {
             scrollTop: getScrollTop()
         }))
         window.scrollTo(0, 0)
+
+        const y = getState()['record']['cate']['scroll'][nextCate] || 0
+        setTimeout(() => {
+            window.scrollTo(0, y)
+        }, 10)
     }
 }
