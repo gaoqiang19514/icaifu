@@ -51,10 +51,11 @@ export const superChangeCate = (prevCate, nextCate) => {
             prevCate: prevCate,
             scrollTop: getScrollTop()
         }))
-        window.scrollTo(0, 0)
-
         const y = getState()['record']['cate']['scroll'][nextCate] || 0
+        window.scrollTo(0, 0)
         setTimeout(() => {
+            console.log('getScrollTop(): ' + getScrollTop())
+            console.log(y)
             window.scrollTo(0, y)
         }, 10)
     }

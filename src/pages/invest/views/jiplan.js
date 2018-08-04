@@ -119,6 +119,21 @@ export default class extends Component {
     }
 
     componentDidMount() {
+        this.loadNextPage(0)
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.type !== this.props.type){
+            this.setState({
+                ready: false,
+                list: []
+            }, () => {
+                this.loadNextPage(0)
+            })
+        }
+    }
+
+    loadNextPage = (page) => {
 		axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_jiplan')
         .then((response) => {
             this.setState({

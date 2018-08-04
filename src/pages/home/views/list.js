@@ -43,17 +43,13 @@ const StyleLine = styled.div`
 `;
 
 class List extends Component {
-	componentWillMount() {
+	componentDidMount() {
 		this.props.onFetchProductAsync();
 	}
 
 	render() {
-		const { status, jiplan, ienjoy } = this.props;
+		const { status, jiplan, ienjoy, ready } = this.props;
 
-		if(status !== 'success'){
-			return null;
-		}
-   
 		return (
 			<div>
 
@@ -63,7 +59,7 @@ class List extends Component {
 					</LayoutBoxHead>
 					<StyleLine />
 					<LayoutBoxBody>
-						<Jiplan list={ jiplan } />
+						<Jiplan ready={ ready } list={ jiplan } />
 					</LayoutBoxBody>
 				</LayoutBox>
 
@@ -73,7 +69,7 @@ class List extends Component {
 					</LayoutBoxHead>
 					<StyleLine />
 					<LayoutBoxBody>
-						<Ienjoy list={ ienjoy } />
+						<Ienjoy ready={ ready } list={ ienjoy } />
 					</LayoutBoxBody>
 				</LayoutBox>
 
@@ -84,6 +80,7 @@ class List extends Component {
 
 const mapStateToProps = (state) => {
 	return {
+		ready: state.home.product.ready,
 		status: state.home.product.status,
 		ienjoy: state.home.product.list.ienjoy,
 		jiplan: state.home.product.list.jiplan

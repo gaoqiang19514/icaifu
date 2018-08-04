@@ -25,6 +25,10 @@ const StyleLine = styled.div`
 `;
 
 const StyleItem = styled.div`
+	&.active{
+		color: red;
+	}
+
     color: #9299a4;
     font-size: 0.3467rem;
     text-align: center;
@@ -34,50 +38,57 @@ const StyleItem = styled.div`
 `;
 
 
-export default () => {
-	return (
-		<div>
-			<LayoutBoxWrap>
+export default class extends Component {
 
-				<StyleBg>
-					<LayoutBoxBet>
-						<StyleItem>默认</StyleItem>
-						<StyleItem>收益率</StyleItem>
-						<StyleItem>期限</StyleItem>
-					</LayoutBoxBet>
-				</StyleBg>
+	state = {
+		type: 'default'
+	}
 
-			</LayoutBoxWrap>
+	onChangeSortHandle = (e) => {
+		const type = e.target.getAttribute('data-type')
+		this.setState({ type: type })
+	}
 
-			<LayoutBoxWrap>
+	render(){
+		const { type } = this.state
+		return (
+			<div>
+				<LayoutBoxWrap>
+					<StyleBg>
+						<LayoutBoxBet>
+							<StyleItem className={ type === 'default' ? 'active' : '' } onClick={ this.onChangeSortHandle } data-type="default">默认</StyleItem>
+							<StyleItem className={ type === 'rate' ? 'active' : '' } onClick={ this.onChangeSortHandle } data-type="rate">收益率</StyleItem>
+							<StyleItem className={ type === 'expire' ? 'active' : '' } onClick={ this.onChangeSortHandle } data-type="expire">期限</StyleItem>
+						</LayoutBoxBet>
+					</StyleBg>
+				</LayoutBoxWrap>
 
-				<StyleBg>
-					<LayoutPrimaryBox>
-						<StyleLabel>极计划</StyleLabel>
-					</LayoutPrimaryBox>
-					<StyleLine />
-					<LayoutSecondBox>
-						<JiPlan />
-					</LayoutSecondBox>
-				</StyleBg>
+				<LayoutBoxWrap>
+					<StyleBg>
+						<LayoutPrimaryBox>
+							<StyleLabel>极计划</StyleLabel>
+						</LayoutPrimaryBox>
+						<StyleLine />
+						<LayoutSecondBox>
+							<JiPlan type={ type } />
+						</LayoutSecondBox>
+					</StyleBg>
+				</LayoutBoxWrap>
 
-			</LayoutBoxWrap>
+				<LayoutBoxWrap>
+					<StyleBg>
+						<LayoutPrimaryBox>
+							<StyleLabel>i享系列</StyleLabel>
+						</LayoutPrimaryBox>
+						<StyleLine />
+						<LayoutSecondBox>
+							<Ienjoy type={ type } />
+						</LayoutSecondBox>
+					</StyleBg>
+				</LayoutBoxWrap>
 
-			<LayoutBoxWrap>
-
-				<StyleBg>
-					<LayoutPrimaryBox>
-						<StyleLabel>i享系列</StyleLabel>
-					</LayoutPrimaryBox>
-					<StyleLine />
-					<LayoutSecondBox>
-						<Ienjoy />
-					</LayoutSecondBox>
-				</StyleBg>
-				
-			</LayoutBoxWrap>
-
-			<Menu />
-		</div>		
-	)
+				<Menu />
+			</div>		
+		)
+	}
 }

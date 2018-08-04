@@ -8,6 +8,7 @@ import ReactLoading from 'react-loading';
 
 import { LayoutPrimaryBox, LayoutSecondBox, LayoutBoxBet, LayoutCellFirst, LayoutCellSecond, LayoutCellThird, LayoutBoxVerticalEnd, LayoutBoxWrap, StyleBg, StyleReactLoading, LayoutBoxWrapSec } from '@/common/commonStyled';
 import { view as Skeleton } from '@/common/skeleton';
+
 // Layout
 
 const LayoutWrap = styled.div`
@@ -120,17 +121,32 @@ export default class extends Component {
     state = {
         ready: false,
         hasMoreItems: true,
-        list: []
+        list: [],
+        page: 0
     }
 
     componentDidMount() {
         this.loadNextPage(0);
     }
 
-	loadNextPage = (page) => {
+    componentWillReceiveProps(nextProps) {
+        if(nextProps.type !== this.props.type){
+            this.setState({
+                ready: false,
+                list: [],
+                page: 0
+            }, () => {
+                this.loadNextPage(this.state.page)
+            })
+        }
+    }
+
+	loadNextPage = () => {
+        
         axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_ienjoy')
         .then((response) => {
             this.setState({
+                page: this.state.page + 1,
                 list: [
                     ...this.state.list,
                     ...response.data.list
@@ -147,13 +163,13 @@ export default class extends Component {
     }
     
     render() {
-        const { ready, list, hasMoreItems } = this.state;
+        const { ready, list, hasMoreItems, page } = this.state;
 
         return(
             <Skeleton type="product" count={ 4 } ready={ ready }>
                 <LayoutWrap>
                     <InfiniteScroll
-                        pageStart={ 0 }
+                        pageStart={ page }
                         loadMore={ this.loadNextPage }
                         hasMore={ hasMoreItems }
                         loader={ <StyleReactLoading key={ 0 } height={ 30 } width={ 30 } type="spin" color="#444" /> }

@@ -21,6 +21,7 @@ export const bannerReducer = (state = initialState, action) => {
         case FETCH_FAILURE:
             return {
                 ...state,
+                ready: false,
                 status: 'failure',
                 error: action.error
             };
@@ -31,7 +32,11 @@ export const bannerReducer = (state = initialState, action) => {
 
 const productInitialState = {
     status: 'loading',
-    list: []
+    ready: false,
+    list: {
+        ienjoy: [],
+        jiplan: []
+    }
 };
 
 export const productReducer = (state = productInitialState, action) => {
@@ -39,17 +44,20 @@ export const productReducer = (state = productInitialState, action) => {
         case FETCH_PRODUCT_STARTED:
             return {
                 ...state,
+                ready: false,
                 status: 'loading'
             };
         case FETCH_PRODUCT_SUCCESS:
             return {
                 ...state,
+                ready: true,
                 status: 'success',
                 list: action.result
             };
         case FETCH_PRODUCT_FAILURE:
             return {
                 ...state,
+                ready: false,
                 status: 'failure',
                 error: action.error
             };

@@ -19,7 +19,7 @@ export const getScrollTop = () => {
     return scrollTop
 }
 
-export const createDataList = (index = uuid()) => {
+export const createDataList = (index = uuid(), cate) => {
     let i = 0
     let len = 10
     const list = []
@@ -27,7 +27,7 @@ export const createDataList = (index = uuid()) => {
     for(; i < len; i++){
         list.push({
             id: uuid(),
-            text: uuid(),
+            text: cate,
             index: index + i
         })
     }

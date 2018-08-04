@@ -6,6 +6,13 @@ import "swiper/dist/css/swiper.css";
 
 import { fetchListAsync } from '../actions';
 
+const StyleLoading = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 4rem;
+`;
+
 class Banner extends Component {
     state = { list: [] };
 
@@ -18,12 +25,7 @@ class Banner extends Component {
 
         if(status === 'loading'){
             // 亦可返回skeleton
-            return <div>loading...</div>;
-        }
-
-        if(status === 'failure'){
-            // 亦可返回skeleton
-            return <div>加载失败</div>;
+            return <StyleLoading>loading...</StyleLoading>;
         }
 
         if(status === 'success'){

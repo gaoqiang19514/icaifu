@@ -26,7 +26,7 @@ const Cates = {
 
 const getData = (cate, state = { items: [] }) => {
     return {
-        items: [...state.items, ...createDataList(state.items.length)]
+        items: [...state.items, ...createDataList(state.items.length, cate)]
     }
 }
 
@@ -41,7 +41,7 @@ class RecordItem extends Component {
             >
                 {
                     this.props.items.map((item) => {
-                        return <div style={ { padding: '50px' } } key={ item.id }>{ item.index }</div>
+                        return <div style={ { padding: '50px' } } key={ item.id }>{ item.text } - { item.index }</div>
                     })
                 }
             </InfiniteScroll>

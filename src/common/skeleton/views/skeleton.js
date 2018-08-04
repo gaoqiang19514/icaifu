@@ -13,14 +13,21 @@ const buildLength = (count) => {
 
 const Product = () => {
     return (
-        <div>Product Skeleton</div>
+        <div style={ { padding: '0.4rem 0 0.5333rem 0' } }>
+            <div style={ { background: '#f7f7f8', color: 'transparent', fontSize: '0.3467rem', marginBottom: '0.4rem' } }>i享利JKXY20180612002</div>
+            <div style={ { background: '#f7f7f8', height: '.8rem', marginBottom: '0.2667rem' } }></div>
+            <div style={ { background: '#f7f7f8', color: 'transparent' } }>预期年化利率</div>
+        </div>
     );
 };
 
 const Activity = () => {
     return (
-        <div>
-            <div>Activity</div>
+        <div style={ { padding: '0.2667rem', marginBottom: '.4rem', background: '#fff' } }>
+            <div style={ { width: '8.6667rem', height: '3.4667rem', background: '#f7f7f8', marginBottom: '0.2667rem' } }></div>
+            <div style={ { fontSize:' 0.4rem', color: 'transparent', background: '#f7f7f8', marginBottom: '0.2667rem' } }>国庆投资活动</div>
+            <div style={ { background: '#f7f7f8',color: 'transparent', marginBottom: '0.2667rem' } }>活动期间所有标的加息4%</div>
+            <div style={ { background: '#f7f7f8', color: 'transparent' } }>活动期间所有标的加息4%</div>
         </div>
     );
 };
@@ -56,10 +63,8 @@ export default class extends Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        if(nextProps.ready){
-            setTimeout(() => {
-                this.setState({ ready: true });
-            }, 1000)
+        if(nextProps.ready !== this.props.ready){
+            this.setState({ ready: nextProps.ready });
         }
     }
 

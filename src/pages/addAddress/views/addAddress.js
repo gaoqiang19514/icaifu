@@ -3,11 +3,10 @@ import axios from 'axios';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Picker, Switch  } from 'antd-mobile';
 
 import { buildPublicSign } from '@/api/api.js'
 import { view as Skeleton } from '@/common/skeleton';
-
-
 
 const LayoutWrap = styled.div`
     background: #fff;
@@ -111,15 +110,34 @@ const FixedContainer = ({ children }) => {
     )
 }
 
+
+const seasons = [
+    [
+      {
+        label: '2013',
+        value: '2013',
+      },
+      {
+        label: '2014',
+        value: '2014',
+      },
+    ],
+    [
+      {
+        label: '春',
+        value: '春',
+      },
+      {
+        label: '夏',
+        value: '夏',
+      },
+    ],
+  ];
 export default class extends Component {
-
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loadFlag: false,
-            list: []
-        };
+    state = {
+        loadFlag: false,
+        list: [],
+        checked: false
     }
 
     onSelectAddress = () => {
@@ -141,7 +159,16 @@ export default class extends Component {
                     </LayoutBox>
                     <LayoutBoxBet>
                         <StyleTitle>所在地区</StyleTitle>
-                        <button onClick={ this.onSelectAddress }>选择地址</button>
+                        <Picker
+                            data={seasons}
+                            cascade={false}
+                            extra="请选择(可选)"
+                            value={this.state.sValue}
+                            onChange={v => this.setState({ sValue: v })}
+                            onOk={v => this.setState({ sValue: v })}
+                        >
+                            <button onClick={ this.onSelectAddress }>选择地址</button>
+                        </Picker>
                     </LayoutBoxBet>
                     <LayoutBox>
                         <StyleTitle>详细地址</StyleTitle>
@@ -149,15 +176,23 @@ export default class extends Component {
                     </LayoutBox>
                     <LayoutBoxBet>
                         <StyleTitle>设为默认</StyleTitle>
-                        <button>切换</button>
+                        <Switch
+                            checked={ this.state.checked }
+                            onClick={ (v) => this.setState({ checked: v }) }
+                            platform="ios"
+                        />
                     </LayoutBoxBet>
                 </LayoutWrap>
+
+
+
 
                 <FixedContainer>
                     <LayoutButtonWrap>
                         <StyleFullButton>确定</StyleFullButton>
                     </LayoutButtonWrap>
                 </FixedContainer>
+
 
             </div>
 

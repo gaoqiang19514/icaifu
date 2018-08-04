@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
+import { view as Skeleton } from '@/common/skeleton';
+
 // Layout
 
 const LayoutWrap = styled.div`
@@ -133,19 +135,21 @@ const Item = ({ id, title, rate, time_limit, gift, total, percent }) => {
 
 export default ({ list, ready }) => (
     <LayoutWrap>
-        {
-            list.map((item, index) => (
-                <Item 
-                    key={ item.id }
-                    id={ item.id } 
-                    title={ item.title }
-                    time_limit={ item.time_limit }
-                    rate={ item.rate }
-                    gift={ item.gift }
-                    total={ item.total }
-                    percent={ item.percent }
-                />
-            ))
-        }
+        <Skeleton type="product" count={ 3 } ready={ ready }>
+            {
+                list.map((item, index) => (
+                    <Item 
+                        key={ item.id }
+                        id={ item.id } 
+                        title={ item.title }
+                        time_limit={ item.time_limit }
+                        rate={ item.rate }
+                        gift={ item.gift }
+                        total={ item.total }
+                        percent={ item.percent }
+                    />
+                ))
+            }
+        </Skeleton>
     </LayoutWrap>        
 )

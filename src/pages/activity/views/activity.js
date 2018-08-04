@@ -74,82 +74,72 @@ const Item = ({ title, desc, pic_url, link_url, date_start, date_end }) => (
 
 export default class extends Component {
     state = {
-        initSkeletonFlag: true,
         hasMoreItems: true,
         list: [],
-        ready: false
+        ready: false,
+        page: 1
     }
 
-    componentWillMount() {
-        setTimeout(() => {
-            this.setState({ ready: true });
-        }, 2000);
+    componentDidMount() {
+        this.loadNextPage(this.state.page)
+    }
+
+    loadNextPage = (page) => {
+        axiosInstance.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=activity_list')
+        .then((response) => {
+            this.setState({
+                ready: true,
+                list: [
+                    ...this.state.list, ...response.data.list
+                ]
+            });
+        })
+        .catch(() => {
+        })
+        .finally(() => {
+        });
     }
 
     handleLoadMore = (page) => {
-        setTimeout(() => {
-            axiosInstance.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=activity_list')
-            .then((response) => {
-                this.setState({
-                    list: [
-                        ...this.state.list,
-                        ...response.data.list
-                    ]
-                });
-            })
-            .catch(() => {
-            })
-            .finally(() => {
-                if(this.state.initSkeletonFlag){
-                    this.setState({initSkeletonFlag: false});
-                }
-            });
-        }, 1000);
-
+        this.loadNextPage(page)
     }
     
     render() {
-        const { list, hasMoreItems, initSkeletonFlag } = this.state;
-
-        const LoadingPlaceHolder = () => {
-            if(initSkeletonFlag){
-                return <Skeleton type="activity" count={ 3 } ready={ this.state.ready }/>;
-            }else{
-                return <StyleReactLoading height={ 30 } width={ 30 } type="spin" color="#444" />;
-            }
-        }
+        const { list, hasMoreItems, ready, page } = this.state;
 
         return (
             <div>
                 <LayoutPrimaryBox>
-                    <InfiniteScroll
-                        pageStart={ 0 }
-                        loadMore={ this.handleLoadMore }
-                        hasMore={ hasMoreItems }
-                        loader={ <LoadingPlaceHolder key={ 0 }/> }
-                    >
-                        <TransitionGroup>
-                            {
-                                list.map((item) => (
-                                    <CSSTransition
-                                        key={ item.id }
-                                        appear={ true }
-                                        classNames="fadeUp"
-                                        timeout={ 500 }
-                                    >
-                                        <Item 
-                                            title={ item.title } 
-                                            desc={ item.desc }
-                                            pic_url={ item.pic_url }
-                                            link_url={ item.link_url }
-                                            date_start={ item.date_start }
-                                            date_end={ item.date_end }
-                                        />
-                                    </CSSTransition>
-                                ))
-                            }
-                        </TransitionGroup>
-                    </InfiniteScroll>
+                    <Skeleton type="activity" count={ 4 } ready={ ready }>
+                        <InfiniteScroll
+                            pageStart={ page }
+                            loadMore={ this.handleLoadMore }
+                            hasMore={ hasMoreItems }
+                            loader={ <StyleReactLoading key={ 0 } height={ 30 } width={ 30 } type="spin" color="#444" /> }
+                        >
+                            <TransitionGroup>
+                                {
+                                    list.map((item) => (
+                                        <CSSTransition
+                                            key={ item.id }
+                                            appear={ true }
+                                            classNames="fadeUp"
+                                            timeout={ 500 }
+                                        >
+                                            <Item 
+                                                title={ item.title } 
+                                                desc={ item.desc }
+                                                pic_url={ item.pic_url }
+                                                link_url={ item.link_url }
+                                                date_start={ item.date_start }
+                                                date_end={ item.date_end }
+                                            />
+                                        </CSSTransition>
+                                    ))
+                                }
+                            </TransitionGroup>
+                        </InfiniteScroll>
+                    </Skeleton>
                 </LayoutPrimaryBox>
 
                 <MenuComponent />
