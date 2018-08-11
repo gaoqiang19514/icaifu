@@ -182,10 +182,10 @@ export default class extends Component {
 
         return(
             <div>
-                
                 <LayoutTittleBox>
                     <Title>个人信息</Title>
                 </LayoutTittleBox>
+
 
                 <LayoutBoxWrap>
                     <Item>

@@ -5,6 +5,7 @@ import uuid from 'uuid';
 import InfiniteScroll from 'react-infinite-scroller';
 import ReactLoading from 'react-loading';
 import styled from 'styled-components';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { LayoutPrimaryBox, LayoutSecondBox, LayoutBoxBet, LayoutBoxVerticalEnd, LayoutCellFirst, LayoutCellSecond, LayoutCellThird, LayoutBoxWrap, StyleBg, StyleReactLoading, LayoutBoxWrapSec } from '@/common/commonStyled';
 
@@ -155,22 +156,24 @@ export default class extends Component {
 
         return(
             <Skeleton type="product" count={ 3 } ready={ ready }>
-                <LayoutWrap>
-                    {
-                        list.map((item) => (
-                            <Item 
-                                id={ item.id } 
-                                key={ item.id }
-                                title={ item.title }
-                                time_limit={ item.time_limit }
-                                rate={ item.rate }
-                                gift={ item.gift }
-                                total={ item.total }
-                                percent={ item.percent }
-                            />
-                        ))
-                    }
-                </LayoutWrap>
+                <CSSTransition in={ true } classNames="fade" appear={ true } timeout={ { enter: 500, exit: 300 } } unmountOnExit>
+                    <LayoutWrap>
+                        {
+                            list.map((item) => (
+                                <Item 
+                                    id={ item.id } 
+                                    key={ item.id }
+                                    title={ item.title }
+                                    time_limit={ item.time_limit }
+                                    rate={ item.rate }
+                                    gift={ item.gift }
+                                    total={ item.total }
+                                    percent={ item.percent }
+                                />
+                            ))
+                        }
+                    </LayoutWrap>
+                </CSSTransition>
             </Skeleton>
         )
     }

@@ -7,10 +7,42 @@ export default class extends Component {
 
     constructor(props) {
         super(props)
+
+        this.onUsernameChangeHandle = this.onChangeHandle.bind(this, 'username')
+        this.onPasswordChangeHandle = this.onChangeHandle.bind(this, 'password')
+
+        this.onUsernameClearHandle = this.onclearHandle.bind(this, 'username')
+        this.onPasswordClearHandle = this.onclearHandle.bind(this, 'password')
     }
 
-    clearInput = () => {
-        console.log('clearInput');
+    onclearHandle = (type, e) => {
+        if(type === 'username'){
+            this.usernameInput.value = ''
+            this.usernameBtn.style.display = 'none'
+        }else if(type === 'password'){
+            this.passwordInput.value = ''
+            this.passwordBtn.style.display = 'none'
+        }
+    }
+
+    onChangeHandle = (type, e) => {
+        const val = e.target.value.trim()
+        console.log(type)
+
+        if(type === 'username'){
+            if(val.length > 0){
+                this.usernameBtn.style.display = 'block'
+            }else{
+                this.usernameBtn.style.display = 'none'
+            }
+        }else if(type === 'password'){
+            if(val.length > 0){
+                this.passwordBtn.style.display = 'block'
+            }else{
+                this.passwordBtn.style.display = 'none'
+            }
+        }
+
     }
 
     getCode = () => {
@@ -25,15 +57,15 @@ export default class extends Component {
                         <div className={styles.l_box3}>
                             <div className={styles.m_box}>
                                 <i className={`${styles.m_icon} ${styles.m_icon__user}`}></i>
-                                <input className={styles.input} type="text" placeholder="请输入手机号/用户名" />
-                                <span className={styles.m_clear_btn} onClick={this.clearInput}></span>
+                                <input className={styles.input} onChange={ this.onUsernameChangeHandle } type="text" ref={ input => this.usernameInput = input } placeholder="请输入手机号/用户名" />
+                                <span className={styles.m_clear_btn} ref={ btn => this.usernameBtn = btn } onClick={this.onUsernameClearHandle}></span>
                             </div>
                         </div>
                         <div className={styles.l_box3}>
                             <div className={styles.m_box}>
                                 <i className={`${styles.m_icon} ${styles.m_icon__pswd}`}></i>
-                                <input className={styles.input} type="password" placeholder="请输入验证码" />
-                                <span className={styles.m_clear_btn_pswd_msg} onClick={this.clearInput}></span>
+                                <input className={styles.input} onChange={ this.onPasswordChangeHandle } type="text" ref={ input => this.passwordInput = input } placeholder="请输入验证码" />
+                                <span className={styles.m_clear_btn_pswd_msg} ref={ input => this.passwordBtn = input } onClick={this.onPasswordClearHandle}></span>
                                 <span className={styles.m_get_code} onClick={this.getCode}>获取验证码</span>
                             </div>
                         </div>

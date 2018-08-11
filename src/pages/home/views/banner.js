@@ -6,6 +6,10 @@ import "swiper/dist/css/swiper.css";
 
 import { fetchListAsync } from '../actions';
 
+const LayoutBanner = styled.div`
+    height: 4rem;
+`;
+
 const StyleLoading = styled.div`
     display: flex;
     align-items: center;
@@ -25,27 +29,29 @@ class Banner extends Component {
 
         if(status === 'loading'){
             // 亦可返回skeleton
-            return <StyleLoading>loading...</StyleLoading>;
+            return <LayoutBanner><StyleLoading>loading...</StyleLoading></LayoutBanner>;
         }
 
         if(status === 'success'){
             return (
-                <div className="swiper-container">
-                    <div className="swiper-wrapper">
-                        {
-                            list.map((item) => {
-                                return (
-                                    <div key={ item.id } className="swiper-slide">
-                                        <a href={ item.link_url }>
-                                            <img src={ item.pic_url } />
-                                        </a>
-                                    </div>
-                                )
-                            })
-                        }
+                <LayoutBanner>
+                    <div className="swiper-container">
+                        <div className="swiper-wrapper">
+                            {
+                                list.map((item) => {
+                                    return (
+                                        <div key={ item.id } className="swiper-slide">
+                                            <a href={ item.link_url }>
+                                                <img src={ item.pic_url } />
+                                            </a>
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>
+                        <div className="swiper-pagination"></div>
                     </div>
-                    <div className="swiper-pagination"></div>
-                </div>
+                </LayoutBanner>
             )
         }
 	}

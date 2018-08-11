@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { view as Skeleton } from '@/common/skeleton';
 
@@ -134,22 +135,24 @@ const Item = ({ id, title, rate, time_limit, gift, total, percent }) => {
 }
 
 export default ({ list, ready }) => (
-    <LayoutWrap>
-        <Skeleton type="product" count={ 4 } ready={ ready }>
-            {
-                list.map((item, index) => (
-                    <Item 
-                        key={ item.id }
-                        id={ item.id } 
-                        title={ item.title }
-                        time_limit={ item.time_limit }
-                        rate={ item.rate }
-                        gift={ item.gift }
-                        total={ item.total }
-                        percent={ item.percent }
-                    />
-                ))
-            }
-        </Skeleton>
-    </LayoutWrap>  
+    <Skeleton type="product" count={ 4 } ready={ ready }>
+        <CSSTransition in={ true } classNames="fade" appear={ true } timeout={ { enter: 500, exit: 300 } } unmountOnExit>
+            <LayoutWrap>
+                {
+                    list.map((item, index) => (
+                        <Item 
+                            key={ item.id }
+                            id={ item.id } 
+                            title={ item.title }
+                            time_limit={ item.time_limit }
+                            rate={ item.rate }
+                            gift={ item.gift }
+                            total={ item.total }
+                            percent={ item.percent }
+                        />
+                    ))
+                }
+            </LayoutWrap>
+        </CSSTransition>
+    </Skeleton>
 )

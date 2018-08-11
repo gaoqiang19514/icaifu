@@ -23,7 +23,7 @@ class Login extends Component {
         };
     }
 
-    componentWillMount() {
+    componentDidMount() {
         document.body.className = 'login';
     }
 

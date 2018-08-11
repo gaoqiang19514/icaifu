@@ -5,6 +5,7 @@ import axios from 'axios';
 import uuid from 'uuid';
 import InfiniteScroll from 'react-infinite-scroller';
 import ReactLoading from 'react-loading';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
 import { LayoutPrimaryBox, LayoutSecondBox, LayoutBoxBet, LayoutCellFirst, LayoutCellSecond, LayoutCellThird, LayoutBoxVerticalEnd, LayoutBoxWrap, StyleBg, StyleReactLoading, LayoutBoxWrapSec } from '@/common/commonStyled';
 import { view as Skeleton } from '@/common/skeleton';
@@ -159,7 +160,8 @@ export default class extends Component {
             if(!this.state.ready){
                 this.setState({ ready: true });
             }
-		});	
+        });	
+        
     }
     
     render() {
@@ -167,29 +169,31 @@ export default class extends Component {
 
         return(
             <Skeleton type="product" count={ 4 } ready={ ready }>
-                <LayoutWrap>
-                    <InfiniteScroll
-                        pageStart={ page }
-                        loadMore={ this.loadNextPage }
-                        hasMore={ hasMoreItems }
-                        loader={ <StyleReactLoading key={ 0 } height={ 30 } width={ 30 } type="spin" color="#444" /> }
-                    >
-                        {
-                            list.map((item) => (
-                                <Item 
-                                    id={ item.id } 
-                                    key={ item.id }
-                                    title={ item.title }
-                                    time_limit={ item.time_limit }
-                                    rate={ item.rate }
-                                    gift={ item.gift }
-                                    total={ item.total }
-                                    percent={ item.percent }
-                                />
-                            ))
-                        }
-                    </InfiniteScroll>
-                </LayoutWrap> 
+                <CSSTransition in={ true } classNames="fade" appear={ true } timeout={ { enter: 500, exit: 300 } } unmountOnExit>
+                    <LayoutWrap style={ { overflow: 'hidden' } }>
+                        <InfiniteScroll
+                            pageStart={ page }
+                            loadMore={ this.loadNextPage }
+                            hasMore={ hasMoreItems }
+                            loader={ <StyleReactLoading key={ 0 } height={ 30 } width={ 30 } type="spin" color="#444" /> }
+                        >
+                            {
+                                list.map((item) => (
+                                    <Item 
+                                        id={ item.id } 
+                                        key={ item.id }
+                                        title={ item.title }
+                                        time_limit={ item.time_limit }
+                                        rate={ item.rate }
+                                        gift={ item.gift }
+                                        total={ item.total }
+                                        percent={ item.percent }
+                                    />
+                                ))
+                            }
+                        </InfiniteScroll>
+                    </LayoutWrap>
+                </CSSTransition>
             </Skeleton> 
         )
     }

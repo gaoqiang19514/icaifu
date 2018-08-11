@@ -3,14 +3,29 @@ import { Link  } from 'react-router-dom';
 import {connect} from 'react-redux';
 import axios from 'axios';
 import { Modal } from 'antd-mobile';
+import styled from 'styled-components'
 
 import styles from './style.scss';
 import bellIcon from './images/bell_icon.png';
 import gearIcon from './images/gear_icon.png';
 
+import { button } from '@/common/commonStyled'
+
 import { actions as authActions } from '@/common/auth/';
 import { toggleView } from '../actions';
 const alert = Modal.alert;
+
+
+const StyleButton = button.extend`
+    color: #fff;
+    font-size: 0.3467rem;
+    display: inline-block;
+    padding: 0.16rem 0.24rem;
+    margin-left: 0.4rem;
+    background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #ff6364, #ff6364);
+    box-shadow: 0rem 0.0267rem 0.1067rem 0rem rgba(249, 82, 83, 0.75);
+    border-radius: 0.1067rem;
+`;
 
 class Profile extends Component {
     state = {
@@ -21,7 +36,7 @@ class Profile extends Component {
         regular_receive_profit: '- -'
     };
 
-    recharge = () => {
+    onRechargeHandle = () => {
         alert('Delete', 'Are you sure???', [
             { text: 'Cancel', onPress: () => console.log('cancel'), style: 'default' },
             { text: 'OK', onPress: () => {
@@ -79,7 +94,7 @@ class Profile extends Component {
                         </div>
                     </div>
                     <div>
-                        <button className={styles.m_b} onClick={ this.recharge } >充值</button>
+                        <StyleButton className={styles.m_b} onClick={ this.onRechargeHandle } >充值</StyleButton>
                         <Link className={styles.m_b} to="/withdraw">提现</Link>
                     </div>
                 </div>

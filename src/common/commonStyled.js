@@ -12,6 +12,12 @@ export const LayoutBoxBet = styled.div`
     justify-content: space-between;
 `;
 
+export const LayoutBoxBetCenter = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+`;
+
 export const LayoutBoxVerticalCenter = styled.div`
     display: flex;
     align-items: center;
@@ -116,12 +122,24 @@ export const StylePrimaryButton = styled.button`
     font-size: 0.4267rem;
     height: 1.3333rem;
     line-height: 1.3333rem;
-    background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #f7645b, #f7645b);
-    border-radius: 0.6667rem;
-    box-shadow: 0rem 0.0267rem 0.1067rem 0rem rgba(249,82,83,0.75);
+    border-radius: 3px;
+    font-weight: bold;
+    letter-spacing: .2em;
+
+    background-image: ${ props => props.primary ? 'linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #f7645b, #f7645b)' : 'gray' };
+    box-shadow: ${ props => props.primary ? '0rem 0.0267rem 0.1067rem 0rem rgba(249,82,83,0.75)' : 'none' };
 `;
 
 export const Input = styled.input`
+    border: 0;
+    outline: 0;
+    padding: 0;
+`;
+
+
+// base tag
+
+export const button = styled.button`
     border: 0;
     outline: 0;
     padding: 0;

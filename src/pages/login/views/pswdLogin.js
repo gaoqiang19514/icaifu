@@ -39,6 +39,8 @@ export default class extends Component {
     togglePswd = () => {
         this.setState({
             pswdViewState: !this.state.pswdViewState
+        }, () => {
+            this.state.pswdViewState  ? this.passwordInput.type = 'text' : this.passwordInput.type = 'password'
         });
     }
 
