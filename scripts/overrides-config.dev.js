@@ -7,7 +7,6 @@ module.exports = function(config) {
     alias["@"] = baseConfig.rootPath;
 
     config = injectBabelPlugin(['import', { libraryName: 'antd-mobile', style: 'css' }], config);
-    config.output.publicPath = '/build/'
 
     // Use your ESLint
     /*let eslintLoader = config.module.rules[0];

@@ -18,6 +18,7 @@ module.exports = function(config) {
     // Define the root path alias
     let alias = config.resolve.alias;
     alias["@"] = baseConfig.rootPath;
+    config.output.publicPath = '/build/'
 
     // Use your ESLint
     /*let eslintLoader = config.module.rules[0];
