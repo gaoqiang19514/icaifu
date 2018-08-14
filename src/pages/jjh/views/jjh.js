@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import styled from 'styled-components'
 
 import service_icon from './images/service_icon.png';
 import arrow_icon from './images/arrow_icon.png';
 import checkbox_ok from './images/checkbox_icon_ok.png';
 import checkbox_no from './images/checkbox_icon_no.png';
-import styles from './style.scss';
 
-import { LayoutFixedBottom, LayoutFixedSibling } from '@/common/commonStyled';
+import { LayoutFixedBottom, LayoutFixedSibling, LayoutPrimaryBox, StyleBg, LayoutBoxWrap, LayoutBoxBet, LayoutBoxBetCenter, LayoutBoxCenter, LayoutFlexBox } from '@/common/commonStyled';
 
 export default class extends Component {
 
@@ -34,62 +34,73 @@ export default class extends Component {
 
         return (
             <div>
-
-                <div className={ `${styles.l_box2} ${styles.u_m1} ${styles.u_b1}` }>
-                    <div className={ `${styles.l_flex1} ${styles.u_c2} ${styles.u_t4} ${styles.u_m1} ` }>
-                        <span>剩余可购(元)</span>
-                        <span>预期收益(元)</span>
-                    </div>
-                    <div className={ `${styles.l_flex1} ${styles.u_t2} ${styles.u_m2}` }>
-                        <strong>894,531</strong>
-                        <strong className={ styles.u_c3 }>129.45+499</strong>
-                    </div>
-                    <div className={ `${styles.u_m2} ${styles.l_box3} ${styles.m_border}` }>
-                        <div className={ `${styles.l_flex2} ${styles.u_c2} ${styles.u_t2} ${styles.u_m1}` }>投资金额(元)</div>
-                        <strong className={ `${styles.l_flex2} ${styles.u_t1}` }>15000</strong>
-                    </div>
-                    <div className={ `${styles.u_c2} ${styles.u_t4}` }>
-                        <span>可用余额0.00元</span>
-                    </div>
-                </div>
-
-                <div className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
-                    <Link to={{
-                        pathname: `/invest/${id}`,
-                        state: {
-                            type: 'jjh'
-                        }
-                    }}>
-                        <div className={ `${styles.l_flex1} ${styles.l_flex4}` }>
-                            <span className={ styles.u_t3 }>项目详情</span>
-                            <span className={ styles.m_arrow_wrap }><img className={ styles.m_arrow } src={ arrow_icon } alt="箭头"/></span>
-                        </div>
-                    </Link>
-                </div>
-
-                <div className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
-                    <div className={ `${styles.l_flex1} ${styles.l_flex4}` }>
-                        <input className={ styles.m_input } type="text" placeholder="请输入CF码"/>
-                        <button className={ styles.m_button }>如何获取CF码</button>
-                    </div> 
-                </div>
                 
-                <div className={ styles.l_box1 }>
-                    <label onClick={ this.toggleAgree } className={ `${styles.l_flex3} ${styles.u_c2} ${styles.u_t4}` }>
-                        <img src={ agree_icon } alt="checkbox" className={ styles.m_checkbox }/>我已阅读并同意<a href="" className={ styles.u_c3 }>《i财富四方借款协议》</a>
-                    </label>
-                </div>
+                <LayoutBoxWrap>
+                    <StyleBg>
+                        <LayoutPrimaryBox>
+                            <LayoutBoxBet>
+                                <span>剩余可购(元)</span>
+                                <span>预期收益(元)</span>
+                            </LayoutBoxBet>
+                            <LayoutBoxBet>
+                                <strong>894,531</strong>
+                                <strong>129.45+499</strong>
+                            </LayoutBoxBet>
+                            <div>
+                                <LayoutBoxCenter>投资金额(元)</LayoutBoxCenter>
+                                <LayoutBoxCenter>15000</LayoutBoxCenter>
+                            </div>
+                            <LayoutBoxBet>
+                                <span>可用余额</span>
+                                <span>0.00元</span>
+                            </LayoutBoxBet>
+                        </LayoutPrimaryBox>
+                    </StyleBg>
+                </LayoutBoxWrap>
+
+                <LayoutBoxWrap>
+                    <StyleBg>
+                        <LayoutPrimaryBox>
+                            <Link to={ { pathname: `/invest/${id}`, state: { type: 'jjh' } } }>
+                                <LayoutBoxBetCenter>
+                                    <span>项目详情</span>
+                                    <img src={ arrow_icon } alt="箭头"/>
+                                </LayoutBoxBetCenter>
+                            </Link>
+                        </LayoutPrimaryBox>
+                    </StyleBg>
+                </LayoutBoxWrap>
+
+                <StyleBg>
+                    <LayoutPrimaryBox>
+                        <LayoutBoxBetCenter>
+                            <input type="text" placeholder="请输入CF码"/>
+                            <button>如何获取CF码</button>
+                        </LayoutBoxBetCenter> 
+                    </LayoutPrimaryBox>
+                </StyleBg>
+                
+                <LayoutPrimaryBox>
+                    <div>
+                        <label onClick={ this.toggleAgree }>
+                            <img src={ agree_icon } alt="checkbox"/>我已阅读并同意
+                        </label>
+                        <a href="">《i财富四方借款协议》</a>
+                    </div>
+                </LayoutPrimaryBox>
                 
                 <div>
                     <LayoutFixedSibling/>
                     <LayoutFixedBottom>
-                        <div className={styles.m_op}>
-                            <div className={styles.m_op__service}>
-                                <img className={styles.m_op__service_icon} src={service_icon} alt="客服图标"/>
-                                客服
+                        <LayoutFlexBox>
+                            <div>
+                                <img src={service_icon} alt="客服图标"/>
+                                <div>客服</div>
                             </div>
-                            <Link className={styles.m_op__invest} to="/">余额不足，请充值14251元</Link>
-                        </div>
+                            <div>
+                                <Link to="/">余额不足，请充值14251元</Link>
+                            </div>
+                        </LayoutFlexBox>
                     </LayoutFixedBottom>
                 </div>
 
