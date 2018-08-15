@@ -13,7 +13,7 @@ import registerServiceWorker from './registerServiceWorker';
 import { view as ScrollToTop } from '@/common/scrollToTop';
 
 ReactDOM.render(
-	<HashRouter>
+	<HashRouter hashType="noslash">
         <ScrollToTop>
             <Provider store={ store }>
                 <App />
