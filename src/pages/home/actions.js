@@ -28,7 +28,7 @@ export const fetchListAsync = (callback) => {
     return (dispatch) => {
         dispatch(fetchListStarted());
 
-        axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=banners')
+        axios.get('https://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=banners')
         .then((response) => {
             dispatch(fetchListSuccess(response.data.list));
             callback && callback();
@@ -67,7 +67,7 @@ export const fetchProductAsync = (callback) => {
     return (dispatch) => {
         dispatch(fetchProductStarted());
 
-        axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=home_product_list')
+        axios.get('https://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=home_product_list')
         .then((response) => {
             dispatch(fetchProductSuccess(response.data.list));
             callback && callback();
