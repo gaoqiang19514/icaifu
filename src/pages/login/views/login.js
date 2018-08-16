@@ -3,24 +3,54 @@ import { connect } from 'react-redux';
 import { Link, Redirect } from 'react-router-dom';
 import axios from 'axios';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
+import styled from 'styled-components'
 
 import { buildLoginSign } from '@/api/api.js';
 import { actions as authActions } from '@/common/auth/';
 import { actions as loadingActions } from '@/common/loading';
 
-import styles from './style.scss';
-import logo from './images/logo.png';
+import logoSrc from './images/logo.png';
 
 import PswdLogin from './pswdLogin.js';
 import MsgLogin from './msgLogin.js';
 
-class Login extends Component {
+const LayoutLogo = styled.div`
+    display: flex;
+    justify-content: center;
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            tabIndex: 0
-        };
+    padding: 2.1333rem 0 1.0667rem;
+`;
+
+const StyleLogo = styled.img`
+    display: block;
+    width: 1.08rem;
+    height: 1.0533rem;
+`;
+
+const StyleTabList = styled(TabList)`
+    display: flex;
+    justify-content: space-between;
+
+    width: 240px;
+    position: relative;
+    margin: 0 auto 1.0667rem auto;
+    padding: 0;
+`;
+
+const StyleTab = styled(Tab)`
+    color: #fff;
+    padding: 0 0 0.2667rem 0;
+    font-size: 0.48rem;
+    list-style: none;
+
+    &:focus{
+        outline: none;
+    }
+`;
+
+class Login extends Component {
+    state = {
+        tabIndex: 0
     }
 
     componentDidMount() {
@@ -55,36 +85,28 @@ class Login extends Component {
     }
 
     selectHandle = (index, lastIndex, e) => {
-        this.setState({
-            tabIndex: index
-        });
+        this.setState({ tabIndex: index });
     }
 
     render(){
-        const {from} = this.props.location.from || {from: {pathname: '/'}}
-        const {tabIndex} = this.state;
+        const { from } = this.props.location.from || {from: {pathname: '/'}}
 
         // 目前的处理是，只要用户登录则统一跳走
         if(this.props.auth.isAuthenticated){
             return <Redirect to={from} />
         }
 
-        let slideClass = styles.slider;
-        if(tabIndex === 1){
-            slideClass = `${styles.slider} ${styles.slider_aside}`;
-        }
-
         return (
             <div>
-                <div>
-                    <img className={styles.logo} src={logo} alt="logo"/>
-                </div>
-                <Tabs className={styles.tabs} onSelect={this.selectHandle}>
-                    <TabList className={styles.tab__navs}>
-                        <Tab className={styles.tab__nav}>账号登录</Tab>
-                        <Tab className={styles.tab__nav}>短信登录</Tab>
-                        <div className={slideClass}></div>
-                    </TabList>
+                <LayoutLogo>
+                    <StyleLogo src={ logoSrc } alt="logo"/>
+                </LayoutLogo>
+                
+                <Tabs onSelect={ this.selectHandle }>
+                    <StyleTabList>
+                        <StyleTab>账号登录</StyleTab>
+                        <StyleTab>短信登录</StyleTab>
+                    </StyleTabList>
                     <TabPanel>
                         <PswdLogin onLoginHandle={this.pswdLoginHandle} />
                     </TabPanel>

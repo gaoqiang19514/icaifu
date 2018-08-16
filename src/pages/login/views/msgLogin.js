@@ -27,7 +27,6 @@ export default class extends Component {
 
     onChangeHandle = (type, e) => {
         const val = e.target.value.trim()
-        console.log(type)
 
         if(type === 'username'){
             if(val.length > 0){
@@ -42,7 +41,6 @@ export default class extends Component {
                 this.passwordBtn.style.display = 'none'
             }
         }
-
     }
 
     getCode = () => {

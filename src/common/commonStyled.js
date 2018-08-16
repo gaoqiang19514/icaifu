@@ -135,10 +135,11 @@ export const StylePrimaryButton = styled.button`
     box-shadow: ${ props => props.primary ? '0rem 0.0267rem 0.1067rem 0rem rgba(249,82,83,0.75)' : 'none' };
 `;
 
-export const Input = styled.input`
+export const input = styled.input`
     border: 0;
     outline: 0;
     padding: 0;
+    background: transparent;
 `;
 
 
@@ -148,4 +149,5 @@ export const button = styled.button`
     border: 0;
     outline: 0;
     padding: 0;
+    background: transparent;
 `;

@@ -6,7 +6,7 @@ import 'boxicons';
 
 import arrow_icon from '@/common/images/arrow_icon.png';
 
-import { LayoutBoxBetCenter, LayoutPrimaryBox, LayoutBoxBet, StyleBg, StylePrimaryButton, LayoutBoxVerticalCenter, Input } from '@/common/commonStyled';
+import { LayoutBoxBetCenter, LayoutPrimaryBox, LayoutBoxBet, StyleBg, StylePrimaryButton, LayoutBoxVerticalCenter, input } from '@/common/commonStyled';
 import { actions as loadingActions } from '@/common/loading';
 
 const StyleIconBox = styled.div`
@@ -18,7 +18,7 @@ const StyleLabel = styled.label`
     margin-right: 0.3rem;
 `;
 
-const StyleInput = Input.extend`
+const StyleInput = input.extend`
     font-size: 0.6667rem;
     width: 100%;
 `;

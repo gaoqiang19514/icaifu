@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import 'boxicons';
 
-import { LayoutBoxVerticalCenter, LayoutPrimaryBox, LayoutFlexBox, Input, StyleBg, StylePrimaryButton, LayoutBoxBetCenter } from '@/common/commonStyled';
+import { LayoutBoxVerticalCenter, LayoutPrimaryBox, LayoutFlexBox, input, StyleBg, StylePrimaryButton, LayoutBoxBetCenter } from '@/common/commonStyled';
 
 import arrow_icon from '@/common/images/arrow_icon.png';
 
@@ -25,7 +25,7 @@ const StyleIconBox = styled.div`
     margin-right: 0.4rem;
 `;
 
-const StyleInput = Input.extend`
+const StyleInput = input.extend`
     font-size: 0.6667rem;
     width: 100%;
 `;
