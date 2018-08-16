@@ -135,7 +135,7 @@ export default class extends Component {
     }
 
     loadNextPage = (page) => {
-		axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_jiplan')
+		axios.get('https://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_jiplan')
         .then((response) => {
             this.setState({
                 ready: true,

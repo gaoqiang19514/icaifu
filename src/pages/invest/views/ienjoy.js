@@ -144,7 +144,7 @@ export default class extends Component {
 
 	loadNextPage = () => {
         
-        axios.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_ienjoy')
+        axios.get('https://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=product_ienjoy')
         .then((response) => {
             this.setState({
                 page: this.state.page + 1,
