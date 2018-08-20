@@ -76,7 +76,7 @@ const StylePlus = styled.span`
 
 const Item = ({ id, title, rate, time_limit, gift, total, percent }) => {
     return (
-        <Link to={{ pathname: `/invest/${id}`, state: { type: 'jjh' } }}>
+        <Link to={{ pathname: `/jjhDetail/${id}`, state: { type: 'jjh' } }}>
             <LayoutBox>
 
                 <LayoutBoxWrapSec>

@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { HashRouter } from 'react-router-dom'
+import { HashRouter as Router } from 'react-router-dom'
 import { Provider } from 'react-redux';
 
 import 'normalize.css';
@@ -13,12 +13,12 @@ import registerServiceWorker from './registerServiceWorker';
 import { view as ScrollToTop } from '@/common/scrollToTop';
 
 ReactDOM.render(
-	<HashRouter hashType="noslash">
+	<Router hashType="noslash">
         <ScrollToTop>
             <Provider store={ store }>
                 <App />
             </Provider>
         </ScrollToTop>
-	</HashRouter>
+	</Router>
 	, document.getElementById('root'));
 registerServiceWorker();

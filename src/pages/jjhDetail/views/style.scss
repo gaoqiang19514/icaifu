@@ -1,0 +1,200 @@
+// 工具
+// 边距
+.u_m1 {
+    margin-bottom: 0.2667rem;
+}
+
+.u_m2 {
+    margin-bottom: 0.8rem;
+}
+
+.u_m3 {
+    margin-right: 0.5333rem;
+}
+
+.u_p1 {
+    padding-top: 1.2rem;
+}
+
+.u_p2 {
+    padding: 0.5333rem 0.4rem;
+} // 字体尺寸
+.u_t1 {
+    font-size: 1.0667rem;
+}
+
+.u_t2 {
+    font-size: 0.64rem;
+}
+
+.u_t3 {
+    font-size: 0.4rem;
+}
+
+.u_t4 {
+    font-size: 0.3733rem;
+}
+
+.u_t5 {
+    font-size: 0.32rem;
+}
+
+.u_t6 {
+    font-size: 0.2933rem;
+} // 文字颜色
+.u_c1 {
+    color: #1a1b1c;
+}
+
+.u_c2 {
+    color: #898996;
+}
+
+.u_c3 {
+    color: #f8695e;
+}
+
+.u_c4 {
+    color: #fff;
+} // 背景
+.u_b1 {
+    background: #fff;
+}
+
+.u_b2 {
+    background: #d7d7d7;
+}
+
+.u_b3 {
+    background: #fff3f0;
+}
+
+// 布局
+.l_box1 {
+    padding: 0.4rem;
+}
+
+.l_flex1 {
+    display: flex;
+    justify-content: space-between
+}
+
+.l_flex2 {
+    display: flex;
+    justify-content: center;
+}
+
+.l_flex3 {
+    display: flex;
+}
+
+.l_flex4 {
+    align-items: center;
+}
+
+.l_flex5 {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+}
+
+.l_flex6 {
+    display: flex;
+    justify-content: space-around
+}
+
+.l_flex7 {
+    display: flex;
+    align-items: center;
+}
+
+// 模块
+.m_arrow {
+    width: 0.24rem;
+    height: 0.4rem;
+}
+
+.m_arrow_wrap {
+}
+
+.m_nav {
+    a {
+        position: relative;
+        display: flex;
+        justify-content: space-between;
+        font-size: 0.3733rem;
+        padding: 0.4rem;
+    }
+    a:after{
+        content: '';
+        position: absolute;
+        bottom: 0;
+        height: 1px;
+        background: #eaeaea;
+        left: 0.4rem;
+        right: 0;
+        transform: translateY(.5);
+    }
+    a:last-child:after{
+        content: none;
+    }
+}
+
+.m_line {
+    width: 6.8rem;
+    height: 0.1333rem;
+}
+
+.m_item {
+    text-align: center;
+    flex: 1;
+}
+
+.m_calc {
+    width: 0.5867rem;
+    height: 0.5867rem;
+    margin-right: 0.2667rem;
+}
+
+// 定位模块
+.m_fixed_fill {
+    height: 1.3333rem;
+}
+
+.m_op {
+    display: flex;
+    justify-content: space-between;
+}
+
+.m_op__service {
+    font-size: 0.2667rem;
+    text-align: center;
+    flex-grow: 1;
+    height: 1.3333rem;
+    color: #898996;
+    background: #fff;
+}
+
+.m_op__invest {
+    font-size: 0.4267rem;
+    color: #fff;
+    text-align: center;
+    height: 1.3333rem;
+    line-height: 1.3333rem;
+    width: 7.8667rem;
+    background-image: linear-gradient(90deg, #f94c50 0%, #f77366 100%), linear-gradient( #d7d7d7, #d7d7d7);
+}
+
+.m_op__service_icon {
+    margin: 0.2rem auto 0.1333rem auto;
+    width: 0.5333rem;
+    height: 0.52rem;
+}
+
+.m_percent {
+    background: #eaeaea;
+    &_bar {
+        background: #f8695e;
+        height: 4px;
+    }
+}

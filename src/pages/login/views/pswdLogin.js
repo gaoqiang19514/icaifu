@@ -9,7 +9,7 @@ import eyeOpenSrc from './images/eye_open_icon.png'
 import eyeCloseSrc from './images/eye_close_icon.png'
 import clearBtnSrc from './images/clear_icon.png'
 
-import { LayoutPrimaryBox, LayoutSecondBox, LayoutBoxBet, LayoutBoxWrap, input, button, StylePrimaryButton } from '@/common/commonStyled';
+import { LayoutPrimaryBox, LayoutSecondBox, LayoutBoxBet, LayoutBoxWrap, input, button } from '@/common/commonStyled';
 
 
 const LayoutRow = styled.div`
@@ -53,6 +53,17 @@ const StyleInput = input.extend`
 `;
 
 const StyleButton = button.extend`
+    width: 100%;
+    font-size: 0.4267rem;
+    height: 1.3333rem;
+    line-height: 1.3333rem;
+    border-radius: 3px;
+    font-weight: bold;
+    letter-spacing: .2em;
+
+    color: ${ props => props.primary ? "#333" : "#ccc"};
+    background-color: ${ props => props.primary ? '#fff' : '#ececec96' };
+    box-shadow: ${ props => props.primary ? '0rem 0.0267rem 0.1067rem 0rem rgba(249,82,83,0.75)' : 'none' };
 `;
 
 const StyleClearIcon = styled.span`
@@ -118,18 +129,28 @@ export default class extends Component {
         });
     }
 
+    checkVlidate = () => {
+        const { phone, pswd } = this.state
+
+        if(phone && phone.length === 11 && pswd && pswd.length >= 6){
+            this.setState({ submitFlag: true })
+        }else{
+            this.setState({ submitFlag: false })
+        }
+    }
+
     onChangeHandle = (type, e) => {
         const val = e.target.value.trim()
 
         if(type === 'username'){
-            this.setState({ phone: val })
+            this.setState({ phone: val }, this.checkVlidate)
             if(val.length > 0){
                 this.usernameBtn.style.display = 'block'
             }else{
                 this.usernameBtn.style.display = 'none'
             }
         }else if(type === 'password'){
-            this.setState({ pswd: val })
+            this.setState({ pswd: val }, this.checkVlidate)
             if(val.length > 0){
                 this.passwordBtn.style.display = 'block'
             }else{
@@ -169,7 +190,7 @@ export default class extends Component {
                 </div>
 
                 <LayoutPrimaryBox>
-                    <StylePrimaryButton type="submit">登录</StylePrimaryButton>
+                    { this.state.submitFlag ? <StyleButton type="submit" primary>登录</StyleButton> : <StyleButton disabled type="submit">登录</StyleButton> }
                 </LayoutPrimaryBox>
             </form>
         )

@@ -1,5 +1,7 @@
+import React from 'react'
 import styled from 'styled-components';
 import ReactLoading from 'react-loading';
+import 'boxicons'
 
 // Layout
 
@@ -151,3 +153,7 @@ export const button = styled.button`
     padding: 0;
     background: transparent;
 `;
+
+export const Checkbox = ({ flag }) => (
+    flag ? <box-icon name='checkbox'></box-icon> : <box-icon name='checkbox-checked'></box-icon>
+)

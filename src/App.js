@@ -11,7 +11,10 @@ import {view as Home} from './pages/home'
 import {view as Invest} from './pages/invest'
 import {view as User} from './pages/user'
 import {view as Other} from './pages/other'
-import {view as Detail} from './pages/detail'
+
+import {view as JjhDetail} from './pages/jjhDetail'
+import {view as IenjoyDetail} from './pages/ienjoyDetail'
+
 import {view as Buy} from './pages/buy'
 import {view as Voucher} from './pages/voucher'
 import {view as Safety} from './pages/safety'
@@ -71,7 +74,9 @@ class App extends Component {
                                             <Route path="/other" component={Other} />
 
                                             <Route exact path="/invest" component={Invest} />
-                                            <Route path="/invest/:id" component={Detail} />
+                                            <Route path="/jjhDetail/:id" component={JjhDetail} />
+                                            <Route path="/ienjoyDetail/:id" component={IenjoyDetail} />
+                                            
                                             <Route path="/activity" component={Activity} />
 
                                             {/* 购买页 */}

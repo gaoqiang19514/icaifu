@@ -81,7 +81,7 @@ const StylePlus = styled.span`
 
 const Item = ({ id, title, rate, time_limit, gift, total, percent }) => {
     return(
-        <Link to={{ pathname: `/invest/${id}`, state: { type: 'buy' } }}>
+        <Link to={{ pathname: `/ienjoyDetail/${id}`, state: { type: 'buy' } }}>
             <LayoutBox>
 
                 <LayoutBoxWrapSec>

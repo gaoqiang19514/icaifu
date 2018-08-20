@@ -11,16 +11,8 @@ import { LayoutFixedBottom, LayoutFixedSibling } from '@/common/commonStyled';
 
 export default class extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         const { id } = this.props.match.params;
-        const { type } = this.props.location.state;
-
-        const ienjoyVisible = type === 'buy' ? { display: 'block' } : { display: 'none' };
-        const jiplanVisible = type === 'jjh' ? { display: 'block' } : { display: 'none' };
 
         return (
             <div>
@@ -87,20 +79,8 @@ export default class extends Component {
                         <div className={ styles.m_item }>预计04-24</div>
                     </div>
                 </div>
-                
-                {/* i享才显示 */}
-                <div style={ ienjoyVisible } className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
-                    <div>
-                        <div className={ `${styles.l_flex7} ${styles.u_t5} ${styles.u_m1}` }>
-                            <img className={ styles.m_calc } src={calc_icon} alt="计算器"/>
-                            投资10,000元，90天到期后预计可赚
-                        </div>
-                        <div className={ `${styles.u_p2} ${styles.u_b3} ${styles.u_c3} ${styles.u_t2}` }>10,000.23元</div>
-                    </div>
-                </div>
 
-                {/* 极计划才显示 */}
-                <div style={ jiplanVisible } className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
+                <div className={ `${styles.l_box1} ${styles.u_m1} ${styles.u_b1}` }>
                     <div className={ `${styles.l_flex1} ${styles.u_t4}` }>
                         <div>参考收益</div>
                         <div className={ styles.u_c3 }>153.42 + 499 (元)</div>
@@ -142,9 +122,9 @@ export default class extends Component {
                     <div className={styles.m_op}>
                             <div className={styles.m_op__service}>
                                 <img className={styles.m_op__service_icon} src={service_icon} alt="客服图标"/>
-                                <span>客服</span>
+                                <div>客服</div>
                             </div>
-                            <Link className={styles.m_op__invest} to={`/${type}/${id}`}>立即投资</Link>
+                            <Link className={styles.m_op__invest} to={`/jjh/${id}`}>立即投资</Link>
                         </div>
                     </LayoutFixedBottom>
                 </div>
