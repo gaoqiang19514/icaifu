@@ -190,7 +190,7 @@ export default class extends Component {
                 </div>
 
                 <LayoutPrimaryBox>
-                    { this.state.submitFlag ? <StyleButton type="submit" primary>登录</StyleButton> : <StyleButton disabled>登录</StyleButton> }
+                    { this.state.submitFlag ? <StyleButton type="submit" primary>登录</StyleButton> : <StyleButton disabled type="button">登录</StyleButton> }
                 </LayoutPrimaryBox>
             </form>
         )
