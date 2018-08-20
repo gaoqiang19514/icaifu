@@ -160,6 +160,7 @@ export default class extends Component {
     }
 
     render() {
+        console.log(this.state.submitFlag)
 
         return(
             <form onSubmit={ this.handleSubmit }>
