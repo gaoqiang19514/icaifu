@@ -64,7 +64,7 @@ class Login extends Component {
     pswdLoginHandle = (username, password) => {
         this.props.onShowLoading();
 
-        axios.post('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=login', {
+        axios.post('https://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=login', {
             firstName: 'Fred',
             lastName: 'Flintstone'
         })

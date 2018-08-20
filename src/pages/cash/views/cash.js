@@ -56,7 +56,7 @@ class List extends Component {
 	
 	loadNextPage = (page) => {
         source = CancelToken.source();
-        instance.get('http://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=exchange_record', {
+        instance.get('https://result.eolinker.com/xULXJFG7a8d149be1ed30d8132092c1987f99b9ee8f072d?uri=exchange_record', {
             cancelToken: source.token
         })
         .then((response) => {
