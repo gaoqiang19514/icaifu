@@ -90,7 +90,7 @@ class Login extends Component {
 
     render(){
         const { from } = this.props.location.from || {from: {pathname: '/'}}
-        alert('login')
+   
         // 目前的处理是，只要用户登录则统一跳走
         if(this.props.auth.isAuthenticated){
             return <Redirect to={from} />
