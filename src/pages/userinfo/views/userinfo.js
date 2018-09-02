@@ -25,8 +25,6 @@ import camera_icon from './images/camera_icon.png';
 import photo_icon from './images/photo_icon.png'
 import wechat_icon from './images/wechat_icon.png'
 
-import styles from './styles.scss';
-
 const Item = styled.div`
     display: flex;
     justify-content: space-between;
@@ -159,6 +157,42 @@ const LayoutBoxBody = styled.div`
     background: #fff;
 `;
 
+const StyleChoosePhoto = styled.div`
+    padding: 0.4rem;
+
+    .box{
+        margin-bottom: 0.2667rem;
+        border-radius: 0.1067rem;
+        background: #fff;
+    }
+
+    .item{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.4rem;
+        padding: 0.4rem;
+        position: relative;
+        &::after{
+            content: '';
+            position: absolute;
+            bottom: 0;
+            height: 1px;
+            background: #eaeaea;
+            left: 0;
+            right: 0;
+            transform: translateY(.5);
+        }
+        &:last-child::after{
+            content: none;
+        }
+    }
+
+    .text{
+        margin-left: .2rem;
+    }
+`;
+
 export default class extends Component {
     state = {
         profileFlag: false,
@@ -192,28 +226,28 @@ export default class extends Component {
                         <span>头像</span>
                         <Button onClick={ this.changeProfileHandle } >
                             <Profile src={ ibaby_icon } alt="头像" />
-                            <Arrow src={ arrow_icon } alt="箭头" />
+                            <box-icon name='chevron-right' color='#898996'></box-icon>
                         </Button>
                     </Item>
                     <Item>
                         <span>昵称</span>
                         <StyledLink to=''>
                             <span>icaifu_13077890023</span>
-                            <Arrow src={ arrow_icon } alt="箭头" />
+                            <box-icon name='chevron-right' color='#898996'></box-icon>
                         </StyledLink>
                     </Item>
                     <Item>
                         <span>手机号</span>
                         <StyledLink to=''>
                             <span>186****0000</span>
-                            <Arrow src={ arrow_icon } alt="箭头" />
+                            <box-icon name='chevron-right' color='#898996'></box-icon>
                         </StyledLink>
                     </Item>
                     <Item>
                         <span>绑定微信</span>
                         <Button onClick={ this.bindWechatHandle }>
                             <span>未绑定</span>
-                            <Arrow src={ arrow_icon } alt="箭头" />
+                            <box-icon name='chevron-right' color='#898996'></box-icon>
                         </Button>
                     </Item>
                 </LayoutBoxWrap>
@@ -223,21 +257,21 @@ export default class extends Component {
                         <span>汇付存管</span>
                         <Alink href=''>
                             <span>未开通</span>
-                            <Arrow src={ arrow_icon } alt="箭头" />
+                            <box-icon name='chevron-right' color='#898996'></box-icon>
                         </Alink>
                     </Item>
                     <Item>
                         <span>实名认证</span>
                         <StyledLink to=''>
                             <span>未实名</span>
-                            <Arrow src={ arrow_icon } alt="箭头" />
+                            <box-icon name='chevron-right' color='#898996'></box-icon>
                         </StyledLink>
                     </Item>
                     <Item>
                         <span>我的银行卡</span>
                         <StyledLink to=''>
                             <span>未绑卡</span>
-                            <Arrow src={ arrow_icon } alt="箭头" />
+                            <box-icon name='chevron-right' color='#898996'></box-icon>
                         </StyledLink>
                     </Item>
                 </LayoutBoxWrap>
@@ -247,70 +281,37 @@ export default class extends Component {
                         <span>风险等级评测</span>
                         <StyledLink to=''>
                             <span>未评测</span>
-                            <Arrow src={ arrow_icon } alt="箭头" />
+                            <box-icon name='chevron-right' color='#898996'></box-icon>
                         </StyledLink>
                     </Item>
                     <Item>
                         <span>收货地址</span>
                         <StyledLink to='/address'>
                             <span>未设置</span>
-                            <Arrow src={ arrow_icon } alt="箭头" />
+                            <box-icon name='chevron-right' color='#898996'></box-icon>
                         </StyledLink>
                     </Item>
                 </LayoutBoxWrap>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
                 
                 {/* 修改头像 */}
                 <AnimateLayer flag={ profileFlag }>
-                    <div style={ {padding: '0.4rem'} }>
-                        <div className={ styles.box }>
-                            <div className={ styles.box_item }>
-                                <img className={ styles.box_icon } src={ camera_icon } alt="相机"/>
-                                <span>拍摄照片</span>
+
+                    <StyleChoosePhoto>
+                        <div className="box">
+                            <div className="item">
+                                <box-icon name='camera-alt' ></box-icon>
+                                <span className="text">拍摄照片</span>
                             </div>
-                            <div className={ styles.box_item }>
-                                <img className={ styles.box_icon } src={ photo_icon } alt="相册"/>
-                                <span>相册选择</span>
+                            <div className="item">
+                                <box-icon name='image' ></box-icon>
+                                <span className="text">相册选择</span>
                             </div>
                         </div>
-                        <div className={ styles.box }>
-                            <div data-js-cancel onClick={ this.changeProfileHandle } className={ styles.box_item }>取消</div>
+                        <div className="box">
+                            <div data-js-cancel onClick={ this.changeProfileHandle } className="item">取消</div>
                         </div>
-                    </div>
+                    </StyleChoosePhoto>
+
                 </AnimateLayer>
 
                 {/* 绑定微信 */}

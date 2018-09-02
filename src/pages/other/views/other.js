@@ -1,11 +1,10 @@
 import React from 'react'
 
-import style from './style.scss'
 import Menu from './../../../common/menu/'
 
 export default () => (
-	<div className={style.menu}>
-		wode
+	<div>
+		<h1>other</h1>
         <Menu />
 	</div>
 )

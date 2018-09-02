@@ -3,14 +3,11 @@ import { Link, Redirect } from 'react-router-dom'
 import styled from 'styled-components';
 import 'boxicons';
 
-import styles from './style.scss';
-
 import eyeOpenSrc from './images/eye_open_icon.png'
 import eyeCloseSrc from './images/eye_close_icon.png'
 import clearBtnSrc from './images/clear_icon.png'
 
 import { LayoutPrimaryBox, LayoutSecondBox, LayoutBoxBet, LayoutBoxWrap, input, button } from '@/common/commonStyled';
-
 
 const LayoutRow = styled.div`
     position: relative;

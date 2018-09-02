@@ -26,9 +26,6 @@ const StyleButton = button.extend`
     padding: 0.4rem;
     border-radius: 3px;
     font-weight: bold;
-    -webkit-letter-spacing: .2em;
-    -moz-letter-spacing: .2em;
-    -ms-letter-spacing: .2em;
     letter-spacing: .2em;
     background-image: linear-gradient(90deg,#f94c50 0%,#f77366 100%),linear-gradient( #f7645b,#f7645b);
     box-shadow: 0rem 0.0267rem 0.1067rem 0rem rgba(249,82,83,0.75);
@@ -39,9 +36,6 @@ const StyleMinButton = button.extend`
     padding: 0.4rem;
     border-radius: 3px;
     font-weight: bold;
-    -webkit-letter-spacing: .2em;
-    -moz-letter-spacing: .2em;
-    -ms-letter-spacing: .2em;
     letter-spacing: .2em;
     background-image: linear-gradient(90deg,#f94c50 0%,#f77366 100%),linear-gradient( #f7645b,#f7645b);
     box-shadow: 0rem 0.0267rem 0.1067rem 0rem rgba(249,82,83,0.75);
@@ -55,8 +49,6 @@ const StyleInput = input.extend`
     font-size: 0.4rem;
     padding: 0.1333rem;
 `;
-
-
 
 export default () => {
     return (

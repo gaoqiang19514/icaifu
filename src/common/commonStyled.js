@@ -21,8 +21,8 @@ export const LayoutBoxAround = styled.div`
 
 export const LayoutBoxBetCenter = styled.div`
     display: flex;
-    align-items: center;
     justify-content: space-between;
+    align-items: center;
 `;
 
 export const LayoutBoxCenter = styled.div`
